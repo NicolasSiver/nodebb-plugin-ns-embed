@@ -1,0 +1,25 @@
+{
+  "id": "nodebb-plugin-ns-embed",
+  "name": "NodeBB Embed",
+  "description": "Embed media and rich content in posts: youtube, vimeo, twitch etc.",
+  "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-embed",
+  "library": "./plugin/index.js",
+  "hooks": [
+    {
+      "hook": "filter:admin.header.build",
+      "method": "hooks.filters.adminHeaderBuild"
+    },
+    {
+      "hook": "static:app.load",
+      "method": "hooks.statics.load"
+    }
+  ],
+  "less": [],
+  "scripts": [],
+  "staticDirs": {
+    "acp": "./client/acp",
+    "css": "./public/css",
+    "js": "./public/js"
+  },
+  "templates": "./public/templates"
+}

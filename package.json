@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-embed/issues"
   },
-  "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-embed#readme"
+  "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-embed#readme",
+  "dependencies": {
+    "async": "^1.4.2"
+  }
 }
