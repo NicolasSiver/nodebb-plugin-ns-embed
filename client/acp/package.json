@@ -1,0 +1,23 @@
+{
+  "name": "embed-acp",
+  "version": "1.0.0",
+  "description": "ACP for Embed Plugin - control available embeds, edit rules, etc.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --optimize-minimize",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --progress --colors --watch"
+  },
+  "keywords": [
+    "acp",
+    "ux",
+    "ui"
+  ],
+  "author": "Nicolas Siver",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "webpack": "^1.12.2"
+  }
+}
