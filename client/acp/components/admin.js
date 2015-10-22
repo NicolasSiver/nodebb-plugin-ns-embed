@@ -4,6 +4,7 @@
 import connectToStores from 'alt/utils/connectToStores';
 import objectAssign from 'object-assign';
 import React from 'react';
+import RuleDetails from './rule-details';
 import RulesList from './rules-list';
 import RulesStore from '../stores/rules-store';
 
@@ -33,6 +34,8 @@ class Admin extends React.Component {
                         selected={this.props.selectedRule}/>
                 </div>
                 <div className="col-md-6">
+                    <RuleDetails
+                        rule={this.props.selectedRule}/>
                 </div>
             </div>
         );
