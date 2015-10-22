@@ -21838,7 +21838,51 @@
 	                    { className: 'panel-heading' },
 	                    name
 	                ),
-	                _react2['default'].createElement('div', { className: 'panel-body' })
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'panel-body' },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-6' },
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'form-group' },
+	                                _react2['default'].createElement(
+	                                    'label',
+	                                    { htmlFor: 'labelName' },
+	                                    'Name'
+	                                ),
+	                                _react2['default'].createElement('input', {
+	                                    id: 'labelName',
+	                                    type: 'text',
+	                                    className: 'form-control field-lower',
+	                                    onBlur: this._validateSpecialChars,
+	                                    placeholder: 'name (Ex: youtube)' })
+	                            )
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-6' },
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'form-group' },
+	                                _react2['default'].createElement(
+	                                    'label',
+	                                    { htmlFor: 'labelDisplayName' },
+	                                    'Display Name'
+	                                ),
+	                                _react2['default'].createElement('input', {
+	                                    id: 'labelDisplayName',
+	                                    type: 'text',
+	                                    className: 'form-control',
+	                                    placeholder: 'Display Name (Ex: Youtube)' })
+	                            )
+	                        )
+	                    )
+	                )
 	            );
 	        }
 	    }]);

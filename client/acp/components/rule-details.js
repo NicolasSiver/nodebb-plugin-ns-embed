@@ -11,15 +11,15 @@ export default class RuleDetails extends React.Component {
         super(props);
     }
 
-    getName(rule){
-        if(rule.name === Rule.CREATE){
+    getName(rule) {
+        if (rule.name === Rule.CREATE) {
             return rule.displayName;
         }
         return 'Rule: ' + rule.displayName;
     }
 
     render() {
-        if(!this.props.rule){
+        if (!this.props.rule) {
             return null;
         }
 
@@ -30,6 +30,30 @@ export default class RuleDetails extends React.Component {
                 <div className="panel-heading">{name}</div>
                 <div className="panel-body">
 
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="labelName">Name</label>
+                                <input
+                                    id="labelName"
+                                    type="text"
+                                    className="form-control field-lower"
+                                    onBlur={this._validateSpecialChars}
+                                    placeholder="name (Ex: youtube)"/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="labelDisplayName">Display Name</label>
+                                <input
+                                    id="labelDisplayName"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Display Name (Ex: Youtube)"/>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         );
