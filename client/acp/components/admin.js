@@ -29,7 +29,8 @@ class Admin extends React.Component {
             <div className="row">
                 <div className="col-md-6">
                     <RulesList
-                        rules={this.props.rules}/>
+                        rules={this.props.rules}
+                        selected={this.props.selectedRule}/>
                 </div>
                 <div className="col-md-6">
                 </div>

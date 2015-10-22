@@ -1,8 +1,10 @@
 /**
  * Created by Nicolas on 10/21/15.
  */
+import Actions from '../actions';
 import classNames from 'classnames';
 import React from 'react';
+import Rule from '../models/rule';
 
 export default class RulesList extends React.Component {
     constructor(props) {
@@ -26,12 +28,15 @@ export default class RulesList extends React.Component {
         let i = 0, len = rules.length, rule, result = [];
 
         let RuleItem = (data) => {
-            let style = classNames('fa', data.icon || 'fa-cogs');
+            let icon = classNames('fa', data.icon || 'fa-cogs');
+            let item = classNames('item', {
+                selected: this.props.selected && data.name === this.props.selected.name
+            });
 
             return (
-                <div key={data.name} className="item"
+                <div key={data.name} className={item}
                      onClick={this.ruleDidClick.bind(this, data)}>
-                    <i className={style}></i> {data.displayName}
+                    <i className={icon}></i> {data.displayName}
                 </div>
             );
         };
@@ -41,7 +46,7 @@ export default class RulesList extends React.Component {
 
             if (i == 0) {
                 // Inject create item
-                result.push(RuleItem({displayName: 'Create Rule', name: 'create', icon: 'fa-plus'}));
+                result.push(RuleItem({displayName: 'Create Rule', name: Rule.CREATE, icon: 'fa-plus'}));
             }
 
             result.push(RuleItem(rule));
@@ -51,6 +56,6 @@ export default class RulesList extends React.Component {
     }
 
     ruleDidClick(rule) {
-        console.log('clicked', rule);
+        Actions.selectRule(rule);
     }
 }
