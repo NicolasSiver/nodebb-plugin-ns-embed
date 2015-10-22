@@ -21814,12 +21814,51 @@
 	    }
 
 	    _createClass(RuleDetails, [{
+	        key: 'delete',
+	        value: function _delete(rule) {
+	            console.info('Deleting...');
+	        }
+	    }, {
+	        key: 'getActions',
+	        value: function getActions(rule) {
+	            var isCreate = rule.name === _modelsRule2['default'].CREATE;
+	            var okMessage = isCreate ? 'Create' : 'Save';
+	            var deleteButton = isCreate ? null : _react2['default'].createElement(
+	                'button',
+	                {
+	                    className: 'btn btn-danger',
+	                    onClick: this['delete'].bind(this, rule),
+	                    type: 'button' },
+	                'Delete'
+	            );
+
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'actions' },
+	                _react2['default'].createElement(
+	                    'button',
+	                    {
+	                        className: 'btn btn-primary',
+	                        disabled: this.isValidOkButton() ? '' : 'disabled',
+	                        onClick: this.save.bind(this, rule),
+	                        type: 'button' },
+	                    okMessage
+	                ),
+	                deleteButton
+	            );
+	        }
+	    }, {
 	        key: 'getName',
 	        value: function getName(rule) {
 	            if (rule.name === _modelsRule2['default'].CREATE) {
 	                return rule.displayName;
 	            }
 	            return 'Rule: ' + rule.displayName;
+	        }
+	    }, {
+	        key: 'isValidOkButton',
+	        value: function isValidOkButton() {
+	            return false;
 	        }
 	    }, {
 	        key: 'render',
@@ -21881,9 +21920,15 @@
 	                                    placeholder: 'Display Name (Ex: Youtube)' })
 	                            )
 	                        )
-	                    )
+	                    ),
+	                    this.getActions(this.props.rule)
 	                )
 	            );
+	        }
+	    }, {
+	        key: 'save',
+	        value: function save(rule) {
+	            console.info('Saving...', rule);
 	        }
 	    }]);
 
