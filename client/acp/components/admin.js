@@ -4,6 +4,7 @@
 import connectToStores from 'alt/utils/connectToStores';
 import objectAssign from 'object-assign';
 import React from 'react';
+import RulesList from './rules-list';
 import RulesStore from '../stores/rules-store';
 
 class Admin extends React.Component {
@@ -27,7 +28,8 @@ class Admin extends React.Component {
         return (
             <div className="row">
                 <div className="col-md-6">
-                    ...
+                    <RulesList
+                        rules={this.props.rules}/>
                 </div>
                 <div className="col-md-6">
                 </div>

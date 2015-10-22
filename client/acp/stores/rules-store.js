@@ -8,7 +8,11 @@ class RulesStore {
         this.bindListeners({});
 
         this.state = {
-            rules: []
+            rules: [
+                {displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube'},
+                {displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo'},
+                {displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch'}
+            ]
         };
     }
 }
