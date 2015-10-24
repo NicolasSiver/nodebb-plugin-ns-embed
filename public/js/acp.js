@@ -20085,6 +20085,50 @@
 	                            )
 	                        )
 	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-12' },
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'form-group' },
+	                                _react2['default'].createElement(
+	                                    'label',
+	                                    { htmlFor: 'labelWatch' },
+	                                    'Watch'
+	                                ),
+	                                _react2['default'].createElement('input', {
+	                                    id: 'labelWatch',
+	                                    type: 'text',
+	                                    className: 'form-control',
+	                                    placeholder: 'Regular expression' })
+	                            )
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-12' },
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'form-group' },
+	                                _react2['default'].createElement(
+	                                    'label',
+	                                    { htmlFor: 'labelReplace' },
+	                                    'Replace'
+	                                ),
+	                                _react2['default'].createElement('textarea', {
+	                                    id: 'labelReplace',
+	                                    className: 'form-control',
+	                                    rows: '4',
+	                                    placeholder: 'Replacement, you can use capturing groups via $1, $2, etc.' })
+	                            )
+	                        )
+	                    ),
 	                    this.getActions(this.props.rule)
 	                )
 	            );

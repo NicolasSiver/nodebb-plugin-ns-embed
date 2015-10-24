@@ -11,7 +11,7 @@ export default class RuleDetails extends React.Component {
         super(props);
     }
 
-    delete(rule){
+    delete(rule) {
         console.info('Deleting...');
     }
 
@@ -83,6 +83,32 @@ export default class RuleDetails extends React.Component {
                                     type="text"
                                     className="form-control"
                                     placeholder="Display Name (Ex: Youtube)"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <label htmlFor="labelWatch">Watch</label>
+                                <input
+                                    id="labelWatch"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Regular expression"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <label htmlFor="labelReplace">Replace</label>
+                                <textarea
+                                    id="labelReplace"
+                                    className="form-control"
+                                    rows="4"
+                                    placeholder="Replacement, you can use capturing groups via $1, $2, etc."/>
                             </div>
                         </div>
                     </div>
