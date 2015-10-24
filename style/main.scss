@@ -1,0 +1,26 @@
+@import "palette";
+@import "vars";
+
+.plugin-embed {
+  .rules {
+    display: flex;
+    flex-flow: row wrap;
+
+    .item {
+      cursor: pointer;
+      border-radius: $margin-xs;
+      border: 1px solid palette(Grey, 200);
+      width: 160px;
+      padding: $margin;
+      margin: $margin-xs;
+      flex: 0 1 auto;
+
+      &.selected {
+        border: 1px solid palette(Blue, 700);
+        background-color: palette(Blue, 500);
+        color: palette(White, 500);
+      }
+
+    }
+  }
+}
