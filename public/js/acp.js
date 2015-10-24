@@ -19647,15 +19647,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ruleDetails = __webpack_require__(179);
+	var _ruleDetails = __webpack_require__(162);
 
 	var _ruleDetails2 = _interopRequireDefault(_ruleDetails);
 
-	var _rulesList = __webpack_require__(162);
+	var _rulesList = __webpack_require__(178);
 
 	var _rulesList2 = _interopRequireDefault(_rulesList);
 
-	var _storesRulesStore = __webpack_require__(163);
+	var _storesRulesStore = __webpack_require__(179);
 
 	var _storesRulesStore2 = _interopRequireDefault(_storesRulesStore);
 
@@ -19952,7 +19952,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _actions = __webpack_require__(177);
+	var _actions = __webpack_require__(163);
 
 	var _actions2 = _interopRequireDefault(_actions);
 
@@ -19964,91 +19964,142 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _modelsRule = __webpack_require__(178);
+	var _modelsRule = __webpack_require__(177);
 
 	var _modelsRule2 = _interopRequireDefault(_modelsRule);
 
-	var RulesList = (function (_React$Component) {
-	    _inherits(RulesList, _React$Component);
+	var RuleDetails = (function (_React$Component) {
+	    _inherits(RuleDetails, _React$Component);
 
-	    function RulesList(props) {
-	        _classCallCheck(this, RulesList);
+	    function RuleDetails(props) {
+	        _classCallCheck(this, RuleDetails);
 
-	        _get(Object.getPrototypeOf(RulesList.prototype), 'constructor', this).call(this, props);
+	        _get(Object.getPrototypeOf(RuleDetails.prototype), 'constructor', this).call(this, props);
 	    }
 
-	    _createClass(RulesList, [{
+	    _createClass(RuleDetails, [{
+	        key: 'delete',
+	        value: function _delete(rule) {
+	            console.info('Deleting...');
+	        }
+	    }, {
+	        key: 'getActions',
+	        value: function getActions(rule) {
+	            var isCreate = rule.name === _modelsRule2['default'].CREATE;
+	            var okMessage = isCreate ? 'Create' : 'Save';
+	            var deleteButton = isCreate ? null : _react2['default'].createElement(
+	                'button',
+	                {
+	                    className: 'btn btn-danger',
+	                    onClick: this['delete'].bind(this, rule),
+	                    type: 'button' },
+	                'Delete'
+	            );
+
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'actions' },
+	                _react2['default'].createElement(
+	                    'button',
+	                    {
+	                        className: 'btn btn-primary',
+	                        disabled: this.isValidOkButton() ? '' : 'disabled',
+	                        onClick: this.save.bind(this, rule),
+	                        type: 'button' },
+	                    okMessage
+	                ),
+	                deleteButton
+	            );
+	        }
+	    }, {
+	        key: 'getName',
+	        value: function getName(rule) {
+	            if (rule.name === _modelsRule2['default'].CREATE) {
+	                return rule.displayName;
+	            }
+	            return 'Rule: ' + rule.displayName;
+	        }
+	    }, {
+	        key: 'isValidOkButton',
+	        value: function isValidOkButton() {
+	            return false;
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            if (!this.props.rule) {
+	                return null;
+	            }
+
+	            var name = this.getName(this.props.rule);
+
 	            return _react2['default'].createElement(
 	                'div',
 	                { className: 'panel panel-default' },
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'panel-heading' },
-	                    'Installed Rules'
+	                    name
 	                ),
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'panel-body' },
 	                    _react2['default'].createElement(
 	                        'div',
-	                        { className: 'rules' },
-	                        this.renderRules(this.props.rules)
-	                    )
+	                        { className: 'row' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-6' },
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'form-group' },
+	                                _react2['default'].createElement(
+	                                    'label',
+	                                    { htmlFor: 'labelName' },
+	                                    'Name'
+	                                ),
+	                                _react2['default'].createElement('input', {
+	                                    id: 'labelName',
+	                                    type: 'text',
+	                                    className: 'form-control field-lower',
+	                                    onBlur: this._validateSpecialChars,
+	                                    placeholder: 'name (Ex: youtube)' })
+	                            )
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-6' },
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'form-group' },
+	                                _react2['default'].createElement(
+	                                    'label',
+	                                    { htmlFor: 'labelDisplayName' },
+	                                    'Display Name'
+	                                ),
+	                                _react2['default'].createElement('input', {
+	                                    id: 'labelDisplayName',
+	                                    type: 'text',
+	                                    className: 'form-control',
+	                                    placeholder: 'Display Name (Ex: Youtube)' })
+	                            )
+	                        )
+	                    ),
+	                    this.getActions(this.props.rule)
 	                )
 	            );
 	        }
 	    }, {
-	        key: 'renderRules',
-	        value: function renderRules(rules) {
-	            var _this = this;
-
-	            var i = 0,
-	                len = rules.length,
-	                rule = undefined,
-	                result = [];
-
-	            var RuleItem = function RuleItem(data) {
-	                var icon = (0, _classnames2['default'])('fa', data.icon || 'fa-cogs');
-	                var item = (0, _classnames2['default'])('item', {
-	                    selected: _this.props.selected && data.name === _this.props.selected.name
-	                });
-
-	                return _react2['default'].createElement(
-	                    'div',
-	                    { key: data.name, className: item,
-	                        onClick: _this.ruleDidClick.bind(_this, data) },
-	                    _react2['default'].createElement('i', { className: icon }),
-	                    ' ',
-	                    data.displayName
-	                );
-	            };
-
-	            for (i; i < len; ++i) {
-	                rule = rules[i];
-
-	                if (i == 0) {
-	                    // Inject create item
-	                    result.push(RuleItem({ displayName: 'Create Rule', name: _modelsRule2['default'].CREATE, icon: 'fa-plus' }));
-	                }
-
-	                result.push(RuleItem(rule));
-	            }
-
-	            return result;
-	        }
-	    }, {
-	        key: 'ruleDidClick',
-	        value: function ruleDidClick(rule) {
-	            _actions2['default'].selectRule(rule);
+	        key: 'save',
+	        value: function save(rule) {
+	            console.info('Saving...', rule);
 	        }
 	    }]);
 
-	    return RulesList;
+	    return RuleDetails;
 	})(_react2['default'].Component);
 
-	exports['default'] = RulesList;
+	exports['default'] = RuleDetails;
 	module.exports = exports['default'];
 
 /***/ },
@@ -20070,39 +20121,26 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _actions = __webpack_require__(177);
-
-	var _actions2 = _interopRequireDefault(_actions);
-
 	var _alt = __webpack_require__(164);
 
 	var _alt2 = _interopRequireDefault(_alt);
 
-	var RulesStore = (function () {
-	    function RulesStore() {
-	        _classCallCheck(this, RulesStore);
-
-	        this.bindAction(_actions2['default'].selectRule, this.ruleDidSelect);
-
-	        this.state = {
-	            rules: [{ displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube' }, { displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo' }, { displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch' }],
-	            selectedRule: null
-	        };
+	var Actions = (function () {
+	    function Actions() {
+	        _classCallCheck(this, Actions);
 	    }
 
-	    _createClass(RulesStore, [{
-	        key: 'ruleDidSelect',
-	        value: function ruleDidSelect(rule) {
-	            this.setState({
-	                selectedRule: rule
-	            });
+	    _createClass(Actions, [{
+	        key: 'selectRule',
+	        value: function selectRule(rule) {
+	            return rule;
 	        }
 	    }]);
 
-	    return RulesStore;
+	    return Actions;
 	})();
 
-	exports['default'] = _alt2['default'].createStore(RulesStore, 'RulesStore');
+	exports['default'] = _alt2['default'].createActions(Actions);
 	module.exports = exports['default'];
 
 /***/ },
@@ -21709,47 +21747,6 @@
 
 /***/ },
 /* 177 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Nicolas on 10/21/15.
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _alt = __webpack_require__(164);
-
-	var _alt2 = _interopRequireDefault(_alt);
-
-	var Actions = (function () {
-	    function Actions() {
-	        _classCallCheck(this, Actions);
-	    }
-
-	    _createClass(Actions, [{
-	        key: 'selectRule',
-	        value: function selectRule(rule) {
-	            return rule;
-	        }
-	    }]);
-
-	    return Actions;
-	})();
-
-	exports['default'] = _alt2['default'].createActions(Actions);
-	module.exports = exports['default'];
-
-/***/ },
-/* 178 */
 /***/ function(module, exports) {
 
 	/**
@@ -21766,7 +21763,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 179 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21788,7 +21785,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _actions = __webpack_require__(177);
+	var _actions = __webpack_require__(163);
 
 	var _actions2 = _interopRequireDefault(_actions);
 
@@ -21800,142 +21797,145 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _modelsRule = __webpack_require__(178);
+	var _modelsRule = __webpack_require__(177);
 
 	var _modelsRule2 = _interopRequireDefault(_modelsRule);
 
-	var RuleDetails = (function (_React$Component) {
-	    _inherits(RuleDetails, _React$Component);
+	var RulesList = (function (_React$Component) {
+	    _inherits(RulesList, _React$Component);
 
-	    function RuleDetails(props) {
-	        _classCallCheck(this, RuleDetails);
+	    function RulesList(props) {
+	        _classCallCheck(this, RulesList);
 
-	        _get(Object.getPrototypeOf(RuleDetails.prototype), 'constructor', this).call(this, props);
+	        _get(Object.getPrototypeOf(RulesList.prototype), 'constructor', this).call(this, props);
 	    }
 
-	    _createClass(RuleDetails, [{
-	        key: 'delete',
-	        value: function _delete(rule) {
-	            console.info('Deleting...');
-	        }
-	    }, {
-	        key: 'getActions',
-	        value: function getActions(rule) {
-	            var isCreate = rule.name === _modelsRule2['default'].CREATE;
-	            var okMessage = isCreate ? 'Create' : 'Save';
-	            var deleteButton = isCreate ? null : _react2['default'].createElement(
-	                'button',
-	                {
-	                    className: 'btn btn-danger',
-	                    onClick: this['delete'].bind(this, rule),
-	                    type: 'button' },
-	                'Delete'
-	            );
-
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'actions' },
-	                _react2['default'].createElement(
-	                    'button',
-	                    {
-	                        className: 'btn btn-primary',
-	                        disabled: this.isValidOkButton() ? '' : 'disabled',
-	                        onClick: this.save.bind(this, rule),
-	                        type: 'button' },
-	                    okMessage
-	                ),
-	                deleteButton
-	            );
-	        }
-	    }, {
-	        key: 'getName',
-	        value: function getName(rule) {
-	            if (rule.name === _modelsRule2['default'].CREATE) {
-	                return rule.displayName;
-	            }
-	            return 'Rule: ' + rule.displayName;
-	        }
-	    }, {
-	        key: 'isValidOkButton',
-	        value: function isValidOkButton() {
-	            return false;
-	        }
-	    }, {
+	    _createClass(RulesList, [{
 	        key: 'render',
 	        value: function render() {
-	            if (!this.props.rule) {
-	                return null;
-	            }
-
-	            var name = this.getName(this.props.rule);
-
 	            return _react2['default'].createElement(
 	                'div',
 	                { className: 'panel panel-default' },
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'panel-heading' },
-	                    name
+	                    'Installed Rules'
 	                ),
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'panel-body' },
 	                    _react2['default'].createElement(
 	                        'div',
-	                        { className: 'row' },
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-md-6' },
-	                            _react2['default'].createElement(
-	                                'div',
-	                                { className: 'form-group' },
-	                                _react2['default'].createElement(
-	                                    'label',
-	                                    { htmlFor: 'labelName' },
-	                                    'Name'
-	                                ),
-	                                _react2['default'].createElement('input', {
-	                                    id: 'labelName',
-	                                    type: 'text',
-	                                    className: 'form-control field-lower',
-	                                    onBlur: this._validateSpecialChars,
-	                                    placeholder: 'name (Ex: youtube)' })
-	                            )
-	                        ),
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-md-6' },
-	                            _react2['default'].createElement(
-	                                'div',
-	                                { className: 'form-group' },
-	                                _react2['default'].createElement(
-	                                    'label',
-	                                    { htmlFor: 'labelDisplayName' },
-	                                    'Display Name'
-	                                ),
-	                                _react2['default'].createElement('input', {
-	                                    id: 'labelDisplayName',
-	                                    type: 'text',
-	                                    className: 'form-control',
-	                                    placeholder: 'Display Name (Ex: Youtube)' })
-	                            )
-	                        )
-	                    ),
-	                    this.getActions(this.props.rule)
+	                        { className: 'rules' },
+	                        this.renderRules(this.props.rules)
+	                    )
 	                )
 	            );
 	        }
 	    }, {
-	        key: 'save',
-	        value: function save(rule) {
-	            console.info('Saving...', rule);
+	        key: 'renderRules',
+	        value: function renderRules(rules) {
+	            var _this = this;
+
+	            var i = 0,
+	                len = rules.length,
+	                rule = undefined,
+	                result = [];
+
+	            var RuleItem = function RuleItem(data) {
+	                var icon = (0, _classnames2['default'])('fa', data.icon || 'fa-cogs');
+	                var item = (0, _classnames2['default'])('item', {
+	                    selected: _this.props.selected && data.name === _this.props.selected.name
+	                });
+
+	                return _react2['default'].createElement(
+	                    'div',
+	                    { key: data.name, className: item,
+	                        onClick: _this.ruleDidClick.bind(_this, data) },
+	                    _react2['default'].createElement('i', { className: icon }),
+	                    ' ',
+	                    data.displayName
+	                );
+	            };
+
+	            for (i; i < len; ++i) {
+	                rule = rules[i];
+
+	                if (i == 0) {
+	                    // Inject create item
+	                    result.push(RuleItem({ displayName: 'Create Rule', name: _modelsRule2['default'].CREATE, icon: 'fa-plus' }));
+	                }
+
+	                result.push(RuleItem(rule));
+	            }
+
+	            return result;
+	        }
+	    }, {
+	        key: 'ruleDidClick',
+	        value: function ruleDidClick(rule) {
+	            _actions2['default'].selectRule(rule);
 	        }
 	    }]);
 
-	    return RuleDetails;
+	    return RulesList;
 	})(_react2['default'].Component);
 
-	exports['default'] = RuleDetails;
+	exports['default'] = RulesList;
+	module.exports = exports['default'];
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 10/21/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _actions = __webpack_require__(163);
+
+	var _actions2 = _interopRequireDefault(_actions);
+
+	var _alt = __webpack_require__(164);
+
+	var _alt2 = _interopRequireDefault(_alt);
+
+	var RulesStore = (function () {
+	    function RulesStore() {
+	        _classCallCheck(this, RulesStore);
+
+	        this.bindAction(_actions2['default'].selectRule, this.ruleDidSelect);
+
+	        this.state = {
+	            rules: [{ displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube' }, { displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo' }, { displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch' }],
+	            selectedRule: null
+	        };
+	    }
+
+	    _createClass(RulesStore, [{
+	        key: 'ruleDidSelect',
+	        value: function ruleDidSelect(rule) {
+	            this.setState({
+	                selectedRule: rule
+	            });
+	        }
+	    }]);
+
+	    return RulesStore;
+	})();
+
+	exports['default'] = _alt2['default'].createStore(RulesStore, 'RulesStore');
 	module.exports = exports['default'];
 
 /***/ }

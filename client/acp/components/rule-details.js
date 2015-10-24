@@ -34,7 +34,7 @@ export default class RuleDetails extends React.Component {
                     onClick={this.save.bind(this, rule)}
                     type="button">{okMessage}
                 </button>
-                
+
                 {deleteButton}
             </div>
         );
