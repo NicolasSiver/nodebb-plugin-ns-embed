@@ -21863,10 +21863,10 @@
 
 	        this.removeSpecialChars = /[^\w]/gi;
 	        this.initState = {
-	            name: null,
-	            displayName: null,
-	            regex: null,
-	            replacement: null,
+	            name: '',
+	            displayName: '',
+	            regex: '',
+	            replacement: '',
 	            valid: false
 	        };
 
