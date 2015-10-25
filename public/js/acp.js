@@ -19706,11 +19706,13 @@
 	        value: function render() {
 	            var extendedView = undefined;
 
-	            if (this.props.selectedRule && this.props.selectedRule.name === _modelsRule2['default'].CREATE) {
-	                extendedView = _react2['default'].createElement(_ruleCreate2['default'], null);
-	            } else {
-	                extendedView = _react2['default'].createElement(_ruleDetails2['default'], {
-	                    rule: this.props.selectedRule });
+	            if (this.props.selectedRule) {
+	                if (this.props.selectedRule.name === _modelsRule2['default'].CREATE) {
+	                    extendedView = _react2['default'].createElement(_ruleCreate2['default'], null);
+	                } else {
+	                    extendedView = _react2['default'].createElement(_ruleDetails2['default'], {
+	                        rule: this.props.selectedRule });
+	                }
 	            }
 
 	            return _react2['default'].createElement(
@@ -22127,6 +22129,10 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
+	var _formActions = __webpack_require__(186);
+
+	var _formActions2 = _interopRequireDefault(_formActions);
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -22149,93 +22155,46 @@
 	    }
 
 	    _createClass(RuleDetails, [{
-	        key: 'actionCreate',
-	        value: function actionCreate() {
-	            console.info('Create');
-	        }
-	    }, {
 	        key: 'actionDelete',
-	        value: function actionDelete(rule) {
-	            console.info('Delete');
-	        }
-	    }, {
-	        key: 'actionReset',
-	        value: function actionReset() {
-	            console.info('Reset');
-	        }
+	        value: function actionDelete() {}
 	    }, {
 	        key: 'actionSave',
-	        value: function actionSave(rule) {
-	            console.info('Save');
-	        }
+	        value: function actionSave() {}
 	    }, {
-	        key: 'getActions',
-	        value: function getActions(rule) {
-	            var isCreate = rule.name === _modelsRule2['default'].CREATE;
-	            var okButton = _react2['default'].createElement(
-	                'button',
-	                {
-	                    className: 'btn btn-primary',
-	                    disabled: this.props.valid ? '' : 'disabled',
-	                    onClick: isCreate ? this.actionCreate.bind(this) : this.actionSave.bind(this, rule),
-	                    type: 'button' },
-	                isCreate ? 'Create' : 'Save'
-	            );
-	            var deleteButton = isCreate ? null : _react2['default'].createElement(
-	                'button',
-	                {
-	                    className: 'btn btn-danger',
-	                    onClick: this.actionDelete.bind(this, rule),
-	                    type: 'button' },
-	                'Delete'
-	            );
-	            var resetButton = !isCreate ? null : _react2['default'].createElement(
-	                'button',
-	                {
-	                    className: 'btn btn-warning',
-	                    onClick: this.actionReset.bind(this),
-	                    type: 'button' },
-	                'Reset'
-	            );
-
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'actions' },
-	                okButton,
-	                resetButton,
-	                deleteButton
-	            );
-	        }
+	        key: 'fieldDidChange',
+	        value: function fieldDidChange(field, value) {}
 	    }, {
 	        key: 'getName',
 	        value: function getName(rule) {
-	            if (rule.name === _modelsRule2['default'].CREATE) {
-	                return rule.displayName;
-	            }
 	            return 'Rule: ' + rule.displayName;
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            if (!this.props.rule) {
-	                return null;
-	            }
-
-	            var name = this.getName(this.props.rule);
-
 	            return _react2['default'].createElement(
 	                'div',
 	                { className: 'panel panel-default' },
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'panel-heading' },
-	                    name
+	                    this.getName(this.props.rule)
 	                ),
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'panel-body' },
-	                    _react2['default'].createElement(_ruleForm2['default'], null),
-	                    this.getActions(this.props.rule)
+	                    _react2['default'].createElement(_ruleForm2['default'], {
+	                        name: this.props.rule.name,
+	                        displayName: this.props.rule.displayName,
+	                        regex: this.props.rule.regex,
+	                        replacement: this.props.rule.replacement,
+	                        propDidChange: this.fieldDidChange.bind(this) }),
+	                    _react2['default'].createElement(_formActions2['default'], {
+	                        okButton: 'Save',
+	                        okButtonClick: this.actionSave,
+	                        okValid: true,
+	                        dangerButton: 'Delete',
+	                        dangerButtonClick: this.actionDelete,
+	                        dangerValid: true })
 	                )
 	            );
 	        }

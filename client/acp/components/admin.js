@@ -31,13 +31,15 @@ class Admin extends React.Component {
     render() {
         let extendedView;
 
-        if (this.props.selectedRule && this.props.selectedRule.name === Rule.CREATE) {
-            extendedView = <RuleCreate />;
-        } else {
-            extendedView = (
-                <RuleDetails
-                    rule={this.props.selectedRule}/>
-            );
+        if (this.props.selectedRule) {
+            if (this.props.selectedRule.name === Rule.CREATE) {
+                extendedView = <RuleCreate />;
+            } else {
+                extendedView = (
+                    <RuleDetails
+                        rule={this.props.selectedRule}/>
+                );
+            }
         }
 
         return (

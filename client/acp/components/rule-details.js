@@ -3,6 +3,7 @@
  */
 import Actions from '../actions';
 import classNames from 'classnames';
+import FormActions from './form-actions';
 import React from 'react';
 import Rule from '../models/rule';
 import RuleForm from './rule-form';
@@ -12,78 +13,42 @@ export default class RuleDetails extends React.Component {
         super(props);
     }
 
-    actionCreate() {
-        console.info('Create');
+    actionDelete() {
+
     }
 
-    actionDelete(rule) {
-        console.info('Delete');
+    actionSave() {
+
     }
 
-    actionReset() {
-        console.info('Reset');
-    }
+    fieldDidChange(field, value) {
 
-    actionSave(rule) {
-        console.info('Save');
-    }
-
-    getActions(rule) {
-        let isCreate = rule.name === Rule.CREATE;
-        let okButton = (
-            <button
-                className="btn btn-primary"
-                disabled={this.props.valid ? '' : 'disabled'}
-                onClick={(isCreate) ? this.actionCreate.bind(this) : this.actionSave.bind(this, rule)}
-                type="button">{(isCreate) ? 'Create' : 'Save'}
-            </button>
-        );
-        let deleteButton = (isCreate) ? null : (
-            <button
-                className="btn btn-danger"
-                onClick={this.actionDelete.bind(this, rule)}
-                type="button">Delete
-            </button>
-        );
-        let resetButton = (!isCreate) ? null : (
-            <button
-                className="btn btn-warning"
-                onClick={this.actionReset.bind(this)}
-                type="button">Reset
-            </button>
-        );
-
-        return (
-            <div className="actions">
-                {okButton}
-                {resetButton}
-                {deleteButton}
-            </div>
-        );
     }
 
     getName(rule) {
-        if (rule.name === Rule.CREATE) {
-            return rule.displayName;
-        }
         return 'Rule: ' + rule.displayName;
     }
 
     render() {
-        if (!this.props.rule) {
-            return null;
-        }
-
-        let name = this.getName(this.props.rule);
-
         return (
             <div className="panel panel-default">
-                <div className="panel-heading">{name}</div>
+                <div className="panel-heading">{this.getName(this.props.rule)}</div>
                 <div className="panel-body">
 
-                    <RuleForm />
+                    <RuleForm
+                        name={this.props.rule.name}
+                        displayName={this.props.rule.displayName}
+                        regex={this.props.rule.regex}
+                        replacement={this.props.rule.replacement}
+                        propDidChange={this.fieldDidChange.bind(this)}/>
 
-                    {this.getActions(this.props.rule)}
+                    <FormActions
+                        okButton="Save"
+                        okButtonClick={this.actionSave}
+                        okValid={true}
+                        dangerButton="Delete"
+                        dangerButtonClick={this.actionDelete}
+                        dangerValid={true}/>
 
                 </div>
             </div>
