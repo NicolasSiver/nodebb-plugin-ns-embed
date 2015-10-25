@@ -21963,14 +21963,11 @@
 	                );
 	            };
 
+	            // Rule Creation Item
+	            result.push(RuleItem({ displayName: 'Create Rule', name: _modelsRule2['default'].CREATE, icon: 'fa-plus' }));
+
 	            for (i; i < len; ++i) {
 	                rule = rules[i];
-
-	                if (i == 0) {
-	                    // Inject create item
-	                    result.push(RuleItem({ displayName: 'Create Rule', name: _modelsRule2['default'].CREATE, icon: 'fa-plus' }));
-	                }
-
 	                result.push(RuleItem(rule));
 	            }
 
