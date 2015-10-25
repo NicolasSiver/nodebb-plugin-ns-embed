@@ -24,6 +24,10 @@ class Actions {
         return {field, value};
     }
 
+    resetNewRule() {
+        this.dispatch();
+    }
+
     ruleDidCreate() {
         this.dispatch();
     }
@@ -32,16 +36,20 @@ class Actions {
         return rule;
     }
 
+    ruleDidUpdate(rule) {
+        return rule;
+    }
+
     rulesDidUpdate(rules) {
         return rules;
     }
 
-    selectRule(rule) {
+    saveRule(rule) {
         return rule;
     }
 
-    resetNewRule() {
-        this.dispatch();
+    selectRule(rule) {
+        return rule;
     }
 
     updateNewRule(name, displayName, regex, replacement, dirtyField) {

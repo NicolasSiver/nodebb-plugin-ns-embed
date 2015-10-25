@@ -14,6 +14,7 @@ class SocketService {
         this.bindAction(Actions.createNewRule, this.createNewRule);
         this.bindAction(Actions.deleteRule, this.deleteRule);
         this.bindAction(Actions.getAllRules, this.getAllRules);
+        this.bindAction(Actions.saveRule, this.saveRule);
     }
 
     createNewRule() {
@@ -56,6 +57,21 @@ class SocketService {
                 }
 
                 Actions.rulesDidUpdate(rules);
+            }
+        );
+    }
+
+    saveRule(rule) {
+        Socket.emit(
+            SocketMethod.SAVE_RULE,
+            rule,
+            (error, rule) => {
+                if (error) {
+                    return ForumApp.alertError(error.message);
+                }
+
+                Actions.ruleDidUpdate(rule);
+                Actions.getAllRules();
             }
         );
     }

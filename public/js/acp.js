@@ -19801,6 +19801,11 @@
 	            return { field: field, value: value };
 	        }
 	    }, {
+	        key: 'resetNewRule',
+	        value: function resetNewRule() {
+	            this.dispatch();
+	        }
+	    }, {
 	        key: 'ruleDidCreate',
 	        value: function ruleDidCreate() {
 	            this.dispatch();
@@ -19811,19 +19816,24 @@
 	            return rule;
 	        }
 	    }, {
+	        key: 'ruleDidUpdate',
+	        value: function ruleDidUpdate(rule) {
+	            return rule;
+	        }
+	    }, {
 	        key: 'rulesDidUpdate',
 	        value: function rulesDidUpdate(rules) {
 	            return rules;
 	        }
 	    }, {
-	        key: 'selectRule',
-	        value: function selectRule(rule) {
+	        key: 'saveRule',
+	        value: function saveRule(rule) {
 	            return rule;
 	        }
 	    }, {
-	        key: 'resetNewRule',
-	        value: function resetNewRule() {
-	            this.dispatch();
+	        key: 'selectRule',
+	        value: function selectRule(rule) {
+	            return rule;
 	        }
 	    }, {
 	        key: 'updateNewRule',
@@ -21458,7 +21468,8 @@
 	exports['default'] = Object.freeze({
 	    CREATE_RULE: 'admin.plugins.ns-embed.ruleCreate',
 	    DELETE_RULE: 'admin.plugins.ns-embed.ruleDelete',
-	    GET_ALL_RULES: 'admin.plugins.ns-embed.embedRulesGet'
+	    GET_ALL_RULES: 'admin.plugins.ns-embed.embedRulesGet',
+	    SAVE_RULE: 'admin.plugins.ns-embed.ruleSave'
 	});
 	module.exports = exports['default'];
 
@@ -22172,7 +22183,9 @@
 	        }
 	    }, {
 	        key: 'actionSave',
-	        value: function actionSave() {}
+	        value: function actionSave() {
+	            _actions2['default'].saveRule(this.props.rule);
+	        }
 	    }, {
 	        key: 'fieldDidChange',
 	        value: function fieldDidChange(field, value) {}
@@ -22378,11 +22391,7 @@
 	        this.bindAction(_actions2['default'].selectRule, this.ruleDidSelect);
 
 	        this.state = {
-	            rules: [
-	                //{displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube'},
-	                //{displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo'},
-	                //{displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch'}
-	            ],
+	            rules: [],
 	            selectedRule: null
 	        };
 	    }
@@ -22563,6 +22572,7 @@
 	        this.bindAction(_actions2['default'].createNewRule, this.createNewRule);
 	        this.bindAction(_actions2['default'].deleteRule, this.deleteRule);
 	        this.bindAction(_actions2['default'].getAllRules, this.getAllRules);
+	        this.bindAction(_actions2['default'].saveRule, this.saveRule);
 	    }
 
 	    _createClass(SocketService, [{
@@ -22598,6 +22608,18 @@
 	                }
 
 	                _actions2['default'].rulesDidUpdate(rules);
+	            });
+	        }
+	    }, {
+	        key: 'saveRule',
+	        value: function saveRule(rule) {
+	            _socket2['default'].emit(_modelsSocketMethod2['default'].SAVE_RULE, rule, function (error, rule) {
+	                if (error) {
+	                    return _app2['default'].alertError(error.message);
+	                }
+
+	                _actions2['default'].ruleDidUpdate(rule);
+	                _actions2['default'].getAllRules();
 	            });
 	        }
 	    }]);

@@ -18,7 +18,7 @@ export default class RuleDetails extends React.Component {
     }
 
     actionSave() {
-
+        Actions.saveRule(this.props.rule);
     }
 
     fieldDidChange(field, value) {
