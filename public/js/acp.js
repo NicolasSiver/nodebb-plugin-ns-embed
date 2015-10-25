@@ -19972,6 +19972,10 @@
 
 	var _modelsRule2 = _interopRequireDefault(_modelsRule);
 
+	var _ruleForm = __webpack_require__(183);
+
+	var _ruleForm2 = _interopRequireDefault(_ruleForm);
+
 	var RuleDetails = (function (_React$Component) {
 	    _inherits(RuleDetails, _React$Component);
 
@@ -20048,6 +20052,9 @@
 	            return 'Rule: ' + rule.displayName;
 	        }
 	    }, {
+	        key: 'inputDidChange',
+	        value: function inputDidChange() {}
+	    }, {
 	        key: 'isValidOkButton',
 	        value: function isValidOkButton() {
 	            return false;
@@ -20072,91 +20079,7 @@
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'panel-body' },
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'row' },
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-md-6' },
-	                            _react2['default'].createElement(
-	                                'div',
-	                                { className: 'form-group' },
-	                                _react2['default'].createElement(
-	                                    'label',
-	                                    { htmlFor: 'labelName' },
-	                                    'Name'
-	                                ),
-	                                _react2['default'].createElement('input', {
-	                                    id: 'labelName',
-	                                    type: 'text',
-	                                    className: 'form-control field-lower',
-	                                    onBlur: this._validateSpecialChars,
-	                                    placeholder: 'name (Ex: youtube)' })
-	                            )
-	                        ),
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-md-6' },
-	                            _react2['default'].createElement(
-	                                'div',
-	                                { className: 'form-group' },
-	                                _react2['default'].createElement(
-	                                    'label',
-	                                    { htmlFor: 'labelDisplayName' },
-	                                    'Display Name'
-	                                ),
-	                                _react2['default'].createElement('input', {
-	                                    id: 'labelDisplayName',
-	                                    type: 'text',
-	                                    className: 'form-control',
-	                                    placeholder: 'Display Name (Ex: Youtube)' })
-	                            )
-	                        )
-	                    ),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'row' },
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-md-12' },
-	                            _react2['default'].createElement(
-	                                'div',
-	                                { className: 'form-group' },
-	                                _react2['default'].createElement(
-	                                    'label',
-	                                    { htmlFor: 'labelWatch' },
-	                                    'Watch'
-	                                ),
-	                                _react2['default'].createElement('input', {
-	                                    id: 'labelWatch',
-	                                    type: 'text',
-	                                    className: 'form-control',
-	                                    placeholder: 'Regular expression' })
-	                            )
-	                        )
-	                    ),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'row' },
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-md-12' },
-	                            _react2['default'].createElement(
-	                                'div',
-	                                { className: 'form-group' },
-	                                _react2['default'].createElement(
-	                                    'label',
-	                                    { htmlFor: 'labelReplace' },
-	                                    'Replace'
-	                                ),
-	                                _react2['default'].createElement('textarea', {
-	                                    id: 'labelReplace',
-	                                    className: 'form-control',
-	                                    rows: '4',
-	                                    placeholder: 'Replacement, you can use capturing groups via $1, $2, etc.' })
-	                            )
-	                        )
-	                    ),
+	                    _react2['default'].createElement(_ruleForm2['default'], null),
 	                    this.getActions(this.props.rule)
 	                )
 	            );
@@ -22073,6 +21996,168 @@
 	})();
 
 	exports['default'] = _alt2['default'].createStore(RulesStore, 'RulesStore');
+	module.exports = exports['default'];
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 10/25/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _classnames = __webpack_require__(179);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var RuleForm = (function (_React$Component) {
+	    _inherits(RuleForm, _React$Component);
+
+	    function RuleForm(props) {
+	        _classCallCheck(this, RuleForm);
+
+	        _get(Object.getPrototypeOf(RuleForm.prototype), 'constructor', this).call(this, props);
+	    }
+
+	    _createClass(RuleForm, [{
+	        key: 'inputDidChange',
+	        value: function inputDidChange(field, event) {
+	            console.log(field, event.target.value);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2['default'].createElement(
+	                'div',
+	                null,
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'col-md-6' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'form-group' },
+	                            _react2['default'].createElement(
+	                                'label',
+	                                { htmlFor: 'labelName' },
+	                                'Name'
+	                            ),
+	                            _react2['default'].createElement('input', {
+	                                id: 'labelName',
+	                                type: 'text',
+	                                className: 'form-control field-lower',
+	                                onBlur: this._validateSpecialChars,
+	                                onChange: this.inputDidChange.bind(this, 'name'),
+	                                value: this.props.name,
+	                                placeholder: 'name (Ex: youtube)' })
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'col-md-6' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'form-group' },
+	                            _react2['default'].createElement(
+	                                'label',
+	                                { htmlFor: 'labelDisplayName' },
+	                                'Display Name'
+	                            ),
+	                            _react2['default'].createElement('input', {
+	                                id: 'labelDisplayName',
+	                                type: 'text',
+	                                className: 'form-control',
+	                                onChange: this.inputDidChange.bind(this, 'displayName'),
+	                                value: this.props.displayName,
+	                                placeholder: 'Display Name (Ex: Youtube)' })
+	                        )
+	                    )
+	                ),
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'col-md-12' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'form-group' },
+	                            _react2['default'].createElement(
+	                                'label',
+	                                { htmlFor: 'labelWatch' },
+	                                'Watch'
+	                            ),
+	                            _react2['default'].createElement('input', {
+	                                id: 'labelWatch',
+	                                type: 'text',
+	                                className: 'form-control',
+	                                onChange: this.inputDidChange.bind(this, 'regex'),
+	                                value: this.props.regex,
+	                                placeholder: 'Regular expression' })
+	                        )
+	                    )
+	                ),
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'col-md-12' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'form-group' },
+	                            _react2['default'].createElement(
+	                                'label',
+	                                { htmlFor: 'labelReplace' },
+	                                'Replace'
+	                            ),
+	                            _react2['default'].createElement('textarea', {
+	                                id: 'labelReplace',
+	                                className: 'form-control',
+	                                rows: '4',
+	                                onChange: this.inputDidChange.bind(this, 'replacement'),
+	                                value: this.props.replacement,
+	                                placeholder: 'Replacement, you can use capturing groups via $1, $2, etc.' })
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return RuleForm;
+	})(_react2['default'].Component);
+
+	exports['default'] = RuleForm;
+
+	RuleDetails.propTypes = {
+	    name: _react2['default'].PropTypes.string,
+	    displayName: _react2['default'].PropTypes.string,
+	    regex: _react2['default'].PropTypes.string,
+	    replacement: _react2['default'].PropTypes.string,
+	    propDidChange: _react2['default'].PropTypes.func.isRequired
+	};
 	module.exports = exports['default'];
 
 /***/ }

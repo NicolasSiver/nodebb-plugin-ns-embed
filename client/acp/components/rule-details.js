@@ -5,6 +5,7 @@ import Actions from '../actions';
 import classNames from 'classnames';
 import React from 'react';
 import Rule from '../models/rule';
+import RuleForm from './rule-form';
 
 export default class RuleDetails extends React.Component {
     constructor(props) {
@@ -68,6 +69,10 @@ export default class RuleDetails extends React.Component {
         return 'Rule: ' + rule.displayName;
     }
 
+    inputDidChange() {
+
+    }
+
     isValidOkButton() {
         return false;
     }
@@ -84,55 +89,7 @@ export default class RuleDetails extends React.Component {
                 <div className="panel-heading">{name}</div>
                 <div className="panel-body">
 
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label htmlFor="labelName">Name</label>
-                                <input
-                                    id="labelName"
-                                    type="text"
-                                    className="form-control field-lower"
-                                    onBlur={this._validateSpecialChars}
-                                    placeholder="name (Ex: youtube)"/>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label htmlFor="labelDisplayName">Display Name</label>
-                                <input
-                                    id="labelDisplayName"
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Display Name (Ex: Youtube)"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="form-group">
-                                <label htmlFor="labelWatch">Watch</label>
-                                <input
-                                    id="labelWatch"
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Regular expression"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="form-group">
-                                <label htmlFor="labelReplace">Replace</label>
-                                <textarea
-                                    id="labelReplace"
-                                    className="form-control"
-                                    rows="4"
-                                    placeholder="Replacement, you can use capturing groups via $1, $2, etc."/>
-                            </div>
-                        </div>
-                    </div>
+                    <RuleForm />
 
                     {this.getActions(this.props.rule)}
 
