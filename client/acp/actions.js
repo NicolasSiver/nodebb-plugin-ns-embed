@@ -20,6 +20,10 @@ class Actions {
         return {field, value};
     }
 
+    ruleDidCreate(){
+        this.dispatch();
+    }
+
     rulesDidUpdate(rules) {
         return rules;
     }

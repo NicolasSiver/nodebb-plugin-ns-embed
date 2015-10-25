@@ -51,6 +51,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+	var _componentsAdmin = __webpack_require__(158);
+
+	var _componentsAdmin2 = _interopRequireDefault(_componentsAdmin);
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -59,9 +63,9 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _componentsAdmin = __webpack_require__(158);
+	var _servicesSocketService = __webpack_require__(187);
 
-	var _componentsAdmin2 = _interopRequireDefault(_componentsAdmin);
+	var _servicesSocketService2 = _interopRequireDefault(_servicesSocketService);
 
 	_reactDom2['default'].render(_react2['default'].createElement(_componentsAdmin2['default'], null), document.getElementById('acpEmbedContainer'));
 
@@ -19790,6 +19794,11 @@
 	            return { field: field, value: value };
 	        }
 	    }, {
+	        key: 'ruleDidCreate',
+	        value: function ruleDidCreate() {
+	            this.dispatch();
+	        }
+	    }, {
 	        key: 'rulesDidUpdate',
 	        value: function rulesDidUpdate(rules) {
 	            return rules;
@@ -21435,6 +21444,7 @@
 	    value: true
 	});
 	exports['default'] = Object.freeze({
+	    CREATE_RULE: 'admin.plugins.ns-embed.ruleCreate',
 	    GET_ALL_RULES: 'admin.plugins.ns-embed.embedRulesGet'
 	});
 	module.exports = exports['default'];
@@ -22514,6 +22524,92 @@
 	    dangerValid: _react2['default'].PropTypes.bool,
 	    warningValid: _react2['default'].PropTypes.bool
 	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 10/25/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _actions = __webpack_require__(159);
+
+	var _actions2 = _interopRequireDefault(_actions);
+
+	var _alt = __webpack_require__(160);
+
+	var _alt2 = _interopRequireDefault(_alt);
+
+	var _storesCreateStore = __webpack_require__(181);
+
+	var _storesCreateStore2 = _interopRequireDefault(_storesCreateStore);
+
+	var _app = __webpack_require__(173);
+
+	var _app2 = _interopRequireDefault(_app);
+
+	var _objectAssign = __webpack_require__(177);
+
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+	var _socket = __webpack_require__(174);
+
+	var _socket2 = _interopRequireDefault(_socket);
+
+	var _modelsSocketMethod = __webpack_require__(175);
+
+	var _modelsSocketMethod2 = _interopRequireDefault(_modelsSocketMethod);
+
+	var SocketService = (function () {
+	    function SocketService() {
+	        _classCallCheck(this, SocketService);
+
+	        this.bindAction(_actions2['default'].createNewRule, this.createNewRule);
+	        this.bindAction(_actions2['default'].getAllRules, this.getAllRules);
+	    }
+
+	    _createClass(SocketService, [{
+	        key: 'createNewRule',
+	        value: function createNewRule() {
+	            _socket2['default'].emit(_modelsSocketMethod2['default'].CREATE_RULE, _storesCreateStore2['default'].getState(), function (error, rule) {
+	                if (error) {
+	                    return _app2['default'].alertError(error.message);
+	                }
+
+	                _actions2['default'].ruleDidCreate();
+	                _actions2['default'].getAllRules();
+	            });
+	        }
+	    }, {
+	        key: 'getAllRules',
+	        value: function getAllRules() {
+	            _socket2['default'].emit(_modelsSocketMethod2['default'].GET_ALL_RULES, {}, function (error, rules) {
+	                if (error) {
+	                    return _app2['default'].alertError(error.message);
+	                }
+
+	                _actions2['default'].rulesDidUpdate(rules);
+	            });
+	        }
+	    }]);
+
+	    return SocketService;
+	})();
+
+	exports['default'] = _alt2['default'].createStore(SocketService, 'SocketService');
 	module.exports = exports['default'];
 
 /***/ }

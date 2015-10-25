@@ -8,6 +8,11 @@
 
         database = require('./database');
 
+    Controller.createRule = function (payload, done) {
+        // FIXME Implement
+        done();
+    };
+
     Controller.getAllRules = function (done) {
         database.getRules(done);
     };
