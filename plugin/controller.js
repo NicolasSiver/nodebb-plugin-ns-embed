@@ -4,8 +4,12 @@
 (function (Controller) {
     'use strict';
 
-    Controller.getAllRules = function (done) {
+    var async    = require('async'),
 
+        database = require('./database');
+
+    Controller.getAllRules = function (done) {
+        database.getRules(done);
     };
 
 })(module.exports);
