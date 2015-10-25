@@ -12,6 +12,10 @@
     {
       "hook": "static:app.load",
       "method": "hooks.statics.load"
+    },
+    {
+      "hook": "filter:parse.post",
+      "method": "hooks.filters.parsePost"
     }
   ],
   "less": [],

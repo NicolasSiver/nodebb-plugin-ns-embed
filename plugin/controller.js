@@ -17,7 +17,10 @@
     };
 
     Controller.deleteRule = function (rule, done) {
-        database.deleteRule(rule.rid, function (error) {
+        async.series([
+            async.apply(database.deleteRule, rule.rid),
+            async.apply(rules.invalidate)
+        ], function (error) {
             if (error) {
                 return done(error);
             }
@@ -30,10 +33,29 @@
         database.getRules(done);
     };
 
+    /**
+     * Main parsing method.
+     * Performs replacements on content field.
+     *
+     * @param payload {object} - includes full post entity Payload.postData.content
+     * @param done returns updated content
+     */
+    Controller.parsePost = function (payload, done) {
+        rules.parse(payload.postData.content, function (error, content) {
+            if (error) {
+                return done(error);
+            }
+
+            payload.postData.content = content;
+            done(null, payload);
+        });
+    };
+
     Controller.saveRule = function (rule, done) {
         async.series({
             save: async.apply(database.updateRule, rule.rid, payloadToRule(rule)),
-            rule: async.apply(database.getRule, rule.rid)
+            rule: async.apply(database.getRule, rule.rid),
+            sync: async.apply(rule.invalidate)
         }, function (error, results) {
             if (error) {
                 return done(error);

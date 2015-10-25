@@ -8,4 +8,8 @@
         done();
     };
 
+    Rules.parse = function (content, done) {
+
+    };
+
 })(module.exports);
