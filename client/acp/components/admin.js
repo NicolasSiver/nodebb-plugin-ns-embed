@@ -5,6 +5,8 @@ import Actions from '../actions';
 import connectToStores from 'alt/utils/connectToStores';
 import objectAssign from 'object-assign';
 import React from 'react';
+import Rule from '../models/rule';
+import RuleCreate from './rule-create';
 import RuleDetails from './rule-details';
 import RulesList from './rules-list';
 import RulesStore from '../stores/rules-store';
@@ -27,6 +29,17 @@ class Admin extends React.Component {
     }
 
     render() {
+        let extendedView;
+
+        if (this.props.selectedRule && this.props.selectedRule.name === Rule.CREATE) {
+            extendedView = <RuleCreate />;
+        } else {
+            extendedView = (
+                <RuleDetails
+                    rule={this.props.selectedRule}/>
+            );
+        }
+
         return (
             <div className="row">
                 <div className="col-md-6">
@@ -35,8 +48,7 @@ class Admin extends React.Component {
                         selected={this.props.selectedRule}/>
                 </div>
                 <div className="col-md-6">
-                    <RuleDetails
-                        rule={this.props.selectedRule}/>
+                    {extendedView}
                 </div>
             </div>
         );

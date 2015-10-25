@@ -19635,15 +19635,15 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _actions = __webpack_require__(163);
+	var _actions = __webpack_require__(159);
 
 	var _actions2 = _interopRequireDefault(_actions);
 
-	var _altUtilsConnectToStores = __webpack_require__(159);
+	var _altUtilsConnectToStores = __webpack_require__(176);
 
 	var _altUtilsConnectToStores2 = _interopRequireDefault(_altUtilsConnectToStores);
 
-	var _objectAssign = __webpack_require__(161);
+	var _objectAssign = __webpack_require__(177);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
@@ -19651,15 +19651,23 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ruleDetails = __webpack_require__(162);
+	var _modelsRule = __webpack_require__(178);
+
+	var _modelsRule2 = _interopRequireDefault(_modelsRule);
+
+	var _ruleCreate = __webpack_require__(179);
+
+	var _ruleCreate2 = _interopRequireDefault(_ruleCreate);
+
+	var _ruleDetails = __webpack_require__(183);
 
 	var _ruleDetails2 = _interopRequireDefault(_ruleDetails);
 
-	var _rulesList = __webpack_require__(181);
+	var _rulesList = __webpack_require__(184);
 
 	var _rulesList2 = _interopRequireDefault(_rulesList);
 
-	var _storesRulesStore = __webpack_require__(182);
+	var _storesRulesStore = __webpack_require__(185);
 
 	var _storesRulesStore2 = _interopRequireDefault(_storesRulesStore);
 
@@ -19692,6 +19700,15 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var extendedView = undefined;
+
+	            if (this.props.selectedRule && this.props.selectedRule.name === _modelsRule2['default'].CREATE) {
+	                extendedView = _react2['default'].createElement(_ruleCreate2['default'], null);
+	            } else {
+	                extendedView = _react2['default'].createElement(_ruleDetails2['default'], {
+	                    rule: this.props.selectedRule });
+	            }
+
 	            return _react2['default'].createElement(
 	                'div',
 	                { className: 'row' },
@@ -19705,8 +19722,7 @@
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'col-md-6' },
-	                    _react2['default'].createElement(_ruleDetails2['default'], {
-	                        rule: this.props.selectedRule })
+	                    extendedView
 	                )
 	            );
 	        }
@@ -19723,384 +19739,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * 'Higher Order Component' that controls the props of a wrapped
-	 * component via stores.
-	 *
-	 * Expects the Component to have two static methods:
-	 *   - getStores(): Should return an array of stores.
-	 *   - getPropsFromStores(props): Should return the props from the stores.
-	 *
-	 * Example using old React.createClass() style:
-	 *
-	 *    const MyComponent = React.createClass({
-	 *      statics: {
-	 *        getStores(props) {
-	 *          return [myStore]
-	 *        },
-	 *        getPropsFromStores(props) {
-	 *          return myStore.getState()
-	 *        }
-	 *      },
-	 *      render() {
-	 *        // Use this.props like normal ...
-	 *      }
-	 *    })
-	 *    MyComponent = connectToStores(MyComponent)
-	 *
-	 *
-	 * Example using ES6 Class:
-	 *
-	 *    class MyComponent extends React.Component {
-	 *      static getStores(props) {
-	 *        return [myStore]
-	 *      }
-	 *      static getPropsFromStores(props) {
-	 *        return myStore.getState()
-	 *      }
-	 *      render() {
-	 *        // Use this.props like normal ...
-	 *      }
-	 *    }
-	 *    MyComponent = connectToStores(MyComponent)
-	 *
-	 * A great explanation of the merits of higher order components can be found at
-	 * http://bit.ly/1abPkrP
-	 */
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _functions = __webpack_require__(160);
-
-	function connectToStores(Spec) {
-	  var Component = arguments.length <= 1 || arguments[1] === undefined ? Spec : arguments[1];
-	  return (function () {
-	    // Check for required static methods.
-	    if (!(0, _functions.isFunction)(Spec.getStores)) {
-	      throw new Error('connectToStores() expects the wrapped component to have a static getStores() method');
-	    }
-	    if (!(0, _functions.isFunction)(Spec.getPropsFromStores)) {
-	      throw new Error('connectToStores() expects the wrapped component to have a static getPropsFromStores() method');
-	    }
-
-	    var StoreConnection = _react2['default'].createClass({
-	      displayName: 'Stateful' + (Component.displayName || Component.name || 'Container'),
-
-	      getInitialState: function getInitialState() {
-	        return Spec.getPropsFromStores(this.props, this.context);
-	      },
-
-	      componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.setState(Spec.getPropsFromStores(nextProps, this.context));
-	      },
-
-	      componentDidMount: function componentDidMount() {
-	        var _this = this;
-
-	        var stores = Spec.getStores(this.props, this.context);
-	        this.storeListeners = stores.map(function (store) {
-	          return store.listen(_this.onChange);
-	        });
-	        if (Spec.componentDidConnect) {
-	          Spec.componentDidConnect(this.props, this.context);
-	        }
-	      },
-
-	      componentWillUnmount: function componentWillUnmount() {
-	        this.storeListeners.forEach(function (unlisten) {
-	          return unlisten();
-	        });
-	      },
-
-	      onChange: function onChange() {
-	        this.setState(Spec.getPropsFromStores(this.props, this.context));
-	      },
-
-	      render: function render() {
-	        return _react2['default'].createElement(Component, (0, _functions.assign)({}, this.props, this.state));
-	      }
-	    });
-	    if (Component.contextTypes) {
-	      StoreConnection.contextTypes = Component.contextTypes;
-	    }
-
-	    return StoreConnection;
-	  })();
-	}
-
-	exports['default'] = connectToStores;
-	module.exports = exports['default'];
-
-/***/ },
-/* 160 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports.isPojo = isPojo;
-	exports.isPromise = isPromise;
-	exports.eachObject = eachObject;
-	exports.assign = assign;
-	var isFunction = function isFunction(x) {
-	  return typeof x === 'function';
-	};
-
-	exports.isFunction = isFunction;
-
-	function isPojo(target) {
-	  var Ctor = target.constructor;
-
-	  return !!target && typeof target === 'object' && Object.prototype.toString.call(target) === '[object Object]' && isFunction(Ctor) && (Ctor instanceof Ctor || target.type === 'AltStore');
-	}
-
-	function isPromise(obj) {
-	  return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
-	}
-
-	function eachObject(f, o) {
-	  o.forEach(function (from) {
-	    Object.keys(Object(from)).forEach(function (key) {
-	      f(key, from[key]);
-	    });
-	  });
-	}
-
-	function assign(target) {
-	  for (var _len = arguments.length, source = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	    source[_key - 1] = arguments[_key];
-	  }
-
-	  eachObject(function (key, value) {
-	    return target[key] = value;
-	  }, source);
-	  return target;
-	}
-
-/***/ },
-/* 161 */
-/***/ function(module, exports) {
-
-	/* eslint-disable no-unused-vars */
-	'use strict';
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-	function toObject(val) {
-		if (val === null || val === undefined) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
-
-		return Object(val);
-	}
-
-	module.exports = Object.assign || function (target, source) {
-		var from;
-		var to = toObject(target);
-		var symbols;
-
-		for (var s = 1; s < arguments.length; s++) {
-			from = Object(arguments[s]);
-
-			for (var key in from) {
-				if (hasOwnProperty.call(from, key)) {
-					to[key] = from[key];
-				}
-			}
-
-			if (Object.getOwnPropertySymbols) {
-				symbols = Object.getOwnPropertySymbols(from);
-				for (var i = 0; i < symbols.length; i++) {
-					if (propIsEnumerable.call(from, symbols[i])) {
-						to[symbols[i]] = from[symbols[i]];
-					}
-				}
-			}
-		}
-
-		return to;
-	};
-
-
-/***/ },
-/* 162 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Nicolas on 10/21/15.
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _actions = __webpack_require__(163);
-
-	var _actions2 = _interopRequireDefault(_actions);
-
-	var _classnames = __webpack_require__(179);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _modelsRule = __webpack_require__(180);
-
-	var _modelsRule2 = _interopRequireDefault(_modelsRule);
-
-	var _ruleForm = __webpack_require__(183);
-
-	var _ruleForm2 = _interopRequireDefault(_ruleForm);
-
-	var RuleDetails = (function (_React$Component) {
-	    _inherits(RuleDetails, _React$Component);
-
-	    function RuleDetails(props) {
-	        _classCallCheck(this, RuleDetails);
-
-	        _get(Object.getPrototypeOf(RuleDetails.prototype), 'constructor', this).call(this, props);
-	    }
-
-	    _createClass(RuleDetails, [{
-	        key: 'actionCreate',
-	        value: function actionCreate() {
-	            console.info('Create');
-	        }
-	    }, {
-	        key: 'actionDelete',
-	        value: function actionDelete(rule) {
-	            console.info('Delete');
-	        }
-	    }, {
-	        key: 'actionReset',
-	        value: function actionReset() {
-	            console.info('Reset');
-	        }
-	    }, {
-	        key: 'actionSave',
-	        value: function actionSave(rule) {
-	            console.info('Save');
-	        }
-	    }, {
-	        key: 'getActions',
-	        value: function getActions(rule) {
-	            var isCreate = rule.name === _modelsRule2['default'].CREATE;
-	            var okButton = _react2['default'].createElement(
-	                'button',
-	                {
-	                    className: 'btn btn-primary',
-	                    disabled: this.isValidOkButton() ? '' : 'disabled',
-	                    onClick: isCreate ? this.actionCreate.bind(this) : this.actionSave.bind(this, rule),
-	                    type: 'button' },
-	                isCreate ? 'Create' : 'Save'
-	            );
-	            var deleteButton = isCreate ? null : _react2['default'].createElement(
-	                'button',
-	                {
-	                    className: 'btn btn-danger',
-	                    onClick: this.actionDelete.bind(this, rule),
-	                    type: 'button' },
-	                'Delete'
-	            );
-	            var resetButton = !isCreate ? null : _react2['default'].createElement(
-	                'button',
-	                {
-	                    className: 'btn btn-warning',
-	                    onClick: this.actionReset.bind(this),
-	                    type: 'button' },
-	                'Reset'
-	            );
-
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'actions' },
-	                okButton,
-	                resetButton,
-	                deleteButton
-	            );
-	        }
-	    }, {
-	        key: 'getName',
-	        value: function getName(rule) {
-	            if (rule.name === _modelsRule2['default'].CREATE) {
-	                return rule.displayName;
-	            }
-	            return 'Rule: ' + rule.displayName;
-	        }
-	    }, {
-	        key: 'inputDidChange',
-	        value: function inputDidChange() {}
-	    }, {
-	        key: 'isValidOkButton',
-	        value: function isValidOkButton() {
-	            return false;
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            if (!this.props.rule) {
-	                return null;
-	            }
-
-	            var name = this.getName(this.props.rule);
-
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'panel panel-default' },
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'panel-heading' },
-	                    name
-	                ),
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'panel-body' },
-	                    _react2['default'].createElement(_ruleForm2['default'], null),
-	                    this.getActions(this.props.rule)
-	                )
-	            );
-	        }
-	    }]);
-
-	    return RuleDetails;
-	})(_react2['default'].Component);
-
-	exports['default'] = RuleDetails;
-
-	RuleDetails.propTypes = {
-	    rule: _react2['default'].PropTypes.object
-	};
-	module.exports = exports['default'];
-
-/***/ },
-/* 163 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
 	 * Created by Nicolas on 10/21/15.
 	 */
 	'use strict';
@@ -20115,19 +19753,19 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _alt = __webpack_require__(164);
+	var _alt = __webpack_require__(160);
 
 	var _alt2 = _interopRequireDefault(_alt);
 
-	var _app = __webpack_require__(176);
+	var _app = __webpack_require__(173);
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _socket = __webpack_require__(177);
+	var _socket = __webpack_require__(174);
 
 	var _socket2 = _interopRequireDefault(_socket);
 
-	var _modelsSocketMethod = __webpack_require__(178);
+	var _modelsSocketMethod = __webpack_require__(175);
 
 	var _modelsSocketMethod2 = _interopRequireDefault(_modelsSocketMethod);
 
@@ -20160,6 +19798,11 @@
 	        value: function selectRule(rule) {
 	            return rule;
 	        }
+	    }, {
+	        key: 'updateNewRule',
+	        value: function updateNewRule(name, displayName, regex, replacement, dirtyField) {
+	            return { name: name, displayName: displayName, regex: regex, replacement: replacement, dirtyField: dirtyField };
+	        }
 	    }]);
 
 	    return Actions;
@@ -20169,7 +19812,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 164 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20180,7 +19823,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _alt = __webpack_require__(165);
+	var _alt = __webpack_require__(161);
 
 	var _alt2 = _interopRequireDefault(_alt);
 
@@ -20188,7 +19831,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 165 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global window */
@@ -20213,25 +19856,25 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _flux = __webpack_require__(166);
+	var _flux = __webpack_require__(162);
 
-	var _utilsStateFunctions = __webpack_require__(169);
+	var _utilsStateFunctions = __webpack_require__(165);
 
 	var StateFunctions = _interopRequireWildcard(_utilsStateFunctions);
 
-	var _utilsFunctions = __webpack_require__(160);
+	var _utilsFunctions = __webpack_require__(166);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
-	var _store = __webpack_require__(170);
+	var _store = __webpack_require__(167);
 
 	var store = _interopRequireWildcard(_store);
 
-	var _utilsAltUtils = __webpack_require__(171);
+	var _utilsAltUtils = __webpack_require__(168);
 
 	var utils = _interopRequireWildcard(_utilsAltUtils);
 
-	var _actions = __webpack_require__(175);
+	var _actions = __webpack_require__(172);
 
 	var _actions2 = _interopRequireDefault(_actions);
 
@@ -20525,7 +20168,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 166 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20537,11 +20180,11 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Dispatcher = __webpack_require__(167)
+	module.exports.Dispatcher = __webpack_require__(163)
 
 
 /***/ },
-/* 167 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -20558,7 +20201,7 @@
 
 	"use strict";
 
-	var invariant = __webpack_require__(168);
+	var invariant = __webpack_require__(164);
 
 	var _lastID = 1;
 	var _prefix = 'ID_';
@@ -20797,7 +20440,7 @@
 
 
 /***/ },
-/* 168 */
+/* 164 */
 /***/ function(module, exports) {
 
 	/**
@@ -20856,7 +20499,7 @@
 
 
 /***/ },
-/* 169 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20871,7 +20514,7 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _utilsFunctions = __webpack_require__(160);
+	var _utilsFunctions = __webpack_require__(166);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
@@ -20933,7 +20576,55 @@
 	}
 
 /***/ },
-/* 170 */
+/* 166 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports.isPojo = isPojo;
+	exports.isPromise = isPromise;
+	exports.eachObject = eachObject;
+	exports.assign = assign;
+	var isFunction = function isFunction(x) {
+	  return typeof x === 'function';
+	};
+
+	exports.isFunction = isFunction;
+
+	function isPojo(target) {
+	  var Ctor = target.constructor;
+
+	  return !!target && typeof target === 'object' && Object.prototype.toString.call(target) === '[object Object]' && isFunction(Ctor) && (Ctor instanceof Ctor || target.type === 'AltStore');
+	}
+
+	function isPromise(obj) {
+	  return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+	}
+
+	function eachObject(f, o) {
+	  o.forEach(function (from) {
+	    Object.keys(Object(from)).forEach(function (key) {
+	      f(key, from[key]);
+	    });
+	  });
+	}
+
+	function assign(target) {
+	  for (var _len = arguments.length, source = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	    source[_key - 1] = arguments[_key];
+	  }
+
+	  eachObject(function (key, value) {
+	    return target[key] = value;
+	  }, source);
+	  return target;
+	}
+
+/***/ },
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20958,19 +20649,19 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _utilsAltUtils = __webpack_require__(171);
+	var _utilsAltUtils = __webpack_require__(168);
 
 	var utils = _interopRequireWildcard(_utilsAltUtils);
 
-	var _utilsFunctions = __webpack_require__(160);
+	var _utilsFunctions = __webpack_require__(166);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
-	var _AltStore = __webpack_require__(172);
+	var _AltStore = __webpack_require__(169);
 
 	var _AltStore2 = _interopRequireDefault(_AltStore);
 
-	var _StoreMixin = __webpack_require__(174);
+	var _StoreMixin = __webpack_require__(171);
 
 	var _StoreMixin2 = _interopRequireDefault(_StoreMixin);
 
@@ -21117,7 +20808,7 @@
 	}
 
 /***/ },
-/* 171 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21138,7 +20829,7 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _utilsFunctions = __webpack_require__(160);
+	var _utilsFunctions = __webpack_require__(166);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
@@ -21230,7 +20921,7 @@
 	function NoopClass() {}
 
 /***/ },
-/* 172 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21247,11 +20938,11 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _utilsFunctions = __webpack_require__(160);
+	var _utilsFunctions = __webpack_require__(166);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
-	var _transmitter = __webpack_require__(173);
+	var _transmitter = __webpack_require__(170);
 
 	var _transmitter2 = _interopRequireDefault(_transmitter);
 
@@ -21381,7 +21072,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 173 */
+/* 170 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21414,7 +21105,7 @@
 	module.exports = transmitter;
 
 /***/ },
-/* 174 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21427,11 +21118,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _transmitter = __webpack_require__(173);
+	var _transmitter = __webpack_require__(170);
 
 	var _transmitter2 = _interopRequireDefault(_transmitter);
 
-	var _utilsFunctions = __webpack_require__(160);
+	var _utilsFunctions = __webpack_require__(166);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
@@ -21619,7 +21310,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 175 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21636,11 +21327,11 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _utilsFunctions = __webpack_require__(160);
+	var _utilsFunctions = __webpack_require__(166);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
-	var _utilsAltUtils = __webpack_require__(171);
+	var _utilsAltUtils = __webpack_require__(168);
 
 	var utils = _interopRequireWildcard(_utilsAltUtils);
 
@@ -21717,19 +21408,19 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 176 */
+/* 173 */
 /***/ function(module, exports) {
 
 	module.exports = app;
 
 /***/ },
-/* 177 */
+/* 174 */
 /***/ function(module, exports) {
 
 	module.exports = socket;
 
 /***/ },
-/* 178 */
+/* 175 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21743,7 +21434,286 @@
 	module.exports = exports['default'];
 
 /***/ },
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * 'Higher Order Component' that controls the props of a wrapped
+	 * component via stores.
+	 *
+	 * Expects the Component to have two static methods:
+	 *   - getStores(): Should return an array of stores.
+	 *   - getPropsFromStores(props): Should return the props from the stores.
+	 *
+	 * Example using old React.createClass() style:
+	 *
+	 *    const MyComponent = React.createClass({
+	 *      statics: {
+	 *        getStores(props) {
+	 *          return [myStore]
+	 *        },
+	 *        getPropsFromStores(props) {
+	 *          return myStore.getState()
+	 *        }
+	 *      },
+	 *      render() {
+	 *        // Use this.props like normal ...
+	 *      }
+	 *    })
+	 *    MyComponent = connectToStores(MyComponent)
+	 *
+	 *
+	 * Example using ES6 Class:
+	 *
+	 *    class MyComponent extends React.Component {
+	 *      static getStores(props) {
+	 *        return [myStore]
+	 *      }
+	 *      static getPropsFromStores(props) {
+	 *        return myStore.getState()
+	 *      }
+	 *      render() {
+	 *        // Use this.props like normal ...
+	 *      }
+	 *    }
+	 *    MyComponent = connectToStores(MyComponent)
+	 *
+	 * A great explanation of the merits of higher order components can be found at
+	 * http://bit.ly/1abPkrP
+	 */
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _functions = __webpack_require__(166);
+
+	function connectToStores(Spec) {
+	  var Component = arguments.length <= 1 || arguments[1] === undefined ? Spec : arguments[1];
+	  return (function () {
+	    // Check for required static methods.
+	    if (!(0, _functions.isFunction)(Spec.getStores)) {
+	      throw new Error('connectToStores() expects the wrapped component to have a static getStores() method');
+	    }
+	    if (!(0, _functions.isFunction)(Spec.getPropsFromStores)) {
+	      throw new Error('connectToStores() expects the wrapped component to have a static getPropsFromStores() method');
+	    }
+
+	    var StoreConnection = _react2['default'].createClass({
+	      displayName: 'Stateful' + (Component.displayName || Component.name || 'Container'),
+
+	      getInitialState: function getInitialState() {
+	        return Spec.getPropsFromStores(this.props, this.context);
+	      },
+
+	      componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        this.setState(Spec.getPropsFromStores(nextProps, this.context));
+	      },
+
+	      componentDidMount: function componentDidMount() {
+	        var _this = this;
+
+	        var stores = Spec.getStores(this.props, this.context);
+	        this.storeListeners = stores.map(function (store) {
+	          return store.listen(_this.onChange);
+	        });
+	        if (Spec.componentDidConnect) {
+	          Spec.componentDidConnect(this.props, this.context);
+	        }
+	      },
+
+	      componentWillUnmount: function componentWillUnmount() {
+	        this.storeListeners.forEach(function (unlisten) {
+	          return unlisten();
+	        });
+	      },
+
+	      onChange: function onChange() {
+	        this.setState(Spec.getPropsFromStores(this.props, this.context));
+	      },
+
+	      render: function render() {
+	        return _react2['default'].createElement(Component, (0, _functions.assign)({}, this.props, this.state));
+	      }
+	    });
+	    if (Component.contextTypes) {
+	      StoreConnection.contextTypes = Component.contextTypes;
+	    }
+
+	    return StoreConnection;
+	  })();
+	}
+
+	exports['default'] = connectToStores;
+	module.exports = exports['default'];
+
+/***/ },
+/* 177 */
+/***/ function(module, exports) {
+
+	/* eslint-disable no-unused-vars */
+	'use strict';
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+	function toObject(val) {
+		if (val === null || val === undefined) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+
+		return Object(val);
+	}
+
+	module.exports = Object.assign || function (target, source) {
+		var from;
+		var to = toObject(target);
+		var symbols;
+
+		for (var s = 1; s < arguments.length; s++) {
+			from = Object(arguments[s]);
+
+			for (var key in from) {
+				if (hasOwnProperty.call(from, key)) {
+					to[key] = from[key];
+				}
+			}
+
+			if (Object.getOwnPropertySymbols) {
+				symbols = Object.getOwnPropertySymbols(from);
+				for (var i = 0; i < symbols.length; i++) {
+					if (propIsEnumerable.call(from, symbols[i])) {
+						to[symbols[i]] = from[symbols[i]];
+					}
+				}
+			}
+		}
+
+		return to;
+	};
+
+
+/***/ },
+/* 178 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Nicolas on 10/21/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = Object.freeze({
+	  CREATE: 'defaultRuleCreate'
+	});
+	module.exports = exports['default'];
+
+/***/ },
 /* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 10/25/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _actions = __webpack_require__(159);
+
+	var _actions2 = _interopRequireDefault(_actions);
+
+	var _classnames = __webpack_require__(180);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _altUtilsConnectToStores = __webpack_require__(176);
+
+	var _altUtilsConnectToStores2 = _interopRequireDefault(_altUtilsConnectToStores);
+
+	var _storesCreateStore = __webpack_require__(181);
+
+	var _storesCreateStore2 = _interopRequireDefault(_storesCreateStore);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ruleForm = __webpack_require__(182);
+
+	var _ruleForm2 = _interopRequireDefault(_ruleForm);
+
+	var RuleCreate = (function (_React$Component) {
+	    _inherits(RuleCreate, _React$Component);
+
+	    _createClass(RuleCreate, null, [{
+	        key: 'getStores',
+	        value: function getStores() {
+	            return [_storesCreateStore2['default']];
+	        }
+	    }, {
+	        key: 'getPropsFromStores',
+	        value: function getPropsFromStores() {
+	            return _storesCreateStore2['default'].getState();
+	        }
+	    }]);
+
+	    function RuleCreate(props) {
+	        _classCallCheck(this, RuleCreate);
+
+	        _get(Object.getPrototypeOf(RuleCreate.prototype), 'constructor', this).call(this, props);
+	    }
+
+	    _createClass(RuleCreate, [{
+	        key: 'render',
+	        value: function render() {
+
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'panel panel-default' },
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'panel-heading' },
+	                    'Create Rule'
+	                ),
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'panel-body' },
+	                    _react2['default'].createElement(_ruleForm2['default'], this.props)
+	                )
+	            );
+	        }
+	    }]);
+
+	    return RuleCreate;
+	})(_react2['default'].Component);
+
+	exports['default'] = (0, _altUtilsConnectToStores2['default'])(RuleCreate);
+	module.exports = exports['default'];
+
+/***/ },
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -21797,28 +21767,11 @@
 
 
 /***/ },
-/* 180 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by Nicolas on 10/21/15.
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = Object.freeze({
-	  CREATE: 'defaultRuleCreate'
-	});
-	module.exports = exports['default'];
-
-/***/ },
 /* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Created by Nicolas on 10/21/15.
+	 * Created by Nicolas on 10/25/15.
 	 */
 	'use strict';
 
@@ -21828,178 +21781,90 @@
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _actions = __webpack_require__(163);
+	var _actions = __webpack_require__(159);
 
 	var _actions2 = _interopRequireDefault(_actions);
 
-	var _classnames = __webpack_require__(179);
+	var _alt = __webpack_require__(160);
 
-	var _classnames2 = _interopRequireDefault(_classnames);
+	var _alt2 = _interopRequireDefault(_alt);
 
-	var _react = __webpack_require__(1);
+	var CreateStore = (function () {
+	    function CreateStore() {
+	        _classCallCheck(this, CreateStore);
 
-	var _react2 = _interopRequireDefault(_react);
+	        this.bindAction(_actions2['default'].updateNewRule, this.update);
 
-	var _modelsRule = __webpack_require__(180);
-
-	var _modelsRule2 = _interopRequireDefault(_modelsRule);
-
-	var RulesList = (function (_React$Component) {
-	    _inherits(RulesList, _React$Component);
-
-	    function RulesList(props) {
-	        _classCallCheck(this, RulesList);
-
-	        _get(Object.getPrototypeOf(RulesList.prototype), 'constructor', this).call(this, props);
+	        this.state = {
+	            name: null,
+	            displayName: null,
+	            regex: null,
+	            replacement: null,
+	            valid: false
+	        };
 	    }
 
-	    _createClass(RulesList, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'panel panel-default' },
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'panel-heading' },
-	                    'Installed Rules'
-	                ),
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'panel-body' },
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'rules' },
-	                        this.renderRules(this.props.rules)
-	                    )
-	                )
-	            );
-	        }
-	    }, {
-	        key: 'renderRules',
-	        value: function renderRules(rules) {
-	            var _this = this;
+	    _createClass(CreateStore, [{
+	        key: 'isValid',
+	        value: function isValid() {
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
 
-	            var i = 0,
-	                len = rules.length,
-	                rule = undefined,
-	                result = [];
+	            try {
+	                for (var _len = arguments.length, fields = Array(_len), _key = 0; _key < _len; _key++) {
+	                    fields[_key] = arguments[_key];
+	                }
 
-	            var RuleItem = function RuleItem(data) {
-	                var icon = (0, _classnames2['default'])('fa', data.icon || 'fa-cogs');
-	                var item = (0, _classnames2['default'])('item', {
-	                    selected: _this.props.selected && data.name === _this.props.selected.name
-	                });
+	                for (var _iterator = fields[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var field = _step.value;
 
-	                return _react2['default'].createElement(
-	                    'div',
-	                    { key: data.name, className: item,
-	                        onClick: _this.ruleDidClick.bind(_this, data) },
-	                    _react2['default'].createElement('i', { className: icon }),
-	                    ' ',
-	                    data.displayName
-	                );
-	            };
-
-	            // Rule Creation Item
-	            result.push(RuleItem({ displayName: 'Create Rule', name: _modelsRule2['default'].CREATE, icon: 'fa-plus' }));
-
-	            for (i; i < len; ++i) {
-	                rule = rules[i];
-	                result.push(RuleItem(rule));
+	                    if (typeof field === 'string' && field.length == 0) {
+	                        return false;
+	                    }
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator['return']) {
+	                        _iterator['return']();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
 	            }
 
-	            return result;
+	            return true;
 	        }
 	    }, {
-	        key: 'ruleDidClick',
-	        value: function ruleDidClick(rule) {
-	            _actions2['default'].selectRule(rule);
+	        key: 'update',
+	        value: function update(data) {
+	            this.setState({
+	                name: data.name,
+	                displayName: data.displayName,
+	                regex: data.regex,
+	                replacement: data.replacement,
+	                valid: this.isValid(data.name, data.displayName, data.regex, data.replacement)
+	            });
 	        }
 	    }]);
 
-	    return RulesList;
-	})(_react2['default'].Component);
+	    return CreateStore;
+	})();
 
-	exports['default'] = RulesList;
+	exports['default'] = _alt2['default'].createStore(CreateStore, 'CreateStore');
 	module.exports = exports['default'];
 
 /***/ },
 /* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Nicolas on 10/21/15.
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _actions = __webpack_require__(163);
-
-	var _actions2 = _interopRequireDefault(_actions);
-
-	var _alt = __webpack_require__(164);
-
-	var _alt2 = _interopRequireDefault(_alt);
-
-	var RulesStore = (function () {
-	    function RulesStore() {
-	        _classCallCheck(this, RulesStore);
-
-	        this.bindAction(_actions2['default'].rulesDidUpdate, this.rulesDidUpdate);
-	        this.bindAction(_actions2['default'].selectRule, this.ruleDidSelect);
-
-	        this.state = {
-	            rules: [
-	                //{displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube'},
-	                //{displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo'},
-	                //{displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch'}
-	            ],
-	            selectedRule: null
-	        };
-	    }
-
-	    _createClass(RulesStore, [{
-	        key: 'ruleDidSelect',
-	        value: function ruleDidSelect(rule) {
-	            this.setState({
-	                selectedRule: rule
-	            });
-	        }
-	    }, {
-	        key: 'rulesDidUpdate',
-	        value: function rulesDidUpdate(rules) {
-	            this.setState({
-	                rules: rules
-	            });
-	        }
-	    }]);
-
-	    return RulesStore;
-	})();
-
-	exports['default'] = _alt2['default'].createStore(RulesStore, 'RulesStore');
-	module.exports = exports['default'];
-
-/***/ },
-/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -22021,7 +21886,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _classnames = __webpack_require__(179);
+	var _classnames = __webpack_require__(180);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -22151,13 +22016,353 @@
 
 	exports['default'] = RuleForm;
 
-	RuleDetails.propTypes = {
+	RuleForm.propTypes = {
 	    name: _react2['default'].PropTypes.string,
 	    displayName: _react2['default'].PropTypes.string,
 	    regex: _react2['default'].PropTypes.string,
 	    replacement: _react2['default'].PropTypes.string,
 	    propDidChange: _react2['default'].PropTypes.func.isRequired
 	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 10/21/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _actions = __webpack_require__(159);
+
+	var _actions2 = _interopRequireDefault(_actions);
+
+	var _classnames = __webpack_require__(180);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _modelsRule = __webpack_require__(178);
+
+	var _modelsRule2 = _interopRequireDefault(_modelsRule);
+
+	var _ruleForm = __webpack_require__(182);
+
+	var _ruleForm2 = _interopRequireDefault(_ruleForm);
+
+	var RuleDetails = (function (_React$Component) {
+	    _inherits(RuleDetails, _React$Component);
+
+	    function RuleDetails(props) {
+	        _classCallCheck(this, RuleDetails);
+
+	        _get(Object.getPrototypeOf(RuleDetails.prototype), 'constructor', this).call(this, props);
+	    }
+
+	    _createClass(RuleDetails, [{
+	        key: 'actionCreate',
+	        value: function actionCreate() {
+	            console.info('Create');
+	        }
+	    }, {
+	        key: 'actionDelete',
+	        value: function actionDelete(rule) {
+	            console.info('Delete');
+	        }
+	    }, {
+	        key: 'actionReset',
+	        value: function actionReset() {
+	            console.info('Reset');
+	        }
+	    }, {
+	        key: 'actionSave',
+	        value: function actionSave(rule) {
+	            console.info('Save');
+	        }
+	    }, {
+	        key: 'getActions',
+	        value: function getActions(rule) {
+	            var isCreate = rule.name === _modelsRule2['default'].CREATE;
+	            var okButton = _react2['default'].createElement(
+	                'button',
+	                {
+	                    className: 'btn btn-primary',
+	                    disabled: this.props.valid ? '' : 'disabled',
+	                    onClick: isCreate ? this.actionCreate.bind(this) : this.actionSave.bind(this, rule),
+	                    type: 'button' },
+	                isCreate ? 'Create' : 'Save'
+	            );
+	            var deleteButton = isCreate ? null : _react2['default'].createElement(
+	                'button',
+	                {
+	                    className: 'btn btn-danger',
+	                    onClick: this.actionDelete.bind(this, rule),
+	                    type: 'button' },
+	                'Delete'
+	            );
+	            var resetButton = !isCreate ? null : _react2['default'].createElement(
+	                'button',
+	                {
+	                    className: 'btn btn-warning',
+	                    onClick: this.actionReset.bind(this),
+	                    type: 'button' },
+	                'Reset'
+	            );
+
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'actions' },
+	                okButton,
+	                resetButton,
+	                deleteButton
+	            );
+	        }
+	    }, {
+	        key: 'getName',
+	        value: function getName(rule) {
+	            if (rule.name === _modelsRule2['default'].CREATE) {
+	                return rule.displayName;
+	            }
+	            return 'Rule: ' + rule.displayName;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            if (!this.props.rule) {
+	                return null;
+	            }
+
+	            var name = this.getName(this.props.rule);
+
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'panel panel-default' },
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'panel-heading' },
+	                    name
+	                ),
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'panel-body' },
+	                    _react2['default'].createElement(_ruleForm2['default'], null),
+	                    this.getActions(this.props.rule)
+	                )
+	            );
+	        }
+	    }]);
+
+	    return RuleDetails;
+	})(_react2['default'].Component);
+
+	exports['default'] = RuleDetails;
+
+	RuleDetails.propTypes = {
+	    rule: _react2['default'].PropTypes.object
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 10/21/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _actions = __webpack_require__(159);
+
+	var _actions2 = _interopRequireDefault(_actions);
+
+	var _classnames = __webpack_require__(180);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _modelsRule = __webpack_require__(178);
+
+	var _modelsRule2 = _interopRequireDefault(_modelsRule);
+
+	var RulesList = (function (_React$Component) {
+	    _inherits(RulesList, _React$Component);
+
+	    function RulesList(props) {
+	        _classCallCheck(this, RulesList);
+
+	        _get(Object.getPrototypeOf(RulesList.prototype), 'constructor', this).call(this, props);
+	    }
+
+	    _createClass(RulesList, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'panel panel-default' },
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'panel-heading' },
+	                    'Installed Rules'
+	                ),
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'panel-body' },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'rules' },
+	                        this.renderRules(this.props.rules)
+	                    )
+	                )
+	            );
+	        }
+	    }, {
+	        key: 'renderRules',
+	        value: function renderRules(rules) {
+	            var _this = this;
+
+	            var i = 0,
+	                len = rules.length,
+	                rule = undefined,
+	                result = [];
+
+	            var RuleItem = function RuleItem(data) {
+	                var icon = (0, _classnames2['default'])('fa', data.icon || 'fa-cogs');
+	                var item = (0, _classnames2['default'])('item', {
+	                    selected: _this.props.selected && data.name === _this.props.selected.name
+	                });
+
+	                return _react2['default'].createElement(
+	                    'div',
+	                    { key: data.name, className: item,
+	                        onClick: _this.ruleDidClick.bind(_this, data) },
+	                    _react2['default'].createElement('i', { className: icon }),
+	                    ' ',
+	                    data.displayName
+	                );
+	            };
+
+	            // Rule Creation Item
+	            result.push(RuleItem({ displayName: 'Create Rule', name: _modelsRule2['default'].CREATE, icon: 'fa-plus' }));
+
+	            for (i; i < len; ++i) {
+	                rule = rules[i];
+	                result.push(RuleItem(rule));
+	            }
+
+	            return result;
+	        }
+	    }, {
+	        key: 'ruleDidClick',
+	        value: function ruleDidClick(rule) {
+	            _actions2['default'].selectRule(rule);
+	        }
+	    }]);
+
+	    return RulesList;
+	})(_react2['default'].Component);
+
+	exports['default'] = RulesList;
+	module.exports = exports['default'];
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 10/21/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _actions = __webpack_require__(159);
+
+	var _actions2 = _interopRequireDefault(_actions);
+
+	var _alt = __webpack_require__(160);
+
+	var _alt2 = _interopRequireDefault(_alt);
+
+	var RulesStore = (function () {
+	    function RulesStore() {
+	        _classCallCheck(this, RulesStore);
+
+	        this.bindAction(_actions2['default'].rulesDidUpdate, this.rulesDidUpdate);
+	        this.bindAction(_actions2['default'].selectRule, this.ruleDidSelect);
+
+	        this.state = {
+	            rules: [
+	                //{displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube'},
+	                //{displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo'},
+	                //{displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch'}
+	            ],
+	            selectedRule: null
+	        };
+	    }
+
+	    _createClass(RulesStore, [{
+	        key: 'ruleDidSelect',
+	        value: function ruleDidSelect(rule) {
+	            this.setState({
+	                selectedRule: rule
+	            });
+	        }
+	    }, {
+	        key: 'rulesDidUpdate',
+	        value: function rulesDidUpdate(rules) {
+	            this.setState({
+	                rules: rules
+	            });
+	        }
+	    }]);
+
+	    return RulesStore;
+	})();
+
+	exports['default'] = _alt2['default'].createStore(RulesStore, 'RulesStore');
 	module.exports = exports['default'];
 
 /***/ }

@@ -33,7 +33,7 @@ export default class RuleDetails extends React.Component {
         let okButton = (
             <button
                 className="btn btn-primary"
-                disabled={this.isValidOkButton() ? '' : 'disabled'}
+                disabled={this.props.valid ? '' : 'disabled'}
                 onClick={(isCreate) ? this.actionCreate.bind(this) : this.actionSave.bind(this, rule)}
                 type="button">{(isCreate) ? 'Create' : 'Save'}
             </button>
@@ -67,14 +67,6 @@ export default class RuleDetails extends React.Component {
             return rule.displayName;
         }
         return 'Rule: ' + rule.displayName;
-    }
-
-    inputDidChange() {
-
-    }
-
-    isValidOkButton() {
-        return false;
     }
 
     render() {

@@ -78,7 +78,7 @@ export default class RuleForm extends React.Component {
     }
 }
 
-RuleDetails.propTypes = {
+RuleForm.propTypes = {
     name         : React.PropTypes.string,
     displayName  : React.PropTypes.string,
     regex        : React.PropTypes.string,

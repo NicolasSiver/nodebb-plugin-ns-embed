@@ -30,6 +30,10 @@ class Actions {
     selectRule(rule) {
         return rule;
     }
+
+    updateNewRule(name, displayName, regex, replacement, dirtyField) {
+        return {name, displayName, regex, replacement, dirtyField};
+    }
 }
 
 export default alt.createActions(Actions);
