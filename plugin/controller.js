@@ -30,6 +30,19 @@
         database.getRules(done);
     };
 
+    Controller.saveRule = function (rule, done) {
+        async.series({
+            save: async.apply(database.updateRule, rule.rid, payloadToRule(rule)),
+            rule: async.apply(database.getRule, rule.rid)
+        }, function (error, results) {
+            if (error) {
+                return done(error);
+            }
+
+            done(null, results.rule)
+        });
+    };
+
     function payloadToRule(payload) {
         var rule = {};
 

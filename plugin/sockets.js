@@ -16,6 +16,7 @@
         adminSockets[constants.SOCKET_NAMESPACE].embedRulesGet = Sockets.embedRulesGet;
         adminSockets[constants.SOCKET_NAMESPACE].ruleCreate = Sockets.ruleCreate;
         adminSockets[constants.SOCKET_NAMESPACE].ruleDelete = Sockets.ruleDelete;
+        adminSockets[constants.SOCKET_NAMESPACE].ruleSave = Sockets.ruleSave;
 
         callback();
     };
@@ -34,6 +35,10 @@
 
     Sockets.ruleDelete = function(socket, payload, callback) {
         controller.deleteRule(payload, callback);
+    };
+
+    Sockets.ruleSave = function(socket, payload, callback) {
+        controller.saveRule(payload, callback);
     };
 
 })(module.exports);
