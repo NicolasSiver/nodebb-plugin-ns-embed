@@ -70,7 +70,7 @@ class SocketService {
                     return ForumApp.alertError(error.message);
                 }
 
-                ForumApp.alertSuccess('Rule "' + rule.name + '" is updated');
+                ForumApp.alertSuccess('Rule "' + rule.displayName + '" is updated');
                 Actions.ruleDidUpdate(rule);
                 Actions.getAllRules();
             }
