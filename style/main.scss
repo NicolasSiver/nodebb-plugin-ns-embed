@@ -2,6 +2,12 @@
 @import "vars";
 
 .plugin-embed {
+  .actions {
+    button + button {
+      margin-left: $margin-s;
+    }
+  }
+
   .rules {
     display: flex;
     flex-flow: row wrap;

@@ -16,3 +16,7 @@ Embed media and rich content in posts: youtube, vimeo, twitch etc.
 ## Embeds Supported by Default
 
 Most embeds are responsive with a limit in width (640px)
+
+## TODO
+
+- Core: Change priority for rules

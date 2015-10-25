@@ -19999,6 +19999,14 @@
 	                    type: 'button' },
 	                'Delete'
 	            );
+	            var resetButton = !isCreate ? null : _react2['default'].createElement(
+	                'button',
+	                {
+	                    className: 'btn btn-warning',
+	                    onClick: this.reset.bind(this),
+	                    type: 'button' },
+	                'Reset'
+	            );
 
 	            return _react2['default'].createElement(
 	                'div',
@@ -20012,6 +20020,7 @@
 	                        type: 'button' },
 	                    okMessage
 	                ),
+	                resetButton,
 	                deleteButton
 	            );
 	        }
@@ -20136,6 +20145,11 @@
 	                    this.getActions(this.props.rule)
 	                )
 	            );
+	        }
+	    }, {
+	        key: 'reset',
+	        value: function reset() {
+	            console.log('Resetting...');
 	        }
 	    }, {
 	        key: 'save',
@@ -22021,7 +22035,11 @@
 	        this.bindAction(_actions2['default'].selectRule, this.ruleDidSelect);
 
 	        this.state = {
-	            rules: [{ displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube' }, { displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo' }, { displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch' }],
+	            rules: [
+	                //{displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube'},
+	                //{displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo'},
+	                //{displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch'}
+	            ],
 	            selectedRule: null
 	        };
 	    }

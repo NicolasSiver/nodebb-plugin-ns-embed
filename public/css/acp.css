@@ -2,6 +2,9 @@
  * google-material-color v1.2.6
  * https://github.com/danlevan/google-material-color
  */
+.plugin-embed .actions button + button {
+  margin-left: 8px; }
+
 .plugin-embed .rules {
   display: -webkit-flex;
   display: -ms-flexbox;

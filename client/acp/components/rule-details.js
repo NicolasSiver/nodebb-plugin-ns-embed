@@ -25,6 +25,13 @@ export default class RuleDetails extends React.Component {
                 type="button">Delete
             </button>
         );
+        let resetButton = (!isCreate) ? null : (
+            <button
+                className="btn btn-warning"
+                onClick={this.reset.bind(this)}
+                type="button">Reset
+            </button>
+        );
 
         return (
             <div className="actions">
@@ -35,6 +42,7 @@ export default class RuleDetails extends React.Component {
                     type="button">{okMessage}
                 </button>
 
+                {resetButton}
                 {deleteButton}
             </div>
         );
@@ -118,6 +126,10 @@ export default class RuleDetails extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    reset() {
+        console.log('Resetting...');
     }
 
     save(rule) {

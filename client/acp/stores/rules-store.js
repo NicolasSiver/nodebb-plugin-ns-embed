@@ -12,9 +12,9 @@ class RulesStore {
 
         this.state = {
             rules       : [
-                {displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube'},
-                {displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo'},
-                {displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch'}
+                //{displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube'},
+                //{displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo'},
+                //{displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch'}
             ],
             selectedRule: null
         };
