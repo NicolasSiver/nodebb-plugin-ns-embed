@@ -12,6 +12,7 @@ import SocketMethod from '../models/socket-method';
 class SocketService {
     constructor() {
         this.bindAction(Actions.createNewRule, this.createNewRule);
+        this.bindAction(Actions.deleteRule, this.deleteRule);
         this.bindAction(Actions.getAllRules, this.getAllRules);
     }
 
@@ -25,6 +26,21 @@ class SocketService {
                 }
 
                 Actions.ruleDidCreate();
+                Actions.getAllRules();
+            }
+        );
+    }
+
+    deleteRule(rule) {
+        Socket.emit(
+            SocketMethod.DELETE_RULE,
+            rule,
+            (error, rule) => {
+                if (error) {
+                    return ForumApp.alertError(error.message);
+                }
+
+                Actions.ruleDidDelete(rule);
                 Actions.getAllRules();
             }
         );

@@ -7,6 +7,7 @@ import alt from '../alt';
 
 class RulesStore {
     constructor() {
+        this.bindAction(Actions.ruleDidDelete, this.ruleDidDelete);
         this.bindAction(Actions.rulesDidUpdate, this.rulesDidUpdate);
         this.bindAction(Actions.selectRule, this.ruleDidSelect);
 
@@ -18,6 +19,14 @@ class RulesStore {
             ],
             selectedRule: null
         };
+    }
+
+    ruleDidDelete(rule) {
+        if (this.state.selectedRule && this.state.selectedRule.name === rule.name) {
+            this.setState({
+                selectedRule: null
+            });
+        }
     }
 
     ruleDidSelect(rule) {

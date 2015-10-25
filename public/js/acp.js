@@ -19786,6 +19786,11 @@
 	            this.dispatch();
 	        }
 	    }, {
+	        key: 'deleteRule',
+	        value: function deleteRule(rule) {
+	            return rule;
+	        }
+	    }, {
 	        key: 'getAllRules',
 	        value: function getAllRules() {
 	            this.dispatch();
@@ -19799,6 +19804,11 @@
 	        key: 'ruleDidCreate',
 	        value: function ruleDidCreate() {
 	            this.dispatch();
+	        }
+	    }, {
+	        key: 'ruleDidDelete',
+	        value: function ruleDidDelete(rule) {
+	            return rule;
 	        }
 	    }, {
 	        key: 'rulesDidUpdate',
@@ -21447,6 +21457,7 @@
 	});
 	exports['default'] = Object.freeze({
 	    CREATE_RULE: 'admin.plugins.ns-embed.ruleCreate',
+	    DELETE_RULE: 'admin.plugins.ns-embed.ruleDelete',
 	    GET_ALL_RULES: 'admin.plugins.ns-embed.embedRulesGet'
 	});
 	module.exports = exports['default'];
@@ -22156,7 +22167,9 @@
 
 	    _createClass(RuleDetails, [{
 	        key: 'actionDelete',
-	        value: function actionDelete() {}
+	        value: function actionDelete() {
+	            _actions2['default'].deleteRule(this.props.rule);
+	        }
 	    }, {
 	        key: 'actionSave',
 	        value: function actionSave() {}
@@ -22190,10 +22203,10 @@
 	                        propDidChange: this.fieldDidChange.bind(this) }),
 	                    _react2['default'].createElement(_formActions2['default'], {
 	                        okButton: 'Save',
-	                        okButtonClick: this.actionSave,
+	                        okButtonClick: this.actionSave.bind(this),
 	                        okValid: true,
 	                        dangerButton: 'Delete',
-	                        dangerButtonClick: this.actionDelete,
+	                        dangerButtonClick: this.actionDelete.bind(this),
 	                        dangerValid: true })
 	                )
 	            );
@@ -22360,6 +22373,7 @@
 	    function RulesStore() {
 	        _classCallCheck(this, RulesStore);
 
+	        this.bindAction(_actions2['default'].ruleDidDelete, this.ruleDidDelete);
 	        this.bindAction(_actions2['default'].rulesDidUpdate, this.rulesDidUpdate);
 	        this.bindAction(_actions2['default'].selectRule, this.ruleDidSelect);
 
@@ -22374,6 +22388,15 @@
 	    }
 
 	    _createClass(RulesStore, [{
+	        key: 'ruleDidDelete',
+	        value: function ruleDidDelete(rule) {
+	            if (this.state.selectedRule && this.state.selectedRule.name === rule.name) {
+	                this.setState({
+	                    selectedRule: null
+	                });
+	            }
+	        }
+	    }, {
 	        key: 'ruleDidSelect',
 	        value: function ruleDidSelect(rule) {
 	            this.setState({
@@ -22538,6 +22561,7 @@
 	        _classCallCheck(this, SocketService);
 
 	        this.bindAction(_actions2['default'].createNewRule, this.createNewRule);
+	        this.bindAction(_actions2['default'].deleteRule, this.deleteRule);
 	        this.bindAction(_actions2['default'].getAllRules, this.getAllRules);
 	    }
 
@@ -22550,6 +22574,18 @@
 	                }
 
 	                _actions2['default'].ruleDidCreate();
+	                _actions2['default'].getAllRules();
+	            });
+	        }
+	    }, {
+	        key: 'deleteRule',
+	        value: function deleteRule(rule) {
+	            _socket2['default'].emit(_modelsSocketMethod2['default'].DELETE_RULE, rule, function (error, rule) {
+	                if (error) {
+	                    return _app2['default'].alertError(error.message);
+	                }
+
+	                _actions2['default'].ruleDidDelete(rule);
 	                _actions2['default'].getAllRules();
 	            });
 	        }

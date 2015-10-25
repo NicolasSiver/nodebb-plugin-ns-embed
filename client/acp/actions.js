@@ -8,20 +8,28 @@ import SocketMethod from './models/socket-method';
 
 class Actions {
 
-    createNewRule(){
+    createNewRule() {
         this.dispatch();
+    }
+
+    deleteRule(rule) {
+        return rule;
     }
 
     getAllRules() {
         this.dispatch();
     }
 
-    newRuleFieldDidUpdate(field, value){
+    newRuleFieldDidUpdate(field, value) {
         return {field, value};
     }
 
-    ruleDidCreate(){
+    ruleDidCreate() {
         this.dispatch();
+    }
+
+    ruleDidDelete(rule) {
+        return rule;
     }
 
     rulesDidUpdate(rules) {
@@ -32,7 +40,7 @@ class Actions {
         return rule;
     }
 
-    resetNewRule(){
+    resetNewRule() {
         this.dispatch();
     }
 

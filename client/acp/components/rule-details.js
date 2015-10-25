@@ -14,7 +14,7 @@ export default class RuleDetails extends React.Component {
     }
 
     actionDelete() {
-
+        Actions.deleteRule(this.props.rule);
     }
 
     actionSave() {
@@ -44,10 +44,10 @@ export default class RuleDetails extends React.Component {
 
                     <FormActions
                         okButton="Save"
-                        okButtonClick={this.actionSave}
+                        okButtonClick={this.actionSave.bind(this)}
                         okValid={true}
                         dangerButton="Delete"
-                        dangerButtonClick={this.actionDelete}
+                        dangerButtonClick={this.actionDelete.bind(this)}
                         dangerValid={true}/>
 
                 </div>
