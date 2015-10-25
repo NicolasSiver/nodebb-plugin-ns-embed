@@ -4,6 +4,7 @@
     var async   = require('async'),
 
         filters = require('./filters'),
+        rules   = require('./rules'),
         sockets = require('./sockets');
 
     //NodeBB list of Hooks: https://github.com/NodeBB/NodeBB/wiki/Hooks
@@ -26,7 +27,8 @@
                 router.get(apiUri, renderAdmin);
 
                 async.series([
-                    async.apply(sockets.init)
+                    async.apply(sockets.init),
+                    async.apply(rules.invalidate)
                 ], callback);
             }
         }
