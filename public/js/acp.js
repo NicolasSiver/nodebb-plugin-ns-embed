@@ -19804,6 +19804,11 @@
 	            return rule;
 	        }
 	    }, {
+	        key: 'resetNewRule',
+	        value: function resetNewRule() {
+	            this.dispatch();
+	        }
+	    }, {
 	        key: 'updateNewRule',
 	        value: function updateNewRule(name, displayName, regex, replacement, dirtyField) {
 	            return { name: name, displayName: displayName, regex: regex, replacement: replacement, dirtyField: dirtyField };
@@ -21697,6 +21702,11 @@
 	    }
 
 	    _createClass(RuleCreate, [{
+	        key: 'actionReset',
+	        value: function actionReset() {
+	            _actions2['default'].resetNewRule();
+	        }
+	    }, {
 	        key: 'fieldDidChange',
 	        value: function fieldDidChange(field, value) {
 	            _actions2['default'].newRuleFieldDidUpdate(field, value);
@@ -21722,6 +21732,7 @@
 	                        okButton: 'Create',
 	                        okValid: this.props.valid,
 	                        warningButton: 'Reset',
+	                        warningButtonClick: this.actionReset,
 	                        warningValid: true })
 	                )
 	            );
@@ -21826,15 +21837,18 @@
 	        _classCallCheck(this, CreateStore);
 
 	        this.removeSpecialChars = /[^\w]/gi;
-	        this.bindAction(_actions2['default'].newRuleFieldDidUpdate, this.update);
-
-	        this.state = {
+	        this.initState = {
 	            name: null,
 	            displayName: null,
 	            regex: null,
 	            replacement: null,
 	            valid: false
 	        };
+
+	        this.bindAction(_actions2['default'].newRuleFieldDidUpdate, this.update);
+	        this.bindAction(_actions2['default'].resetNewRule, this.reset);
+
+	        this.state = (0, _objectAssign2['default'])({}, this.initState);
 	    }
 
 	    _createClass(CreateStore, [{
@@ -21872,6 +21886,11 @@
 	            }
 
 	            return true;
+	        }
+	    }, {
+	        key: 'reset',
+	        value: function reset() {
+	            this.setState(this.initState);
 	        }
 	    }, {
 	        key: 'sanitizeName',

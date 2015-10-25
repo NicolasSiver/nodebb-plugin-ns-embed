@@ -22,6 +22,10 @@ class RuleCreate extends React.Component {
         super(props);
     }
 
+    actionReset() {
+        Actions.resetNewRule();
+    }
+
     fieldDidChange(field, value) {
         Actions.newRuleFieldDidUpdate(field, value);
     }
@@ -41,6 +45,7 @@ class RuleCreate extends React.Component {
                         okButton="Create"
                         okValid={this.props.valid}
                         warningButton="Reset"
+                        warningButtonClick={this.actionReset}
                         warningValid={true}/>
 
                 </div>

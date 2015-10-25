@@ -35,6 +35,10 @@ class Actions {
         return rule;
     }
 
+    resetNewRule(){
+        this.dispatch();
+    }
+
     updateNewRule(name, displayName, regex, replacement, dirtyField) {
         return {name, displayName, regex, replacement, dirtyField};
     }

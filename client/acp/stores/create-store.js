@@ -8,15 +8,19 @@ import objectAssign from 'object-assign';
 class CreateStore {
     constructor() {
         this.removeSpecialChars = /[^\w]/gi;
-        this.bindAction(Actions.newRuleFieldDidUpdate, this.update);
-
-        this.state = {
+        this.initState = {
             name       : null,
             displayName: null,
             regex      : null,
             replacement: null,
             valid      : false
         };
+
+        this.bindAction(Actions.newRuleFieldDidUpdate, this.update);
+        this.bindAction(Actions.resetNewRule, this.reset);
+
+
+        this.state = objectAssign({}, this.initState);
     }
 
     isValid(...fields) {
@@ -27,6 +31,10 @@ class CreateStore {
         }
 
         return true;
+    }
+
+    reset() {
+        this.setState(this.initState);
     }
 
     sanitizeName(field, value) {
