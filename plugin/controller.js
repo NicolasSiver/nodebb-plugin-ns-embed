@@ -38,7 +38,6 @@
             if (error) {
                 return done(error);
             }
-
             done(null, results.rule)
         });
     };

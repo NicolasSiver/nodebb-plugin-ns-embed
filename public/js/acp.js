@@ -22383,6 +22383,10 @@
 
 	var _alt2 = _interopRequireDefault(_alt);
 
+	var _objectAssign = __webpack_require__(177);
+
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
 	var RulesStore = (function () {
 	    function RulesStore() {
 	        _classCallCheck(this, RulesStore);
@@ -22401,30 +22405,15 @@
 	    _createClass(RulesStore, [{
 	        key: 'gerRuleById',
 	        value: function gerRuleById(id, rules) {
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
+	            var i = 0,
+	                len = rules.length,
+	                rule = undefined;
 
-	            try {
-	                for (var _iterator = rules[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var rule = _step.value;
+	            for (i; i < len; ++i) {
+	                rule = rules[i];
 
-	                    if (rule.rid === id) {
-	                        return rule;
-	                    }
-	                }
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator['return']) {
-	                        _iterator['return']();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
+	                if (rule.rid === id) {
+	                    return { index: i, rule: (0, _objectAssign2['default'])({}, rule) };
 	                }
 	            }
 
@@ -22457,12 +22446,21 @@
 	        key: 'ruleShouldUpdate',
 	        value: function ruleShouldUpdate(payload) {
 	            var rules = this.state.rules.slice();
-	            var rule = this.gerRuleById(payload.rule.rid, rules);
-	            console.log(rules, rule, payload);
+	            var searchResult = this.gerRuleById(payload.rule.rid, rules);
+	            var rule = searchResult.rule;
+	            var update = {};
+
 	            rule[payload.field] = payload.value;
-	            this.setState({
-	                rules: rules
-	            });
+	            rules[searchResult.index] = rule;
+
+	            update.rules = rules;
+
+	            // Update selection if needed
+	            if (this.state.selectedRule && this.state.selectedRule.rid === rule.rid) {
+	                update.selectedRule = rule;
+	            }
+
+	            this.setState(update);
 	        }
 	    }]);
 

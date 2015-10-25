@@ -3,7 +3,7 @@
  */
 import Actions from '../actions';
 import alt from '../alt';
-
+import objectAssign from 'object-assign';
 
 class RulesStore {
     constructor() {
@@ -19,9 +19,13 @@ class RulesStore {
     }
 
     gerRuleById(id, rules) {
-        for (let rule of rules) {
+        let i = 0, len = rules.length, rule;
+
+        for (i; i < len; ++i) {
+            rule = rules[i];
+
             if (rule.rid === id) {
-                return rule;
+                return {index: i, rule: objectAssign({}, rule)};
             }
         }
 
@@ -50,11 +54,21 @@ class RulesStore {
 
     ruleShouldUpdate(payload) {
         let rules = this.state.rules.slice();
-        let rule = this.gerRuleById(payload.rule.rid, rules);
+        let searchResult = this.gerRuleById(payload.rule.rid, rules);
+        let rule = searchResult.rule;
+        let update = {};
+
         rule[payload.field] = payload.value;
-        this.setState({
-            rules: rules
-        });
+        rules[searchResult.index] = rule;
+
+        update.rules = rules;
+
+        // Update selection if needed
+        if (this.state.selectedRule && this.state.selectedRule.rid === rule.rid) {
+            update.selectedRule = rule;
+        }
+
+        this.setState(update);
     }
 }
 
