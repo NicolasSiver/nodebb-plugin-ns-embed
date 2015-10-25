@@ -4,7 +4,8 @@
 (function (Rules) {
     'use strict';
 
-    var database = require('./database');
+    var database = require('./database'),
+        logger   = require('./logger');
 
     var rulesList = [];
 
@@ -21,6 +22,9 @@
                     replacement: rule.replacement
                 };
             });
+
+            logger.log('verbose', 'Updating rule list, total rules: %d', rulesList.length);
+
             done();
         });
     };
