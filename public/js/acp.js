@@ -21805,6 +21805,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var _actions = __webpack_require__(159);
@@ -21814,6 +21816,10 @@
 	var _alt = __webpack_require__(160);
 
 	var _alt2 = _interopRequireDefault(_alt);
+
+	var _objectAssign = __webpack_require__(177);
+
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
 	var CreateStore = (function () {
 	    function CreateStore() {
@@ -21845,7 +21851,7 @@
 	                for (var _iterator = fields[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	                    var field = _step.value;
 
-	                    if (typeof field === 'string' && field.length == 0) {
+	                    if (field === null || typeof field === 'string' && field.length == 0) {
 	                        return false;
 	                    }
 	                }
@@ -21869,10 +21875,10 @@
 	    }, {
 	        key: 'update',
 	        value: function update(data) {
-	            var update = {};
-	            update[data.field] = data.value;
-	            update.valid = this.isValid(data.value);
-	            this.setState(update);
+	            var update = _defineProperty({}, data.field, data.value);
+	            var state = (0, _objectAssign2['default'])(this.state, update);
+	            state.valid = this.isValid(state.name, state.displayName, state.regex, state.replacement);
+	            this.setState(state);
 	        }
 	    }]);
 

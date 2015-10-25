@@ -3,7 +3,7 @@
  */
 import Actions from '../actions';
 import alt from '../alt';
-
+import objectAssign from 'object-assign';
 
 class CreateStore {
     constructor() {
@@ -19,8 +19,8 @@ class CreateStore {
     }
 
     isValid(...fields) {
-        for(let field of fields){
-            if(typeof field === 'string' && field.length == 0){
+        for (let field of fields) {
+            if (field === null || typeof field === 'string' && field.length == 0) {
                 return false;
             }
         }
@@ -29,10 +29,10 @@ class CreateStore {
     }
 
     update(data) {
-        let update = {};
-        update[data.field] = data.value;
-        update.valid = this.isValid(data.value);
-        this.setState(update);
+        var update = {[data.field]: data.value};
+        let state = objectAssign(this.state, update);
+        state.valid = this.isValid(state.name, state.displayName, state.regex, state.replacement);
+        this.setState(state);
     }
 }
 
