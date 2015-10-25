@@ -16,6 +16,16 @@
         ], done);
     };
 
+    Controller.deleteRule = function (rule, done) {
+        database.deleteRule(rule.rid, function (error) {
+            if (error) {
+                return done(error);
+            }
+
+            done(null, rule);
+        });
+    };
+
     Controller.getAllRules = function (done) {
         database.getRules(done);
     };
