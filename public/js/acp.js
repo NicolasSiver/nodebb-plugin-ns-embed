@@ -19651,11 +19651,11 @@
 
 	var _ruleDetails2 = _interopRequireDefault(_ruleDetails);
 
-	var _rulesList = __webpack_require__(178);
+	var _rulesList = __webpack_require__(181);
 
 	var _rulesList2 = _interopRequireDefault(_rulesList);
 
-	var _storesRulesStore = __webpack_require__(179);
+	var _storesRulesStore = __webpack_require__(182);
 
 	var _storesRulesStore2 = _interopRequireDefault(_storesRulesStore);
 
@@ -19956,7 +19956,7 @@
 
 	var _actions2 = _interopRequireDefault(_actions);
 
-	var _classnames = __webpack_require__(176);
+	var _classnames = __webpack_require__(179);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -19964,7 +19964,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _modelsRule = __webpack_require__(177);
+	var _modelsRule = __webpack_require__(180);
 
 	var _modelsRule2 = _interopRequireDefault(_modelsRule);
 
@@ -20169,12 +20169,43 @@
 
 	var _alt2 = _interopRequireDefault(_alt);
 
+	var _app = __webpack_require__(176);
+
+	var _app2 = _interopRequireDefault(_app);
+
+	var _socket = __webpack_require__(177);
+
+	var _socket2 = _interopRequireDefault(_socket);
+
+	var _modelsSocketMethod = __webpack_require__(178);
+
+	var _modelsSocketMethod2 = _interopRequireDefault(_modelsSocketMethod);
+
 	var Actions = (function () {
 	    function Actions() {
 	        _classCallCheck(this, Actions);
 	    }
 
 	    _createClass(Actions, [{
+	        key: 'rulesDidUpdate',
+	        value: function rulesDidUpdate(rules) {
+	            return rules;
+	        }
+	    }, {
+	        key: 'getAllRules',
+	        value: function getAllRules() {
+	            var _this = this;
+
+	            this.dispatch();
+	            _socket2['default'].emit(_modelsSocketMethod2['default'].GET_ALL_RULES, {}, function (error, rules) {
+	                if (error) {
+	                    return _app2['default'].alertError(error.message);
+	                }
+
+	                _this.rulesDidUpdate(rules);
+	            });
+	        }
+	    }, {
 	        key: 'selectRule',
 	        value: function selectRule(rule) {
 	            return rule;
@@ -21737,6 +21768,32 @@
 
 /***/ },
 /* 176 */
+/***/ function(module, exports) {
+
+	module.exports = app;
+
+/***/ },
+/* 177 */
+/***/ function(module, exports) {
+
+	module.exports = socket;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+	exports['default'] = Object.freeze({
+	    GET_ALL_RULES: 'admin.plugins.ns-embed.embedRulesGet'
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -21790,7 +21847,7 @@
 
 
 /***/ },
-/* 177 */
+/* 180 */
 /***/ function(module, exports) {
 
 	/**
@@ -21807,7 +21864,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 178 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21833,7 +21890,7 @@
 
 	var _actions2 = _interopRequireDefault(_actions);
 
-	var _classnames = __webpack_require__(176);
+	var _classnames = __webpack_require__(179);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -21841,7 +21898,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _modelsRule = __webpack_require__(177);
+	var _modelsRule = __webpack_require__(180);
 
 	var _modelsRule2 = _interopRequireDefault(_modelsRule);
 
@@ -21929,7 +21986,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 179 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21959,7 +22016,8 @@
 	    function RulesStore() {
 	        _classCallCheck(this, RulesStore);
 
-	        this.bindAction(_actions2['default'].selectRule, this.ruleDidSelect);
+	        this.bindAction(_actions2['default'].getAllRules, this.getRules);
+	        this.bindAction(_actions2['default'].rulesDidUpdate, this.rulesDidUpdate);
 
 	        this.state = {
 	            rules: [{ displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube' }, { displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo' }, { displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch' }],
@@ -21972,6 +22030,13 @@
 	        value: function ruleDidSelect(rule) {
 	            this.setState({
 	                selectedRule: rule
+	            });
+	        }
+	    }, {
+	        key: 'rulesDidUpdate',
+	        value: function rulesDidUpdate(rules) {
+	            this.setState({
+	                rules: rules
 	            });
 	        }
 	    }]);

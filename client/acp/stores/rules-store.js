@@ -4,9 +4,11 @@
 import Actions from '../actions';
 import alt from '../alt';
 
+
 class RulesStore {
     constructor() {
-        this.bindAction(Actions.selectRule, this.ruleDidSelect);
+        this.bindAction(Actions.getAllRules, this.getRules);
+        this.bindAction(Actions.rulesDidUpdate, this.rulesDidUpdate);
 
         this.state = {
             rules       : [
@@ -22,6 +24,12 @@ class RulesStore {
         this.setState({
             selectedRule: rule
         });
+    }
+
+    rulesDidUpdate(rules) {
+        this.setState({
+            rules: rules
+        })
     }
 }
 
