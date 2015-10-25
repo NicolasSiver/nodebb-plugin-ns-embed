@@ -22,6 +22,10 @@ class RuleCreate extends React.Component {
         super(props);
     }
 
+    actionCreate(){
+        Actions.createNewRule();
+    }
+
     actionReset() {
         Actions.resetNewRule();
     }
@@ -43,6 +47,7 @@ class RuleCreate extends React.Component {
 
                     <FormActions
                         okButton="Create"
+                        okButtonClick={this.actionCreate}
                         okValid={this.props.valid}
                         warningButton="Reset"
                         warningButtonClick={this.actionReset}

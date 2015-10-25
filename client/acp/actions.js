@@ -8,27 +8,20 @@ import SocketMethod from './models/socket-method';
 
 class Actions {
 
-    rulesDidUpdate(rules) {
-        return rules;
+    createNewRule(){
+        this.dispatch();
     }
 
     getAllRules() {
         this.dispatch();
-        Socket.emit(
-            SocketMethod.GET_ALL_RULES,
-            {},
-            (error, rules) => {
-                if (error) {
-                    return ForumApp.alertError(error.message);
-                }
-
-                this.actions.rulesDidUpdate(rules);
-            }
-        );
     }
 
     newRuleFieldDidUpdate(field, value){
         return {field, value};
+    }
+
+    rulesDidUpdate(rules) {
+        return rules;
     }
 
     selectRule(rule) {

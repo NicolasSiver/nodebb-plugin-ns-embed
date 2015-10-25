@@ -19775,28 +19775,24 @@
 	    }
 
 	    _createClass(Actions, [{
-	        key: 'rulesDidUpdate',
-	        value: function rulesDidUpdate(rules) {
-	            return rules;
+	        key: 'createNewRule',
+	        value: function createNewRule() {
+	            this.dispatch();
 	        }
 	    }, {
 	        key: 'getAllRules',
 	        value: function getAllRules() {
-	            var _this = this;
-
 	            this.dispatch();
-	            _socket2['default'].emit(_modelsSocketMethod2['default'].GET_ALL_RULES, {}, function (error, rules) {
-	                if (error) {
-	                    return _app2['default'].alertError(error.message);
-	                }
-
-	                _this.actions.rulesDidUpdate(rules);
-	            });
 	        }
 	    }, {
 	        key: 'newRuleFieldDidUpdate',
 	        value: function newRuleFieldDidUpdate(field, value) {
 	            return { field: field, value: value };
+	        }
+	    }, {
+	        key: 'rulesDidUpdate',
+	        value: function rulesDidUpdate(rules) {
+	            return rules;
 	        }
 	    }, {
 	        key: 'selectRule',
@@ -21702,6 +21698,11 @@
 	    }
 
 	    _createClass(RuleCreate, [{
+	        key: 'actionCreate',
+	        value: function actionCreate() {
+	            _actions2['default'].createNewRule();
+	        }
+	    }, {
 	        key: 'actionReset',
 	        value: function actionReset() {
 	            _actions2['default'].resetNewRule();
@@ -21730,6 +21731,7 @@
 	                        propDidChange: this.fieldDidChange.bind(this) })),
 	                    _react2['default'].createElement(_formActions2['default'], {
 	                        okButton: 'Create',
+	                        okButtonClick: this.actionCreate,
 	                        okValid: this.props.valid,
 	                        warningButton: 'Reset',
 	                        warningButtonClick: this.actionReset,
