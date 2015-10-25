@@ -7,7 +7,7 @@ import alt from '../alt';
 
 class CreateStore {
     constructor() {
-        this.bindAction(Actions.updateNewRule, this.update);
+        this.bindAction(Actions.newRuleFieldDidUpdate, this.update);
 
         this.state = {
             name       : null,
@@ -29,13 +29,10 @@ class CreateStore {
     }
 
     update(data) {
-        this.setState({
-            name       : data.name,
-            displayName: data.displayName,
-            regex      : data.regex,
-            replacement: data.replacement,
-            valid      : this.isValid(data.name, data.displayName, data.regex, data.replacement)
-        });
+        let update = {};
+        update[data.field] = data.value;
+        update.valid = this.isValid(data.value);
+        this.setState(update);
     }
 }
 

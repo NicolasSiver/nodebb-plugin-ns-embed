@@ -19794,6 +19794,11 @@
 	            });
 	        }
 	    }, {
+	        key: 'newRuleFieldDidUpdate',
+	        value: function newRuleFieldDidUpdate(field, value) {
+	            return { field: field, value: value };
+	        }
+	    }, {
 	        key: 'selectRule',
 	        value: function selectRule(rule) {
 	            return rule;
@@ -21630,6 +21635,8 @@
 	    value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -21655,6 +21662,10 @@
 	var _storesCreateStore = __webpack_require__(181);
 
 	var _storesCreateStore2 = _interopRequireDefault(_storesCreateStore);
+
+	var _formActions = __webpack_require__(186);
+
+	var _formActions2 = _interopRequireDefault(_formActions);
 
 	var _react = __webpack_require__(1);
 
@@ -21686,6 +21697,11 @@
 	    }
 
 	    _createClass(RuleCreate, [{
+	        key: 'fieldDidChange',
+	        value: function fieldDidChange(field, value) {
+	            _actions2['default'].newRuleFieldDidUpdate(field, value);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 
@@ -21700,7 +21716,13 @@
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'panel-body' },
-	                    _react2['default'].createElement(_ruleForm2['default'], this.props)
+	                    _react2['default'].createElement(_ruleForm2['default'], _extends({}, this.props, {
+	                        propDidChange: this.fieldDidChange.bind(this) })),
+	                    _react2['default'].createElement(_formActions2['default'], {
+	                        okButton: 'Create',
+	                        okValid: this.props.valid,
+	                        warningButton: 'Reset',
+	                        warningValid: true })
 	                )
 	            );
 	        }
@@ -21797,7 +21819,7 @@
 	    function CreateStore() {
 	        _classCallCheck(this, CreateStore);
 
-	        this.bindAction(_actions2['default'].updateNewRule, this.update);
+	        this.bindAction(_actions2['default'].newRuleFieldDidUpdate, this.update);
 
 	        this.state = {
 	            name: null,
@@ -21847,13 +21869,10 @@
 	    }, {
 	        key: 'update',
 	        value: function update(data) {
-	            this.setState({
-	                name: data.name,
-	                displayName: data.displayName,
-	                regex: data.regex,
-	                replacement: data.replacement,
-	                valid: this.isValid(data.name, data.displayName, data.regex, data.replacement)
-	            });
+	            var update = {};
+	            update[data.field] = data.value;
+	            update.valid = this.isValid(data.value);
+	            this.setState(update);
 	        }
 	    }]);
 
@@ -21906,7 +21925,7 @@
 	    _createClass(RuleForm, [{
 	        key: 'inputDidChange',
 	        value: function inputDidChange(field, event) {
-	            console.log(field, event.target.value);
+	            this.props.propDidChange(field, event.target.value);
 	        }
 	    }, {
 	        key: 'render',
@@ -22363,6 +22382,97 @@
 	})();
 
 	exports['default'] = _alt2['default'].createStore(RulesStore, 'RulesStore');
+	module.exports = exports['default'];
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 10/25/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _classnames = __webpack_require__(180);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var FormActions = (function (_React$Component) {
+	    _inherits(FormActions, _React$Component);
+
+	    function FormActions(props) {
+	        _classCallCheck(this, FormActions);
+
+	        _get(Object.getPrototypeOf(FormActions.prototype), 'constructor', this).call(this, props);
+	    }
+
+	    _createClass(FormActions, [{
+	        key: 'createButton',
+	        value: function createButton(text, style, valid, callback) {
+	            callback = callback || function (e) {
+	                console.warn('Action Callback is not provided');
+	            };
+	            return _react2['default'].createElement(
+	                'button',
+	                {
+	                    className: style,
+	                    disabled: valid ? '' : 'disabled',
+	                    onClick: callback,
+	                    type: 'button' },
+	                text
+	            );
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var okButton = this.props.okButton ? this.createButton(this.props.okButton, 'btn btn-primary', this.props.okValid, this.props.okButtonClick) : null;
+	            var warningButton = this.props.warningButton ? this.createButton(this.props.warningButton, 'btn btn-warning', this.props.warningValid, this.props.warningButtonClick) : null;
+	            var dangerButton = this.props.dangerButton ? this.createButton(this.props.dangerButton, 'btn btn-danger', this.props.dangerValid, this.props.dangerButtonClick) : null;
+
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'actions' },
+	                okButton,
+	                warningButton,
+	                dangerButton
+	            );
+	        }
+	    }]);
+
+	    return FormActions;
+	})(_react2['default'].Component);
+
+	exports['default'] = FormActions;
+
+	FormActions.propTypes = {
+	    okButton: _react2['default'].PropTypes.string,
+	    dangerButton: _react2['default'].PropTypes.string,
+	    warningButton: _react2['default'].PropTypes.string,
+	    okButtonClick: _react2['default'].PropTypes.func,
+	    dangerButtonClick: _react2['default'].PropTypes.func,
+	    warningButtonClick: _react2['default'].PropTypes.func,
+	    okValid: _react2['default'].PropTypes.bool,
+	    dangerValid: _react2['default'].PropTypes.bool,
+	    warningValid: _react2['default'].PropTypes.bool
+	};
 	module.exports = exports['default'];
 
 /***/ }

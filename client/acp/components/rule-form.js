@@ -10,7 +10,7 @@ export default class RuleForm extends React.Component {
     }
 
     inputDidChange(field, event) {
-        console.log(field, event.target.value);
+        this.props.propDidChange(field, event.target.value);
     }
 
     render() {

@@ -27,6 +27,10 @@ class Actions {
         );
     }
 
+    newRuleFieldDidUpdate(field, value){
+        return {field, value};
+    }
+
     selectRule(rule) {
         return rule;
     }

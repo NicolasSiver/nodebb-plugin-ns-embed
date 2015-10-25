@@ -5,6 +5,7 @@ import Actions from '../actions';
 import classNames from 'classnames';
 import connectToStores from 'alt/utils/connectToStores';
 import CreateStore from '../stores/create-store';
+import FormActions from './form-actions';
 import React from 'react';
 import RuleForm from './rule-form';
 
@@ -21,6 +22,10 @@ class RuleCreate extends React.Component {
         super(props);
     }
 
+    fieldDidChange(field, value) {
+        Actions.newRuleFieldDidUpdate(field, value);
+    }
+
     render() {
 
         return (
@@ -29,7 +34,14 @@ class RuleCreate extends React.Component {
                 <div className="panel-body">
 
                     <RuleForm
-                        {...this.props}/>
+                        {...this.props}
+                        propDidChange={this.fieldDidChange.bind(this)}/>
+
+                    <FormActions
+                        okButton="Create"
+                        okValid={this.props.valid}
+                        warningButton="Reset"
+                        warningValid={true}/>
 
                 </div>
             </div>

@@ -24,19 +24,19 @@ export default class FormActions extends React.Component {
     }
 
     render() {
-        let okButton = (this.props.okButton) ? createButton(
+        let okButton = (this.props.okButton) ? this.createButton(
             this.props.okButton,
             'btn btn-primary',
             this.props.okValid,
             this.props.okButtonClick
         ) : null;
-        let warningButton = (this.props.warningButton) ? createButton(
+        let warningButton = (this.props.warningButton) ? this.createButton(
             this.props.warningButton,
             'btn btn-warning',
             this.props.warningValid,
             this.props.warningButtonClick
         ) : null;
-        let dangerButton = (this.props.dangerButton) ? createButton(
+        let dangerButton = (this.props.dangerButton) ? this.createButton(
             this.props.dangerButton,
             'btn btn-danger',
             this.props.dangerValid,
