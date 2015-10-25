@@ -19635,6 +19635,10 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var _actions = __webpack_require__(163);
+
+	var _actions2 = _interopRequireDefault(_actions);
+
 	var _altUtilsConnectToStores = __webpack_require__(159);
 
 	var _altUtilsConnectToStores2 = _interopRequireDefault(_altUtilsConnectToStores);
@@ -19683,7 +19687,7 @@
 	    _createClass(Admin, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            // Fire Actions
+	            _actions2['default'].getAllRules();
 	        }
 	    }, {
 	        key: 'render',
@@ -20202,7 +20206,7 @@
 	                    return _app2['default'].alertError(error.message);
 	                }
 
-	                _this.rulesDidUpdate(rules);
+	                _this.actions.rulesDidUpdate(rules);
 	            });
 	        }
 	    }, {
@@ -22016,8 +22020,8 @@
 	    function RulesStore() {
 	        _classCallCheck(this, RulesStore);
 
-	        this.bindAction(_actions2['default'].getAllRules, this.getRules);
 	        this.bindAction(_actions2['default'].rulesDidUpdate, this.rulesDidUpdate);
+	        this.bindAction(_actions2['default'].selectRule, this.ruleDidSelect);
 
 	        this.state = {
 	            rules: [{ displayName: 'Youtube', name: 'youtube', icon: 'fa-youtube' }, { displayName: 'Vimeo', name: 'vimeo', icon: 'fa-vimeo' }, { displayName: 'Twitch', name: 'twitch', icon: 'fa-twitch' }],

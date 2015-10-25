@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-embed#readme",
   "dependencies": {
-    "async": "^1.4.2"
+    "async": "^1.4.2",
+    "object-assign": "^4.0.1"
   },
   "devDependencies": {
     "browser-sync": "^2.9.11",

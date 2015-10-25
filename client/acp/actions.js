@@ -22,7 +22,7 @@ class Actions {
                     return ForumApp.alertError(error.message);
                 }
 
-                this.rulesDidUpdate(rules);
+                this.actions.rulesDidUpdate(rules);
             }
         );
     }

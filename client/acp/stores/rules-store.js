@@ -7,8 +7,8 @@ import alt from '../alt';
 
 class RulesStore {
     constructor() {
-        this.bindAction(Actions.getAllRules, this.getRules);
         this.bindAction(Actions.rulesDidUpdate, this.rulesDidUpdate);
+        this.bindAction(Actions.selectRule, this.ruleDidSelect);
 
         this.state = {
             rules       : [

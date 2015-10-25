@@ -1,6 +1,7 @@
 /**
  * Created by Nicolas on 10/21/15.
  */
+import Actions from '../actions';
 import connectToStores from 'alt/utils/connectToStores';
 import objectAssign from 'object-assign';
 import React from 'react';
@@ -22,7 +23,7 @@ class Admin extends React.Component {
     }
 
     componentDidMount() {
-        // Fire Actions
+        Actions.getAllRules();
     }
 
     render() {
