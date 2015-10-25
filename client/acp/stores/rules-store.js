@@ -10,11 +10,22 @@ class RulesStore {
         this.bindAction(Actions.ruleDidDelete, this.ruleDidDelete);
         this.bindAction(Actions.rulesDidUpdate, this.rulesDidUpdate);
         this.bindAction(Actions.selectRule, this.ruleDidSelect);
+        this.bindAction(Actions.updateRule, this.ruleShouldUpdate);
 
         this.state = {
             rules       : [],
             selectedRule: null
         };
+    }
+
+    gerRuleById(id, rules) {
+        for (let rule of rules) {
+            if (rule.rid === id) {
+                return rule;
+            }
+        }
+
+        return null;
     }
 
     ruleDidDelete(rule) {
@@ -35,6 +46,15 @@ class RulesStore {
         this.setState({
             rules: rules
         })
+    }
+
+    ruleShouldUpdate(payload) {
+        let rules = this.state.rules.slice();
+        let rule = this.gerRuleById(payload.rule.rid, rules);
+        rule[payload.field] = payload.value;
+        this.setState({
+            rules: rules
+        });
     }
 }
 

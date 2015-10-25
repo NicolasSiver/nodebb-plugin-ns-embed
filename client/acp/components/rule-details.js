@@ -22,7 +22,7 @@ export default class RuleDetails extends React.Component {
     }
 
     fieldDidChange(field, value) {
-
+        Actions.updateRule(this.props.rule, field, value);
     }
 
     getName(rule) {

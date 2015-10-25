@@ -52,8 +52,8 @@ class Actions {
         return rule;
     }
 
-    updateNewRule(name, displayName, regex, replacement, dirtyField) {
-        return {name, displayName, regex, replacement, dirtyField};
+    updateRule(rule, field, value) {
+        return {rule, field, value};
     }
 }
 

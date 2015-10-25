@@ -19836,9 +19836,9 @@
 	            return rule;
 	        }
 	    }, {
-	        key: 'updateNewRule',
-	        value: function updateNewRule(name, displayName, regex, replacement, dirtyField) {
-	            return { name: name, displayName: displayName, regex: regex, replacement: replacement, dirtyField: dirtyField };
+	        key: 'updateRule',
+	        value: function updateRule(rule, field, value) {
+	            return { rule: rule, field: field, value: value };
 	        }
 	    }]);
 
@@ -22188,7 +22188,9 @@
 	        }
 	    }, {
 	        key: 'fieldDidChange',
-	        value: function fieldDidChange(field, value) {}
+	        value: function fieldDidChange(field, value) {
+	            _actions2['default'].updateRule(this.props.rule, field, value);
+	        }
 	    }, {
 	        key: 'getName',
 	        value: function getName(rule) {
@@ -22389,6 +22391,7 @@
 	        this.bindAction(_actions2['default'].ruleDidDelete, this.ruleDidDelete);
 	        this.bindAction(_actions2['default'].rulesDidUpdate, this.rulesDidUpdate);
 	        this.bindAction(_actions2['default'].selectRule, this.ruleDidSelect);
+	        this.bindAction(_actions2['default'].updateRule, this.ruleShouldUpdate);
 
 	        this.state = {
 	            rules: [],
@@ -22397,6 +22400,38 @@
 	    }
 
 	    _createClass(RulesStore, [{
+	        key: 'gerRuleById',
+	        value: function gerRuleById(id, rules) {
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+
+	            try {
+	                for (var _iterator = rules[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var rule = _step.value;
+
+	                    if (rule.rid === id) {
+	                        return rule;
+	                    }
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator['return']) {
+	                        _iterator['return']();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
+
+	            return null;
+	        }
+	    }, {
 	        key: 'ruleDidDelete',
 	        value: function ruleDidDelete(rule) {
 	            if (this.state.selectedRule && this.state.selectedRule.name === rule.name) {
@@ -22415,6 +22450,16 @@
 	    }, {
 	        key: 'rulesDidUpdate',
 	        value: function rulesDidUpdate(rules) {
+	            this.setState({
+	                rules: rules
+	            });
+	        }
+	    }, {
+	        key: 'ruleShouldUpdate',
+	        value: function ruleShouldUpdate(payload) {
+	            var rules = this.state.rules.slice();
+	            var rule = this.gerRuleById(payload.rule.rid, rules);
+	            rule[payload.field] = payload.value;
 	            this.setState({
 	                rules: rules
 	            });
