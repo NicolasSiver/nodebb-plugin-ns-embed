@@ -22323,10 +22323,9 @@
 	                var item = (0, _classnames2['default'])('item', {
 	                    selected: _this.props.selected && data.name === _this.props.selected.name
 	                });
-
 	                return _react2['default'].createElement(
 	                    'div',
-	                    { key: data.name, className: item,
+	                    { key: data.rid, className: item,
 	                        onClick: _this.ruleDidClick.bind(_this, data) },
 	                    _react2['default'].createElement('i', { className: icon }),
 	                    ' ',
@@ -22335,7 +22334,7 @@
 	            };
 
 	            // Rule Creation Item
-	            result.push(RuleItem({ displayName: 'Create Rule', name: _modelsRule2['default'].CREATE, icon: 'fa-plus' }));
+	            result.push(RuleItem({ displayName: 'Create Rule', name: _modelsRule2['default'].CREATE, rid: _modelsRule2['default'].CREATE, icon: 'fa-plus' }));
 
 	            for (i; i < len; ++i) {
 	                rule = rules[i];
@@ -22459,6 +22458,7 @@
 	        value: function ruleShouldUpdate(payload) {
 	            var rules = this.state.rules.slice();
 	            var rule = this.gerRuleById(payload.rule.rid, rules);
+	            console.log(rules, rule, payload);
 	            rule[payload.field] = payload.value;
 	            this.setState({
 	                rules: rules

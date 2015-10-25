@@ -32,9 +32,8 @@ export default class RulesList extends React.Component {
             let item = classNames('item', {
                 selected: this.props.selected && data.name === this.props.selected.name
             });
-
             return (
-                <div key={data.name} className={item}
+                <div key={data.rid} className={item}
                      onClick={this.ruleDidClick.bind(this, data)}>
                     <i className={icon}></i> {data.displayName}
                 </div>
@@ -42,7 +41,7 @@ export default class RulesList extends React.Component {
         };
 
         // Rule Creation Item
-        result.push(RuleItem({displayName: 'Create Rule', name: Rule.CREATE, icon: 'fa-plus'}));
+        result.push(RuleItem({displayName: 'Create Rule', name: Rule.CREATE, rid: Rule.CREATE, icon: 'fa-plus'}));
 
         for (i; i < len; ++i) {
             rule = rules[i];
