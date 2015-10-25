@@ -55,7 +55,7 @@
         async.series({
             save: async.apply(database.updateRule, rule.rid, payloadToRule(rule)),
             rule: async.apply(database.getRule, rule.rid),
-            sync: async.apply(rule.invalidate)
+            sync: async.apply(rules.invalidate)
         }, function (error, results) {
             if (error) {
                 return done(error);
