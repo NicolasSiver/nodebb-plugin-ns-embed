@@ -10,6 +10,7 @@ import RuleCreate from './rule-create';
 import RuleDetails from './rule-details';
 import RulesList from './rules-list';
 import RulesStore from '../stores/rules-store';
+import SocketService from '../services/socket-service';
 
 class Admin extends React.Component {
     static getStores() {
