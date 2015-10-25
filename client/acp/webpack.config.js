@@ -1,18 +1,19 @@
 /**
-    * Created by Nicolas on 10/21/15.
-    */
+ * Created by Nicolas on 10/21/15.
+ */
 module.exports = {
-    entry    : "./index.js",
-    output   : {
+    entry       : "./index.js",
+    output      : {
         path    : "../../public/js",
         filename: "acp.js"
     },
-    externals: {
+    externals   : {
+        "app"      : "app",
         "jquery"   : "jQuery",
         "socket"   : "socket",
         "templates": "templates"
     },
-    module   : {
+    module      : {
         loaders: [
             {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
         ]
