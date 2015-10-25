@@ -22663,6 +22663,7 @@
 	                    return _app2['default'].alertError(error.message);
 	                }
 
+	                _app2['default'].alertSuccess('Rule "' + rule.name + '" is updated');
 	                _actions2['default'].ruleDidUpdate(rule);
 	                _actions2['default'].getAllRules();
 	            });
