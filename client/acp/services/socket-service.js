@@ -43,7 +43,6 @@ class SocketService {
             }
         );
     }
-
 }
 
 export default alt.createStore(SocketService, 'SocketService');

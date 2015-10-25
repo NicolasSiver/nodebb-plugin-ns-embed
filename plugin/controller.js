@@ -10,6 +10,7 @@
 
     Controller.createRule = function (payload, done) {
         // FIXME Implement
+        console.log(payload);
         done();
     };
 

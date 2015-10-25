@@ -18,6 +18,7 @@ class CreateStore {
 
         this.bindAction(Actions.newRuleFieldDidUpdate, this.update);
         this.bindAction(Actions.resetNewRule, this.reset);
+        this.bindAction(Actions.ruleDidCreate, this.reset);
 
 
         this.state = objectAssign({}, this.initState);

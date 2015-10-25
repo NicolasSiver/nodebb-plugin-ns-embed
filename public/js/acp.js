@@ -21859,6 +21859,7 @@
 
 	        this.bindAction(_actions2['default'].newRuleFieldDidUpdate, this.update);
 	        this.bindAction(_actions2['default'].resetNewRule, this.reset);
+	        this.bindAction(_actions2['default'].ruleDidCreate, this.reset);
 
 	        this.state = (0, _objectAssign2['default'])({}, this.initState);
 	    }
