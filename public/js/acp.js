@@ -19982,20 +19982,43 @@
 	    }
 
 	    _createClass(RuleDetails, [{
-	        key: 'delete',
-	        value: function _delete(rule) {
-	            console.info('Deleting...');
+	        key: 'actionCreate',
+	        value: function actionCreate() {
+	            console.info('Create');
+	        }
+	    }, {
+	        key: 'actionDelete',
+	        value: function actionDelete(rule) {
+	            console.info('Delete');
+	        }
+	    }, {
+	        key: 'actionReset',
+	        value: function actionReset() {
+	            console.info('Reset');
+	        }
+	    }, {
+	        key: 'actionSave',
+	        value: function actionSave(rule) {
+	            console.info('Save');
 	        }
 	    }, {
 	        key: 'getActions',
 	        value: function getActions(rule) {
 	            var isCreate = rule.name === _modelsRule2['default'].CREATE;
-	            var okMessage = isCreate ? 'Create' : 'Save';
+	            var okButton = _react2['default'].createElement(
+	                'button',
+	                {
+	                    className: 'btn btn-primary',
+	                    disabled: this.isValidOkButton() ? '' : 'disabled',
+	                    onClick: isCreate ? this.actionCreate.bind(this) : this.actionSave.bind(this, rule),
+	                    type: 'button' },
+	                isCreate ? 'Create' : 'Save'
+	            );
 	            var deleteButton = isCreate ? null : _react2['default'].createElement(
 	                'button',
 	                {
 	                    className: 'btn btn-danger',
-	                    onClick: this['delete'].bind(this, rule),
+	                    onClick: this.actionDelete.bind(this, rule),
 	                    type: 'button' },
 	                'Delete'
 	            );
@@ -20003,7 +20026,7 @@
 	                'button',
 	                {
 	                    className: 'btn btn-warning',
-	                    onClick: this.reset.bind(this),
+	                    onClick: this.actionReset.bind(this),
 	                    type: 'button' },
 	                'Reset'
 	            );
@@ -20011,15 +20034,7 @@
 	            return _react2['default'].createElement(
 	                'div',
 	                { className: 'actions' },
-	                _react2['default'].createElement(
-	                    'button',
-	                    {
-	                        className: 'btn btn-primary',
-	                        disabled: this.isValidOkButton() ? '' : 'disabled',
-	                        onClick: this.save.bind(this, rule),
-	                        type: 'button' },
-	                    okMessage
-	                ),
+	                okButton,
 	                resetButton,
 	                deleteButton
 	            );
@@ -20146,22 +20161,16 @@
 	                )
 	            );
 	        }
-	    }, {
-	        key: 'reset',
-	        value: function reset() {
-	            console.log('Resetting...');
-	        }
-	    }, {
-	        key: 'save',
-	        value: function save(rule) {
-	            console.info('Saving...', rule);
-	        }
 	    }]);
 
 	    return RuleDetails;
 	})(_react2['default'].Component);
 
 	exports['default'] = RuleDetails;
+
+	RuleDetails.propTypes = {
+	    rule: _react2['default'].PropTypes.object
+	};
 	module.exports = exports['default'];
 
 /***/ },

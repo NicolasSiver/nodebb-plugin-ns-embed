@@ -11,37 +11,50 @@ export default class RuleDetails extends React.Component {
         super(props);
     }
 
-    delete(rule) {
-        console.info('Deleting...');
+    actionCreate() {
+        console.info('Create');
+    }
+
+    actionDelete(rule) {
+        console.info('Delete');
+    }
+
+    actionReset() {
+        console.info('Reset');
+    }
+
+    actionSave(rule) {
+        console.info('Save');
     }
 
     getActions(rule) {
         let isCreate = rule.name === Rule.CREATE;
-        let okMessage = (isCreate) ? 'Create' : 'Save';
+        let okButton = (
+            <button
+                className="btn btn-primary"
+                disabled={this.isValidOkButton() ? '' : 'disabled'}
+                onClick={(isCreate) ? this.actionCreate.bind(this) : this.actionSave.bind(this, rule)}
+                type="button">{(isCreate) ? 'Create' : 'Save'}
+            </button>
+        );
         let deleteButton = (isCreate) ? null : (
             <button
                 className="btn btn-danger"
-                onClick={this.delete.bind(this, rule)}
+                onClick={this.actionDelete.bind(this, rule)}
                 type="button">Delete
             </button>
         );
         let resetButton = (!isCreate) ? null : (
             <button
                 className="btn btn-warning"
-                onClick={this.reset.bind(this)}
+                onClick={this.actionReset.bind(this)}
                 type="button">Reset
             </button>
         );
 
         return (
             <div className="actions">
-                <button
-                    className="btn btn-primary"
-                    disabled={this.isValidOkButton() ? '' : 'disabled'}
-                    onClick={this.save.bind(this, rule)}
-                    type="button">{okMessage}
-                </button>
-
+                {okButton}
                 {resetButton}
                 {deleteButton}
             </div>
@@ -127,12 +140,8 @@ export default class RuleDetails extends React.Component {
             </div>
         );
     }
-
-    reset() {
-        console.log('Resetting...');
-    }
-
-    save(rule) {
-        console.info('Saving...', rule);
-    }
 }
+
+RuleDetails.propTypes = {
+    rule: React.PropTypes.object
+};
