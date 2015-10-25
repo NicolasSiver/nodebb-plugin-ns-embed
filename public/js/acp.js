@@ -21825,6 +21825,7 @@
 	    function CreateStore() {
 	        _classCallCheck(this, CreateStore);
 
+	        this.removeSpecialChars = /[^\w]/gi;
 	        this.bindAction(_actions2['default'].newRuleFieldDidUpdate, this.update);
 
 	        this.state = {
@@ -21873,10 +21874,23 @@
 	            return true;
 	        }
 	    }, {
+	        key: 'sanitizeName',
+	        value: function sanitizeName(field, value) {
+	            if (field === 'name' && value != null) {
+	                value = value.toLowerCase();
+	                value = value.replace(this.removeSpecialChars, '');
+	                return value;
+	            }
+
+	            return value;
+	        }
+	    }, {
 	        key: 'update',
 	        value: function update(data) {
-	            var update = _defineProperty({}, data.field, data.value);
+	            var value = this.sanitizeName(data.field, data.value);
+	            var update = _defineProperty({}, data.field, value);
 	            var state = (0, _objectAssign2['default'])(this.state, update);
+
 	            state.valid = this.isValid(state.name, state.displayName, state.regex, state.replacement);
 	            this.setState(state);
 	        }

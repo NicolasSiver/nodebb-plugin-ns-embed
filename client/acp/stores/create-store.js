@@ -7,6 +7,7 @@ import objectAssign from 'object-assign';
 
 class CreateStore {
     constructor() {
+        this.removeSpecialChars = /[^\w]/gi;
         this.bindAction(Actions.newRuleFieldDidUpdate, this.update);
 
         this.state = {
@@ -28,9 +29,21 @@ class CreateStore {
         return true;
     }
 
+    sanitizeName(field, value) {
+        if (field === 'name' && value != null) {
+            value = value.toLowerCase();
+            value = value.replace(this.removeSpecialChars, '');
+            return value;
+        }
+
+        return value;
+    }
+
     update(data) {
-        var update = {[data.field]: data.value};
+        let value = this.sanitizeName(data.field, data.value);
+        let update = {[data.field]: value};
         let state = objectAssign(this.state, update);
+
         state.valid = this.isValid(state.name, state.displayName, state.regex, state.replacement);
         this.setState(state);
     }
