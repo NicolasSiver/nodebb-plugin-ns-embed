@@ -13,9 +13,13 @@ Embed media and rich content in posts: youtube, vimeo, twitch etc.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+**Important Note:** if you use `markdown` plugin, you should disable _Autoconvert url-like texts to links_ feature.
+
 ## Embeds Supported by Default
 
-Most embeds are responsive with a limit in width (640px)
+Most embeds are responsive
+
+- Youtube (short and general urls)
 
 ## TODO
 
