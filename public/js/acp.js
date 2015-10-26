@@ -22677,11 +22677,12 @@
 	    }, {
 	        key: 'installDefaultRules',
 	        value: function installDefaultRules() {
-	            _socket2['default'].emit(_modelsSocketMethod2['default'].INSTALL_DEFAULT_RULES, {}, function (error) {
+	            _socket2['default'].emit(_modelsSocketMethod2['default'].INSTALL_DEFAULT_RULES, {}, function (error, installedRules) {
 	                if (error) {
 	                    return _app2['default'].alertError(error.message);
 	                }
 
+	                _app2['default'].alertSuccess('Installed "' + installedRules.join(',') + '" rules');
 	                _actions2['default'].getAllRules();
 	            });
 	        }

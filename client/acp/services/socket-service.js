@@ -66,11 +66,12 @@ class SocketService {
         Socket.emit(
             SocketMethod.INSTALL_DEFAULT_RULES,
             {},
-            (error) => {
+            (error, installedRules) => {
                 if (error) {
                     return ForumApp.alertError(error.message);
                 }
 
+                ForumApp.alertSuccess('Installed "' + installedRules.join(',') + '" rules');
                 Actions.getAllRules();
             }
         );
