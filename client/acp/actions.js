@@ -20,6 +20,10 @@ class Actions {
         this.dispatch();
     }
 
+    installDefaultRules(){
+        this.dispatch();
+    }
+
     newRuleFieldDidUpdate(field, value) {
         return {field, value};
     }

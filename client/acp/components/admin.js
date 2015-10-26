@@ -10,6 +10,7 @@ import RuleCreate from './rule-create';
 import RuleDetails from './rule-details';
 import RulesList from './rules-list';
 import RulesStore from '../stores/rules-store';
+import Utils from './utils';
 
 class Admin extends React.Component {
     static getStores() {
@@ -48,6 +49,15 @@ class Admin extends React.Component {
                     <RulesList
                         rules={this.props.rules}
                         selected={this.props.selectedRule}/>
+
+                    <div className="row">
+                        <div className="col-md-6">
+                            <Utils />
+                        </div>
+                        <div className="col-md-6">
+                        </div>
+                    </div>
+
                 </div>
                 <div className="col-md-6">
                     {extendedView}

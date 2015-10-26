@@ -19675,6 +19675,10 @@
 
 	var _storesRulesStore2 = _interopRequireDefault(_storesRulesStore);
 
+	var _utils = __webpack_require__(188);
+
+	var _utils2 = _interopRequireDefault(_utils);
+
 	var Admin = (function (_React$Component) {
 	    _inherits(Admin, _React$Component);
 
@@ -19723,7 +19727,17 @@
 	                    { className: 'col-md-6' },
 	                    _react2['default'].createElement(_rulesList2['default'], {
 	                        rules: this.props.rules,
-	                        selected: this.props.selectedRule })
+	                        selected: this.props.selectedRule }),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-md-6' },
+	                            _react2['default'].createElement(_utils2['default'], null)
+	                        ),
+	                        _react2['default'].createElement('div', { className: 'col-md-6' })
+	                    )
 	                ),
 	                _react2['default'].createElement(
 	                    'div',
@@ -19793,6 +19807,11 @@
 	    }, {
 	        key: 'getAllRules',
 	        value: function getAllRules() {
+	            this.dispatch();
+	        }
+	    }, {
+	        key: 'installDefaultRules',
+	        value: function installDefaultRules() {
 	            this.dispatch();
 	        }
 	    }, {
@@ -21469,6 +21488,7 @@
 	    CREATE_RULE: 'admin.plugins.ns-embed.ruleCreate',
 	    DELETE_RULE: 'admin.plugins.ns-embed.ruleDelete',
 	    GET_ALL_RULES: 'admin.plugins.ns-embed.embedRulesGet',
+	    INSTALL_DEFAULT_RULES: 'admin.plugins.ns-embed.defaultRulesInstall',
 	    SAVE_RULE: 'admin.plugins.ns-embed.ruleSave'
 	});
 	module.exports = exports['default'];
@@ -22615,6 +22635,7 @@
 	        this.bindAction(_actions2['default'].createNewRule, this.createNewRule);
 	        this.bindAction(_actions2['default'].deleteRule, this.deleteRule);
 	        this.bindAction(_actions2['default'].getAllRules, this.getAllRules);
+	        this.bindAction(_actions2['default'].installDefaultRules, this.installDefaultRules);
 	        this.bindAction(_actions2['default'].saveRule, this.saveRule);
 	    }
 
@@ -22654,6 +22675,17 @@
 	            });
 	        }
 	    }, {
+	        key: 'installDefaultRules',
+	        value: function installDefaultRules() {
+	            _socket2['default'].emit(_modelsSocketMethod2['default'].INSTALL_DEFAULT_RULES, {}, function (error) {
+	                if (error) {
+	                    return _app2['default'].alertError(error.message);
+	                }
+
+	                _actions2['default'].getAllRules();
+	            });
+	        }
+	    }, {
 	        key: 'saveRule',
 	        value: function saveRule(rule) {
 	            _socket2['default'].emit(_modelsSocketMethod2['default'].SAVE_RULE, rule, function (error, rule) {
@@ -22672,6 +22704,89 @@
 	})();
 
 	exports['default'] = _alt2['default'].createStore(SocketService, 'SocketService');
+	module.exports = exports['default'];
+
+/***/ },
+/* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 10/25/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _actions = __webpack_require__(159);
+
+	var _actions2 = _interopRequireDefault(_actions);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var Utils = (function (_React$Component) {
+	    _inherits(Utils, _React$Component);
+
+	    function Utils(props) {
+	        _classCallCheck(this, Utils);
+
+	        _get(Object.getPrototypeOf(Utils.prototype), 'constructor', this).call(this, props);
+	    }
+
+	    _createClass(Utils, [{
+	        key: 'defaultRulesDidClick',
+	        value: function defaultRulesDidClick() {
+	            _actions2['default'].installDefaultRules();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'panel panel-default' },
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'panel-heading' },
+	                    'Utils'
+	                ),
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'panel-body' },
+	                    _react2['default'].createElement(
+	                        'p',
+	                        { className: 'utils-info' },
+	                        'Install rules that are shipped with plugin: youtube, vimeo, etc. Please, check plugin documentation for the full list. If rule with the same name is installed already, rule from default pack will be skipped.'
+	                    ),
+	                    _react2['default'].createElement(
+	                        'button',
+	                        {
+	                            className: 'btn btn-default btn-block',
+	                            onClick: this.defaultRulesDidClick,
+	                            type: 'button' },
+	                        'Install Default Rules'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Utils;
+	})(_react2['default'].Component);
+
+	exports['default'] = Utils;
 	module.exports = exports['default'];
 
 /***/ }
