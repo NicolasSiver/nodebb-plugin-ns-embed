@@ -3,6 +3,7 @@
 
     Module.exports = {
         adminSockets : NodeBB.require('./src/socket.io/admin').plugins,
+        cache        : NodeBB.require('./src/posts/cache'),
         db           : NodeBB.require('./src/database'),
         emitter      : NodeBB.require('./src/emitter'),
         groups       : NodeBB.require('./src/groups'),

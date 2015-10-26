@@ -5,7 +5,10 @@
     'use strict';
 
     var database = require('./database'),
-        logger   = require('./logger');
+        logger   = require('./logger'),
+        nodebb   = require('./nodebb');
+
+    var cache = nodebb.cache;
 
     var rulesList = [];
 
@@ -15,6 +18,8 @@
                 return done(error);
             }
 
+            logger.log('verbose', 'Updating rules...');
+
             // Re-compile regular expressions
             rulesList = rules.map(function (rule) {
                 return {
@@ -22,6 +27,8 @@
                     replacement: rule.replacement
                 };
             });
+
+            cache.reset();
 
             logger.log('verbose', 'Updating rule list, total rules: %d', rulesList.length);
 
