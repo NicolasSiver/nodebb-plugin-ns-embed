@@ -1,0 +1,11 @@
+{
+  "rules": [
+    {
+      "name": "youtube",
+      "displayName": "Youtube",
+      "icon": "fa-youtube",
+      "regex": "(?:youtube\\.com\\/\\S*(?:(?:\\/e(?:mbed))?\\/|watch\\?(?:\\S*?&?v\\=))|youtu\\.be\\/)([a-zA-Z0-9_-]{6,11})",
+      "replacement": "<div class='videoWrapper'><iframe width='640' height='360' src='https://www.youtube.com/embed/$1' frameborder='0' allowfullscreen></iframe></div>"
+    }
+  ]
+}

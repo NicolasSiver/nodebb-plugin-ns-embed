@@ -13,12 +13,17 @@
         adminSockets[constants.SOCKET_NAMESPACE] = {};
 
         //Acknowledgements
+        adminSockets[constants.SOCKET_NAMESPACE].defaultRulesInstall = Sockets.defaultRulesInstall;
         adminSockets[constants.SOCKET_NAMESPACE].embedRulesGet = Sockets.embedRulesGet;
         adminSockets[constants.SOCKET_NAMESPACE].ruleCreate = Sockets.ruleCreate;
         adminSockets[constants.SOCKET_NAMESPACE].ruleDelete = Sockets.ruleDelete;
         adminSockets[constants.SOCKET_NAMESPACE].ruleSave = Sockets.ruleSave;
 
         callback();
+    };
+
+    Sockets.defaultRulesInstall = function (socket, payload, callback) {
+        controller.installDefaultRules(callback);
     };
 
     Sockets.embedRulesGet = function (socket, payload, callback) {
@@ -29,15 +34,15 @@
         serverSockets.emit(emitNamespace + eventName, payload);
     };
 
-    Sockets.ruleCreate = function(socket, payload, callback) {
+    Sockets.ruleCreate = function (socket, payload, callback) {
         controller.createRule(payload, callback);
     };
 
-    Sockets.ruleDelete = function(socket, payload, callback) {
+    Sockets.ruleDelete = function (socket, payload, callback) {
         controller.deleteRule(payload, callback);
     };
 
-    Sockets.ruleSave = function(socket, payload, callback) {
+    Sockets.ruleSave = function (socket, payload, callback) {
         controller.saveRule(payload, callback);
     };
 
