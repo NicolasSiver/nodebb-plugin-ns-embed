@@ -19,7 +19,9 @@
       "priority": 8
     }
   ],
-  "less": [],
+  "less": [
+    "style/forum.less"
+  ],
   "scripts": [],
   "staticDirs": {
     "acp": "./client/acp",
