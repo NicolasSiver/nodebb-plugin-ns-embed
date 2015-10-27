@@ -17,8 +17,11 @@ Embed media and rich content in posts: youtube, vimeo, twitch etc.
 
 ## Embeds Supported by Default
 
-Most embeds are responsive
+Most embeds are responsive with limited width to `640px`
 
+- Coub
+- Vimeo
+- Vine
 - Youtube (short and general urls)
 
 ## TODO
