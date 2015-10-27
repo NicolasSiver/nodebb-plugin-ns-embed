@@ -5,7 +5,7 @@
       "displayName": "Youtube",
       "icon": "fa-youtube",
       "regex": "(?:https?:\\/\\/)?(?:youtube\\.com\\/\\S*(?:(?:\\/e(?:mbed))?\\/|watch\\?(?:\\S*?&?v\\=))|youtu\\.be\\/)([a-zA-Z0-9_-]{6,11})",
-      "replacement": "<div class='embedWrapper'><iframe src='https://www.youtube.com/embed/$1' frameborder='0' allowfullscreen></iframe></div>"
+      "replacement": "<div class='embedWrapper'><div class='embedContainer'><iframe src='https://www.youtube.com/embed/$1' frameborder='0' allowfullscreen></iframe></div></div>"
     }
   ]
 }
