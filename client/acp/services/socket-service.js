@@ -71,7 +71,7 @@ class SocketService {
                     return ForumApp.alertError(error.message);
                 }
 
-                ForumApp.alertSuccess('Installed rules: "' + installedRules.join(', '));
+                ForumApp.alertSuccess('Installed rules: ' + installedRules.join(', '));
                 Actions.getAllRules();
             }
         );

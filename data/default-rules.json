@@ -27,6 +27,13 @@
       "icon": "fa-cube",
       "regex": "(?:https?:\\/\\/)?(?:www\\.)?coub\\.com\\/view\\/([a-zA-Z0-9_-]{4,11})",
       "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='https://coub.com/embed/$1?muted=false&autostart=false&originalSize=false&hideTopBar=true&startWithHD=true' frameborder='0' allowfullscreen></iframe></div></div>"
+    },
+    {
+      "name": "twitch",
+      "displayName": "Twitch Live",
+      "icon": "fa-twitch",
+      "regex": "(?:https?:\\/\\/)?(?:www\\.)?twitch\\.tv\\/([a-zA-Z0-9_-]+)",
+      "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='http://www.twitch.tv/$1/embed' frameborder='0' allowfullscreen></iframe></div></div>"
     }
   ]
 }
