@@ -1,12 +1,19 @@
-.embedWrapper {
+.embed-wrapper {
   width: 100%;
   max-width: 640px;
   overflow: hidden;
 
-  .embedContainer {
+  &.embed-vine {
+    max-width: 480px;
+
+    .embed-container {
+      padding-bottom: 100%;
+    }
+  }
+
+  .embed-container {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */
-    padding-top: 25px;
     height: 0;
 
     iframe {
