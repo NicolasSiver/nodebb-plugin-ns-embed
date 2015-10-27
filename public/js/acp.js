@@ -22682,7 +22682,7 @@
 	                    return _app2['default'].alertError(error.message);
 	                }
 
-	                _app2['default'].alertSuccess('Installed "' + installedRules.join(',') + '" rules');
+	                _app2['default'].alertSuccess('Installed rules: "' + installedRules.join(', '));
 	                _actions2['default'].getAllRules();
 	            });
 	        }
