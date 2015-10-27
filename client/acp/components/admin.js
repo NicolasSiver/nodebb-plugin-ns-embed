@@ -3,6 +3,7 @@
  */
 import Actions from '../actions';
 import connectToStores from 'alt/utils/connectToStores';
+import Donate from './donate';
 import objectAssign from 'object-assign';
 import React from 'react';
 import Rule from '../models/rule';
@@ -55,6 +56,7 @@ class Admin extends React.Component {
                             <Utils />
                         </div>
                         <div className="col-md-6">
+                            <Donate />
                         </div>
                     </div>
 

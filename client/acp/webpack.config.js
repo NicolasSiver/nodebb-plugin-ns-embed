@@ -8,10 +8,11 @@ module.exports = {
         filename: "acp.js"
     },
     externals   : {
-        "app"      : "app",
-        "jquery"   : "jQuery",
-        "socket"   : "socket",
-        "templates": "templates"
+        "app"           : "app",
+        "jquery"        : "jQuery",
+        "socket"        : "socket",
+        "templates"     : "templates",
+        "StripeCheckout": "StripeCheckout"
     },
     module      : {
         loaders: [
