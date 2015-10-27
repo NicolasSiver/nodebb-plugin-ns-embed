@@ -47,6 +47,10 @@
                     defaultRule = data.rules[i];
                     if (isInList('name', defaultRule.name, rules)) {
                         logger.log('verbose', 'Rule "%s" is skipped. Reason: already installed', defaultRule.displayName);
+                    } else if (defaultRule.name === 'twitch') {
+                        // https://github.com/justintv/Twitch-API/issues/289
+                        // Twitch didn't fixed problem with auto-play still
+                        logger.log('verbose', 'Rule "%s" is skipped. Reason: critical issues', defaultRule.displayName);
                     } else {
                         toInstall.push(defaultRule);
                     }
