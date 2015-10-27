@@ -20,6 +20,13 @@
       "icon": "fa-vine",
       "regex": "(?:https?:\\/\\/)?(?:www\\.)?vine\\.co\\/v\\/([a-zA-Z0-9_-]{6,11})",
       "replacement": "<div class='embed-wrapper embed-vine'><div class='embed-container'><iframe src='https://vine.co/v/$1/embed/simple' frameborder='0'></iframe></div></div>"
+    },
+    {
+      "name": "coub",
+      "displayName": "Coub",
+      "icon": "fa-cube",
+      "regex": "(?:https?:\\/\\/)?(?:www\\.)?coub\\.com\\/view\\/([a-zA-Z0-9_-]{4,11})",
+      "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='https://coub.com/embed/$1?muted=false&autostart=false&originalSize=false&hideTopBar=true&startWithHD=true' frameborder='0' allowfullscreen></iframe></div></div>"
     }
   ]
 }
