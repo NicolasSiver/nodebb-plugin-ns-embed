@@ -24,6 +24,10 @@ Most embeds are responsive with limited width to `640px`
 - Vine
 - Youtube (short and general urls)
 
+## Look
+
+![Admin Panel View](screenshot.png)
+
 ## TODO
 
 - Core: Change priority for rules
