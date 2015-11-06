@@ -37,14 +37,18 @@
     };
 
     Rules.parse = function (content, done) {
-        var i = 0, len = rulesList.length, rule;
+        if (content) {
+            var i = 0, len = rulesList.length, rule;
 
-        for (i; i < len; ++i) {
-            rule = rulesList[i];
-            content = content.replace(rule.match, rule.replacement);
+            for (i; i < len; ++i) {
+                rule = rulesList[i];
+                content = content.replace(rule.match, rule.replacement);
+            }
+
+            done(null, content);
+        } else {
+            done(null, content);
         }
-
-        done(null, content);
     };
 
 })(module.exports);
