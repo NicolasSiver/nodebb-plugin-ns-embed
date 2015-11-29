@@ -37,6 +37,6 @@
     "gulp-sass": "^2.0.4"
   },
   "nbbpm": {
-    "compatibility": "^0.8.0"
+    "compatibility": "^0.9.0"
   }
 }
