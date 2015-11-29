@@ -100,10 +100,6 @@
 
 	var _altUtilsConnectToStores2 = _interopRequireDefault(_altUtilsConnectToStores);
 
-	var _donate = __webpack_require__(176);
-
-	var _donate2 = _interopRequireDefault(_donate);
-
 	var _objectAssign = __webpack_require__(178);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
@@ -193,11 +189,7 @@
 	                            { className: 'col-md-6' },
 	                            _react2['default'].createElement(_utils2['default'], null)
 	                        ),
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-md-6' },
-	                            _react2['default'].createElement(_donate2['default'], null)
-	                        )
+	                        _react2['default'].createElement('div', { className: 'col-md-6' })
 	                    )
 	                ),
 	                _react2['default'].createElement(
@@ -21615,145 +21607,8 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23)))
 
 /***/ },
-/* 176 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Nicolas on 10/26/15.
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _app = __webpack_require__(16);
-
-	var _app2 = _interopRequireDefault(_app);
-
-	var _react = __webpack_require__(20);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _StripeCheckout = __webpack_require__(177);
-
-	var _StripeCheckout2 = _interopRequireDefault(_StripeCheckout);
-
-	var Application = (function (_React$Component) {
-	    _inherits(Application, _React$Component);
-
-	    function Application(props) {
-	        _classCallCheck(this, Application);
-
-	        _get(Object.getPrototypeOf(Application.prototype), 'constructor', this).call(this, props);
-	        this.state = { amount: null };
-	    }
-
-	    _createClass(Application, [{
-	        key: 'amountDidChange',
-	        value: function amountDidChange(e) {
-	            this.setState({
-	                amount: e.target.value
-	            });
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.stripeHandler = _StripeCheckout2['default'].configure({
-	                key: 'pk_live_AcfQs725nv7nIF5sRCG3v4Q8',
-	                image: 'https://s3.amazonaws.com/stripe-uploads/acct_16mDSJB8UmE70jk7merchant-icon-1442539384457-ava-mdpi.jpg',
-	                locale: 'auto',
-	                panelLabel: 'Donate {{amount}}',
-	                email: _app2['default'].user.email,
-	                bitcoin: true,
-	                token: function token(_token) {
-	                    // Use the token to create the charge with a server-side script.
-	                    // You can access the token ID with `token.id`
-	                    // NOOP
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'donateDidClick',
-	        value: function donateDidClick() {
-	            var amount = parseFloat(this.state.amount) * 100;
-	            amount = amount || 500;
-
-	            this.stripeHandler.open({
-	                name: 'Nicolas Siver',
-	                description: 'NS Embed Donation',
-	                amount: amount
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'panel panel-default' },
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'panel-body' },
-	                    _react2['default'].createElement(
-	                        'p',
-	                        null,
-	                        'Do you like plugin? Support developer. Make a donation. Thank you.'
-	                    ),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'input-group' },
-	                        _react2['default'].createElement('input', {
-	                            type: 'text',
-	                            className: 'form-control',
-	                            placeholder: 'Amount',
-	                            value: this.state.amount,
-	                            onChange: this.amountDidChange.bind(this) }),
-	                        _react2['default'].createElement(
-	                            'span',
-	                            { className: 'input-group-btn' },
-	                            _react2['default'].createElement(
-	                                'button',
-	                                {
-	                                    className: 'btn btn-primary',
-	                                    type: 'button',
-	                                    onClick: this.donateDidClick.bind(this) },
-	                                'Donate ',
-	                                _react2['default'].createElement(
-	                                    'small',
-	                                    null,
-	                                    'via Stripe'
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Application;
-	})(_react2['default'].Component);
-
-	exports['default'] = Application;
-	module.exports = exports['default'];
-
-/***/ },
-/* 177 */
-/***/ function(module, exports) {
-
-	module.exports = StripeCheckout;
-
-/***/ },
+/* 176 */,
+/* 177 */,
 /* 178 */
 /***/ function(module, exports) {
 
