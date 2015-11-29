@@ -9,7 +9,7 @@
         groups       : NodeBB.require('./src/groups'),
         meta         : NodeBB.require('./src/meta'),
         pluginSockets: NodeBB.require('./src/socket.io/plugins'),
-        postTools    : NodeBB.require('./src/postTools'),
+        postTools    : NodeBB.require('./src/posts/tools'),
         serverSockets: NodeBB.require('./src/socket.io').server.sockets,
         settings     : NodeBB.require('./src/settings'),
         socketIndex  : NodeBB.require('./src/socket.io/index'),
