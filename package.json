@@ -4,7 +4,7 @@
   "description": "Embed media and rich content in posts: youtube, vimeo, twitch etc.",
   "main": "./plugin/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --compilers js:babel-register --recursive"
   },
   "repository": {
     "type": "git",
@@ -30,11 +30,15 @@
     "winston": "^1.1.1"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.3.13",
     "browser-sync": "^2.9.11",
+    "chai": "^3.4.1",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.0.4"
+    "gulp-sass": "^2.0.4",
+    "mocha": "^2.3.4"
   },
   "nbbpm": {
     "compatibility": "^0.9.1"
