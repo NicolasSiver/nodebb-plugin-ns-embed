@@ -1,7 +1,10 @@
 # Changelog
 
------------
+## v1.1.0 - 12/16/2015
 
-### v1.0.0 - 11/29/2015
+- skip invalid regular expressions
+- updated default youtube rule
+
+## v1.0.0 - 11/29/2015
 
 - initial release with predefined set of embeds
