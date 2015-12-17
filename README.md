@@ -32,3 +32,4 @@ Most embeds are responsive with limited width to `640px`
 ## TODO
 
 - Core: Change priority for rules
+- ACP: Identify skipped/invalid rules

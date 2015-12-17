@@ -21,12 +21,20 @@
             logger.log('verbose', 'Updating rules...');
 
             // Re-compile regular expressions
-            rulesList = rules.map(function (rule) {
-                return {
-                    match      : new RegExp(rule.regex, "g"),
-                    replacement: rule.replacement
-                };
-            });
+            var i, len = rules.length, rule, ruleEntity;
+            rulesList.length = 0;
+            for (i = 0; i < len; ++i) {
+                rule = rules[i];
+                try {
+                    ruleEntity = {
+                        match      : new RegExp(rule.regex, "g"),
+                        replacement: rule.replacement
+                    };
+                    rulesList.push(ruleEntity);
+                } catch (e) {
+                    console.error('Rule is skipped', e);
+                }
+            }
 
             cache.reset();
 
