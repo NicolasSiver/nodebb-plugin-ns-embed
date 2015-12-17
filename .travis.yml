@@ -1,0 +1,14 @@
+sudo: false
+language: node_js
+cache:
+  directories:
+  - node_modules
+
+node_js:
+ - stable
+ - "4.0"
+ - "0.10"
+ - "0.12"
+
+script:
+ - npm test
