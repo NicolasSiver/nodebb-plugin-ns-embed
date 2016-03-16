@@ -12,11 +12,14 @@ module.exports = {
         "jquery"        : "jQuery",
         "socket"        : "socket",
         "templates"     : "templates",
+        "define"        : "define",
         "StripeCheckout": "StripeCheckout"
     },
     module      : {
         loaders: [
-            {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
+            {
+                test : /\.js$/, exclude: /node_modules/, loader: "babel-loader"
+            }
         ]
     },
     watchOptions: {
