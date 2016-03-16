@@ -2,7 +2,7 @@
  * Created by Nicolas on 10/21/15.
  */
 import Actions from '../actions';
-import connectToStores from 'alt/utils/connectToStores';
+import connectToStores from 'alt-utils/lib/connectToStores';
 import objectAssign from 'object-assign';
 import React from 'react';
 import Rule from '../models/rule';

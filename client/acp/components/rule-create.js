@@ -3,7 +3,7 @@
  */
 import Actions from '../actions';
 import classNames from 'classnames';
-import connectToStores from 'alt/utils/connectToStores';
+import connectToStores from 'alt-utils/lib/connectToStores';
 import CreateStore from '../stores/create-store';
 import FormActions from './form-actions';
 import React from 'react';
