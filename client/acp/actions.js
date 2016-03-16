@@ -9,7 +9,7 @@ import SocketMethod from './models/socket-method';
 class Actions {
 
     createNewRule() {
-        this.dispatch();
+        return null;
     }
 
     deleteRule(rule) {
@@ -17,11 +17,11 @@ class Actions {
     }
 
     getAllRules() {
-        this.dispatch();
+        return null;
     }
 
     installDefaultRules(){
-        this.dispatch();
+        return null;
     }
 
     newRuleFieldDidUpdate(field, value) {
@@ -29,11 +29,11 @@ class Actions {
     }
 
     resetNewRule() {
-        this.dispatch();
+        return null;
     }
 
     ruleDidCreate() {
-        this.dispatch();
+        return null;
     }
 
     ruleDidDelete(rule) {
