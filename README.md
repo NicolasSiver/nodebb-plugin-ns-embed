@@ -28,8 +28,3 @@ Most embeds are responsive with limited width to `640px`
 ## Look
 
 ![Admin Panel View](screenshot.png)
-
-## TODO
-
-- Core: Change priority for rules
-- ACP: Identify skipped/invalid rules
