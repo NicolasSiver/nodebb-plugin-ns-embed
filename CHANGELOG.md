@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.0 - TBD
+
+- Compatibility with content plugins
+- Best practice for ACP scripts
+- Update all dependencies
+
 ## v1.1.0 - 12/16/2015
 
 - skip invalid regular expressions
