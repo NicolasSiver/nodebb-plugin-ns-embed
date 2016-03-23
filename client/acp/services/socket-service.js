@@ -4,7 +4,6 @@
 import Actions from '../actions';
 import alt from '../alt';
 import CreateStore from '../stores/create-store';
-import ForumApp from 'app';
 import objectAssign from 'object-assign';
 import Socket from 'socket';
 import SocketMethod from '../models/socket-method';
@@ -19,12 +18,12 @@ class SocketService {
     }
 
     createNewRule() {
-        Socket.emit(
+        window.socket.emit(
             SocketMethod.CREATE_RULE,
             CreateStore.getState(),
             (error, rule) => {
                 if (error) {
-                    return ForumApp.alertError(error.message);
+                    return window.app.alertError(error.message);
                 }
 
                 Actions.ruleDidCreate();
@@ -34,12 +33,12 @@ class SocketService {
     }
 
     deleteRule(rule) {
-        Socket.emit(
+        window.socket.emit(
             SocketMethod.DELETE_RULE,
             rule,
             (error, rule) => {
                 if (error) {
-                    return ForumApp.alertError(error.message);
+                    return window.app.alertError(error.message);
                 }
 
                 Actions.ruleDidDelete(rule);
@@ -49,12 +48,12 @@ class SocketService {
     }
 
     getAllRules() {
-        Socket.emit(
+        window.socket.emit(
             SocketMethod.GET_ALL_RULES,
             {},
             (error, rules) => {
                 if (error) {
-                    return ForumApp.alertError(error.message);
+                    return window.app.alertError(error.message);
                 }
 
                 Actions.rulesDidUpdate(rules);
@@ -63,30 +62,33 @@ class SocketService {
     }
 
     installDefaultRules() {
-        Socket.emit(
+        if (process.env.NODE_ENV !== 'production') {
+            console.info('Installing Default Rules');
+        }
+        window.socket.emit(
             SocketMethod.INSTALL_DEFAULT_RULES,
             {},
             (error, installedRules) => {
                 if (error) {
-                    return ForumApp.alertError(error.message);
+                    return window.app.alertError(error.message);
                 }
 
-                ForumApp.alertSuccess('Installed rules: ' + installedRules.join(', '));
+                window.app.alertSuccess('Installed rules: ' + installedRules.join(', '));
                 Actions.getAllRules();
             }
         );
     }
 
     saveRule(rule) {
-        Socket.emit(
+        window.socket.emit(
             SocketMethod.SAVE_RULE,
             rule,
             (error, rule) => {
                 if (error) {
-                    return ForumApp.alertError(error.message);
+                    return window.app.alertError(error.message);
                 }
 
-                ForumApp.alertSuccess('Rule "' + rule.displayName + '" is updated');
+                window.app.alertSuccess('Rule "' + rule.displayName + '" is updated');
                 Actions.ruleDidUpdate(rule);
                 Actions.getAllRules();
             }
