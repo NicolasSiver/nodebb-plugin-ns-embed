@@ -2,7 +2,6 @@
  * Created by Nicolas on 10/21/15.
  */
 import Actions from '../actions';
-import connectToStores from 'alt-utils/lib/connectToStores';
 import objectAssign from 'object-assign';
 import React from 'react';
 import Rule from '../models/rule';
@@ -10,9 +9,10 @@ import RuleCreate from './rule-create';
 import RuleDetails from './rule-details';
 import RulesList from './rules-list';
 import RulesStore from '../stores/rules-store';
+import SocketService from '../services/socket-service';
 import Utils from './utils';
 
-class Admin extends React.Component {
+export default class Admin extends React.Component {
     static getStores() {
         return [RulesStore];
     }
@@ -66,5 +66,3 @@ class Admin extends React.Component {
         );
     }
 }
-
-export default connectToStores(Admin);
