@@ -5,7 +5,6 @@ import Actions from '../actions';
 import alt from '../alt';
 import CreateStore from '../stores/create-store';
 import objectAssign from 'object-assign';
-import Socket from 'socket';
 import SocketMethod from '../models/socket-method';
 
 class SocketService {

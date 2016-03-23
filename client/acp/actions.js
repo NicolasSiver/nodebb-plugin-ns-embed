@@ -2,9 +2,6 @@
  * Created by Nicolas on 10/21/15.
  */
 import alt from './alt';
-import ForumApp from 'app';
-import Socket from 'socket';
-import SocketMethod from './models/socket-method';
 
 class Actions {
 
@@ -20,7 +17,7 @@ class Actions {
         return null;
     }
 
-    installDefaultRules(){
+    installDefaultRules() {
         return null;
     }
 

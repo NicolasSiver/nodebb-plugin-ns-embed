@@ -1,9 +1,7 @@
 /**
  * Created by Nicolas on 10/26/15.
  */
-import ForumApp from 'app';
 import React from 'react';
-import StripeCheckout from 'StripeCheckout';
 
 export default class Application extends React.Component {
     constructor(props) {
@@ -18,12 +16,12 @@ export default class Application extends React.Component {
     }
 
     componentDidMount() {
-        this.stripeHandler = StripeCheckout.configure({
+        this.stripeHandler = window.StripeCheckout.configure({
             key       : 'pk_live_AcfQs725nv7nIF5sRCG3v4Q8',
             image     : 'https://s3.amazonaws.com/stripe-uploads/acct_16mDSJB8UmE70jk7merchant-icon-1442539384457-ava-mdpi.jpg',
             locale    : 'auto',
             panelLabel: 'Donate {{amount}}',
-            email     : ForumApp.user.email,
+            email     : window.app.user.email,
             bitcoin   : true,
             token     : function (token) {
                 // Use the token to create the charge with a server-side script.
