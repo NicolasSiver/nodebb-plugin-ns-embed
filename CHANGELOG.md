@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.0 - TBD
+## v2.0.0 - 03/22/2016
 
 - Important: compatibility with Markdown plugin
 - Compatibility with content plugins
