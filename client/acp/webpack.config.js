@@ -8,13 +8,6 @@ module.exports = {
         libraryTarget: "amd",
         library      : "admin/plugins/embed"
     },
-    externals   : {
-        "app"           : "app",
-        "jquery"        : "jQuery",
-        "socket"        : "socket",
-        "templates"     : "templates",
-        "StripeCheckout": "StripeCheckout"
-    },
     module      : {
         loaders: [
             {

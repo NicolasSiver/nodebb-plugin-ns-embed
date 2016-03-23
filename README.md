@@ -14,6 +14,8 @@ Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds ar
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+Plugin works well with default Markdown plugin or without him, i.e. there is no alteration of links in user's posts.
+
 **Important Note:** if you use `markdown` plugin, you should disable _Autoconvert url-like texts to links_ feature.
 
 ## Embeds Supported by Default

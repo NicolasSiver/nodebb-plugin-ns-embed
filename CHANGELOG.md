@@ -2,6 +2,7 @@
 
 ## v2.0.0 - TBD
 
+- Important: compatibility with Markdown plugin
 - Compatibility with content plugins
 - Best practice for ACP scripts
 - Update all dependencies

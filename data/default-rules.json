@@ -4,35 +4,35 @@
       "name": "youtube",
       "displayName": "Youtube",
       "icon": "fa-youtube",
-      "regex": "(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/\\S*(?:(?:\\/e(?:mbed))?\\/|watch\\?(?:\\S*?&?v\\=))|youtu\\.be\\/)([a-zA-Z0-9_-]{6,11})",
+      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/\\S*(?:(?:\\/e(?:mbed))?\\/|watch\\?(?:\\S*?&?v\\=))|youtu\\.be\\/)([a-zA-Z0-9_-]{6,11})(?:.*?\\/a>)?",
       "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='https://www.youtube.com/embed/$1' frameborder='0' allowfullscreen></iframe></div></div>"
     },
     {
       "name": "vimeo",
       "displayName": "Vimeo",
       "icon": "fa-vimeo",
-      "regex": "(?:https?:\\/\\/)?(?:www\\.)?vimeo\\.com\\/(?:channels\\/(?:\\w+\\/)?|groups\\/(?:[^\\/]*)\\/videos\\/|)(\\d+)(?:|\\/\\?)",
+      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?vimeo\\.com\\/(?:channels\\/(?:\\w+\\/)?|groups\\/(?:[^\\/]*)\\/videos\\/|)(\\d+)(?:|\\/\\?)(?:.*?\\/a>)?",
       "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='https://player.vimeo.com/video/$1' frameborder='0' allowfullscreen></iframe></div></div>"
     },
     {
       "name": "vine",
       "displayName": "Vine",
       "icon": "fa-vine",
-      "regex": "(?:https?:\\/\\/)?(?:www\\.)?vine\\.co\\/v\\/([a-zA-Z0-9_-]{6,11})",
+      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?vine\\.co\\/v\\/([a-zA-Z0-9_-]{6,11})(?:.*?\\/a>)?",
       "replacement": "<div class='embed-wrapper embed-vine'><div class='embed-container'><iframe src='https://vine.co/v/$1/embed/simple' frameborder='0'></iframe></div></div>"
     },
     {
       "name": "coub",
       "displayName": "Coub",
       "icon": "fa-cube",
-      "regex": "(?:https?:\\/\\/)?(?:www\\.)?coub\\.com\\/view\\/([a-zA-Z0-9_-]{4,11})",
+      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?coub\\.com\\/view\\/([a-zA-Z0-9_-]{4,11})(?:.*?\\/a>)?",
       "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='https://coub.com/embed/$1?muted=false&autostart=false&originalSize=false&hideTopBar=true&startWithHD=true' frameborder='0' allowfullscreen></iframe></div></div>"
     },
     {
       "name": "twitch",
       "displayName": "Twitch Live",
       "icon": "fa-twitch",
-      "regex": "(?:https?:\\/\\/)?(?:www\\.)?twitch\\.tv\\/([a-zA-Z0-9_-]+)",
+      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?twitch\\.tv\\/([a-zA-Z0-9_-]+)(?:.*?\\/a>)?",
       "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='http://www.twitch.tv/$1/embed' frameborder='0' allowfullscreen></iframe></div></div>"
     }
   ]
