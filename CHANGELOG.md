@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.1 - TBD
+
+- Ignore Youtube Profile for the Youtube default rule
+
 ## v2.0.0 - 03/22/2016
 
 - Important: compatibility with Markdown plugin

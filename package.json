@@ -26,19 +26,19 @@
   "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-embed#readme",
   "dependencies": {
     "async": "^1.4.2",
-    "object-assign": "^4.0.1",
+    "object-assign": "^4.1.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.5.0",
     "babel-register": "^6.3.13",
-    "browser-sync": "^2.9.11",
+    "browser-sync": "^2.12.5",
     "chai": "^3.4.1",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.0.4",
+    "gulp-sass": "^2.3.1",
     "mocha": "^2.3.4"
   },
   "nbbpm": {
