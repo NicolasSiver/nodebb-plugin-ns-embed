@@ -15,6 +15,7 @@ describe('RegExp Rules', () => {
         const regular           = 'https://www.youtube.com/watch?v=Dwrm0X7RL0c',
               regularNoProtocol = 'www.youtube.com/watch?v=Dwrm0X7RL0c',
               regularNoZone     = 'https://youtube.com/watch?v=Dwrm0X7RL0c',
+              profileUrl        = 'https://www.youtube.com/user/machinima',
               regularId         = 'Dwrm0X7RL0c';
 
         const short           = 'https://youtu.be/opgt8ZVqP_g',
@@ -45,6 +46,8 @@ describe('RegExp Rules', () => {
             expect(shortNoProtocol.replace(regex, group)).to.equal(shortId);
         });
 
-
+        it('ignores profile urls', () => {
+            expect(profileUrl.replace(regex, repl)).to.equal(profileUrl);
+        })
     });
 });
