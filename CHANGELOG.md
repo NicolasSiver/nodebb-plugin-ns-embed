@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.1 - TBD
+## v2.0.1 - 05/02/2016
 
 - Ignore Youtube Profile for the Youtube default rule
 
