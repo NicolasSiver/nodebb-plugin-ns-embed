@@ -4,28 +4,28 @@
             "name": "MOV",
             "displayName" : "MOV",
             "icon": "",
-            "regex": "<a href="(https|http)?:?(.*\.mov)".*>.*<\/a>",
+            "regex": "<a href="(?:https?)?:?(//.*\.mov)".*>.*<\/a>",
             "replacement": "<div class='embed-container' data-src="$1" data-type="video/mp4" data-codec="avc1.42E01E, mp4a.40.2" ><br><video width="100%" height="auto" preload controls><source src="$1" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' /></video></div>"
         },
         {
             "name": "MP4",
             "displayName" : "MP4",
             "icon": "",
-            "regex": "<a href="(https|http)?:?(.*\.mp4)".*>.*<\/a>",
+            "regex": "<a href="(?:https?)?:?(//.*\.mp4)".*>.*<\/a>",
             "replacement": "<div class="embed-container"  data-src="$1" data-type="video/mp4" data-codec="avc1.42E01E, mp4a.40.2" ><br><video width="100%" height="auto" preload controls><source src="$1" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' /></video></div>"
         },
         {
             "name": "OGV",
             "displayName" : "OGV",
             "icon": "",
-            "regex": "<a href="(https|http)?:?(.*\.ogv)".*>.*<\/a>",
+            "regex": "<a href="(?:https?)?:?(//.*\.ogv)".*>.*<\/a>",
             "replacement": "<div class="embed-container"  data-src="$1" data-type="video/ogg" data-codec="theora, vorbis" ><br><video class="vplayer" width="100%" height="auto" preload controls><source src="$1" type=\'video/ogg; codecs="theora, vorbis"\' /></video></div>"
         },
         {
             "name": "WEBM",
             "displayName" : "WEBM",
             "icon": "",
-            "regex": "<a href="(https|http)?:?(.*\.webm)".*>.*<\/a>",
+            "regex": "<a href="(?:https?)?:?(//.*\.webm)".*>.*<\/a>",
             "replacement": "<div class="embed-container"  data-src="$1" data-type="video/webm" data-codec="vp8, vorbis" ><br><video class="vplayer" width="100%" height="auto" preload controls><source src="$1" type=\'video/webm; codecs="vp8, vorbis"\' /></video></div>"
         },
     ]
