@@ -21,6 +21,7 @@ Plugin works well with default `Markdown` plugin or without him, i.e. there is n
 Most embeds are responsive with limited width to `640px`
 
 - Coub
+- Twitch (Video and Channels)
 - Vimeo
 - Vine
 - Youtube (short and general urls)

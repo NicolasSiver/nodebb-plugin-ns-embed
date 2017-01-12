@@ -29,11 +29,18 @@
       "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='https://coub.com/embed/$1?muted=false&autostart=false&originalSize=false&hideTopBar=true&startWithHD=true' frameborder='0' allowfullscreen></iframe></div></div>"
     },
     {
-      "name": "twitch",
+      "name": "twitch-live",
       "displayName": "Twitch Live",
       "icon": "fa-twitch",
-      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?twitch\\.tv\\/([a-zA-Z0-9_-]+)(?:.*?\\/a>)?",
-      "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='http://www.twitch.tv/$1/embed' frameborder='0' allowfullscreen></iframe></div></div>"
+      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?twitch\\.tv(?!.*\\/v\\/)\\/([a-zA-Z0-9_-]+)(?:.*?\\/a>)?",
+      "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='https://player.twitch.tv/?autoplay=false&channel=$1' frameborder='0' allowfullscreen></iframe></div></div>"
+    },
+    {
+      "name": "twitch-vod",
+      "displayName": "Twitch VoD",
+      "icon": "fa-twitch",
+      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?twitch\\.tv\\/.*\\/v\\/(\\d+)(?:.*?\\/a>)?",
+      "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='https://player.twitch.tv/?autoplay=false&video=v$1' frameborder='0' allowfullscreen></iframe></div></div>"
     }
   ]
 }
