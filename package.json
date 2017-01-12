@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-ns-embed",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds are based on the rules. You are encouraged to build your own rules to embed everything what is embeddable.",
   "main": "./plugin/index.js",
   "scripts": {
