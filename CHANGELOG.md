@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.1.0 - 01/11/2017
+
+- Add Twitch Default rule for Live content
+- Add Twitch Default rule for VoD
+
 ## v2.0.1 - 05/02/2016
 
 - Ignore Youtube Profile for the Youtube default rule
