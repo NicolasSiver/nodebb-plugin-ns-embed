@@ -32,7 +32,7 @@
       "name": "twitch-live",
       "displayName": "Twitch Live",
       "icon": "fa-twitch",
-      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?twitch\\.tv(?!.*v)\\/([a-zA-Z0-9_-]+)(?:.*?\\/a>)?",
+      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?twitch\\.tv(?!.*\\/v\\/)\\/([a-zA-Z0-9_-]+)(?:.*?\\/a>)?",
       "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='https://player.twitch.tv/?autoplay=false&channel=$1' frameborder='0' allowfullscreen></iframe></div></div>"
     },
     {
