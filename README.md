@@ -17,17 +17,17 @@ Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds ar
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-Plugin works well with default `Markdown` plugin or without him, i.e. there is no alteration of links in user's posts.
+The plugin works well with default `Markdown` plugin or without it, i.e. there is no alteration of links in user's posts.
 
 ## Embeds Supported by Default
 
-Most embeds are responsive with limited width to `640px`
+Most embeds are responsive with a limited width to `640px`
 
 - Coub
-- Twitch (Video and Channels)
+- Twitch (video and channel)
 - Vimeo
 - Vine
-- Youtube (short and general urls)
+- Youtube (short and normal URL)
 
 ## Look
 
