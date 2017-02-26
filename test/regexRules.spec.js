@@ -17,6 +17,7 @@ describe('RegExp Rules', () => {
               regularNoProtocol = 'www.youtube.com/watch?v=Dwrm0X7RL0c',
               regularNoZone     = 'https://youtube.com/watch?v=Dwrm0X7RL0c',
               profileUrl        = 'https://www.youtube.com/user/machinima',
+              channelUrl        = 'https://www.youtube.com/channel/UC0fDG3byEcMtbOqPMymDNbw',
               regularId         = 'Dwrm0X7RL0c';
 
         const short           = 'https://youtu.be/opgt8ZVqP_g',
@@ -53,7 +54,11 @@ describe('RegExp Rules', () => {
 
         it('ignores profile urls', () => {
             expect(profileUrl.replace(regex, repl)).to.equal(profileUrl);
-        })
+        });
+
+        it('ignores channel urls', () => {
+            expect(channelUrl.replace(regex, repl)).to.be.equal(channelUrl);
+        });
     });
 
     describe('Twitch', () => {

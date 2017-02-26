@@ -4,7 +4,7 @@
       "name": "youtube",
       "displayName": "Youtube",
       "icon": "fa-youtube",
-      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/(?!user)\\S*(?:(?:\\/e(?:mbed))?\\/|watch\\?(?:\\S*?&?v\\=))|youtu\\.be\\/)([a-zA-Z0-9_-]{6,11})(?:.*?\\/a>)?",
+      "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/(?!user|channel)\\S*(?:(?:\\/e(?:mbed))?\\/|watch\\?(?:\\S*?&?v\\=))|youtu\\.be\\/)([a-zA-Z0-9_-]{6,11})(?:.*?\\/a>)?",
       "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='https://www.youtube.com/embed/$1' frameborder='0' allowfullscreen></iframe></div></div>"
     },
     {
