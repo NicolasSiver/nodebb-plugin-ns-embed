@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.1 - 02/26/2017
+
+- Ignore Youtube Channels for the Youtube default rule
+
 ## v2.1.0 - 01/11/2017
 
 - Add Twitch Default rule for Live content
