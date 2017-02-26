@@ -12,6 +12,9 @@ Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds ar
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
  
 
+- [Embeds Supported by Default](#embeds-supported-by-default)
+- [Look](#look)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Plugin works well with default `Markdown` plugin or without him, i.e. there is no alteration of links in user's posts.
