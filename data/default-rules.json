@@ -41,6 +41,12 @@
       "icon": "fa-twitch",
       "regex": "(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?twitch\\.tv\\/.*\\/v\\/(\\d+)(?:.*?\\/a>)?",
       "replacement": "<div class='embed-wrapper'><div class='embed-container'><iframe src='https://player.twitch.tv/?autoplay=false&video=v$1' frameborder='0' allowfullscreen></iframe></div></div>"
+    },
+      "name": "twitter",
+      "displayName": "Twitter",
+      "icon": "fa-twitter",
+      "regex": "<a href=\"(?:https?:\/\/)?(?:twitter\.com)\/([^\/\"\s]*)\/statuse?s?\/([^\/\"\s]*)(\/photo\/\d|)\".*?>.+?<\/a>",
+      "replacement": "<div class='embed-wrapper'><blockquote class='twitter-tweet' data-lang='en'><a href='https://twitter.com/$1/status/$2'></a></blockquote><script async src='//platform.twitter.com/widgets.js' charset='utf-8'></script></div>"
     }
   ]
 }
