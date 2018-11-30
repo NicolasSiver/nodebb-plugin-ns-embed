@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.0.0 - 11/29/2018
+
+- Changed compatibility for NodeBB v1.11.0
+- Removed Emitter NodeBB dependency
+
 ## v2.1.1 - 02/26/2017
 
 - Ignore Youtube Channels for the Youtube default rule
