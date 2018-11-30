@@ -4,7 +4,6 @@ Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds ar
 
 ![Version](https://img.shields.io/npm/v/nodebb-plugin-ns-embed.svg)
 ![Dependencies](https://david-dm.org/NicolasSiver/nodebb-plugin-ns-embed.svg)
-![bitHound Score](https://www.bithound.io/github/NicolasSiver/nodebb-plugin-ns-embed/badges/score.svg)
 ![Code Climate](https://img.shields.io/codeclimate/github/NicolasSiver/nodebb-plugin-ns-embed.svg)
 ![Travis](https://travis-ci.org/NicolasSiver/nodebb-plugin-ns-embed.svg?branch=master)
 
@@ -13,7 +12,7 @@ Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds ar
  
 
 - [Embeds Supported by Default](#embeds-supported-by-default)
-- [Look](#look)
+- [Screenshots](#screenshots)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -29,6 +28,6 @@ Most embeds are responsive with a limited width to `640px`
 - Vine
 - Youtube (short and normal URL)
 
-## Look
+## Screenshots
 
 ![Admin Panel View](screenshot.png)
