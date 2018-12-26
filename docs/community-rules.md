@@ -10,6 +10,7 @@ All rules are sorted alphabetically.
 
 - [Blender Tube](#blender-tube)
 - [Dailymotion](#dailymotion)
+- [FramaTube](#framatube)
 - [Twitter](#twitter)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -40,6 +41,20 @@ Replace
 
 ```html
 <div class='embed-wrapper'><div class='embed-container'><iframe  src='//www.dailymotion.com/embed/video/$1' frameborder='0' allowfullscreen></iframe></div></div>
+```
+
+### FramaTube
+
+Watch
+
+```regex
+(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?framatube\\.org\\/videos\\/watch\\/([a-zA-Z0-9_-]{4,36})(?:.*?\\/a>)?
+```
+
+Replace
+
+```html
+<div class='embed-wrapper'><div class='embed-container'><iframe  src='//framatube.org/videos/embed/$1' frameborder='0' allowfullscreen></iframe></div></div>
 ```
 
 ### Twitter
