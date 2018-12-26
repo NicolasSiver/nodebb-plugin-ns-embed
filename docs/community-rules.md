@@ -12,6 +12,7 @@ All rules are sorted alphabetically.
 - [Dailymotion](#dailymotion)
 - [FramaTube](#framatube)
 - [MixCloud](#mixcloud)
+- [SoundCloud](#soundcloud)
 - [Twitter](#twitter)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -70,6 +71,20 @@ Replace
 
 ```html
 <div class='embed-wrapper'><div class='embed-container'><iframe src='https://www.mixcloud.com/widget/iframe/?light=1&hide_artwork=1&feed=%2F$1%2F$2%2F' frameborder='0'></iframe></div></div>
+```
+
+### SoundCloud
+
+Watch
+
+```regex
+(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?soundcloud\\.com\\/([a-zA-Z0-9_^/-]{4,250})(?:.*?\\/a>)?
+```
+
+Replace
+
+```html
+<div class='embed-wrapper'><div class='embed-container'><iframe scrolling='no' frameborder='no' allow='autoplay' src='https://w.soundcloud.com/player/?url=https://soundcloud.com/$1&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true'></iframe></div></div>
 ```
 
 ### Twitter
