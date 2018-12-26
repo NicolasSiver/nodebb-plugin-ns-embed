@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.0.1 - 12/26/2018
+
+- Added community embed rules
+- Removed Code Climate integration
+
 ## v3.0.0 - 11/29/2018
 
 - Changed compatibility for NodeBB v1.11.0
