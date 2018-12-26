@@ -13,6 +13,7 @@ All rules are sorted alphabetically.
 - [FramaTube](#framatube)
 - [MixCloud](#mixcloud)
 - [SoundCloud](#soundcloud)
+- [Spotify](#spotify)
 - [Twitter](#twitter)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -85,6 +86,20 @@ Replace
 
 ```html
 <div class='embed-wrapper'><div class='embed-container'><iframe scrolling='no' frameborder='no' allow='autoplay' src='https://w.soundcloud.com/player/?url=https://soundcloud.com/$1&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true'></iframe></div></div>
+```
+
+### Spotify
+
+Watch
+
+```regex
+(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?open\\.spotify\\.com\\/album\\/([a-zA-Z0-9_-]{4,36})(?:.*?\\/a>)?
+```
+
+Replace
+
+```html
+<div class='embed-wrapper'><div class='embed-container'><iframe src='https://open.spotify.com/embed/album/$1' frameborder='0' allowtransparency='true' allow='encrypted-media'></iframe></div></div>
 ```
 
 ### Twitter
