@@ -11,6 +11,7 @@ All rules are sorted alphabetically.
 - [Blender Tube](#blender-tube)
 - [Dailymotion](#dailymotion)
 - [FramaTube](#framatube)
+- [MixCloud](#mixcloud)
 - [Twitter](#twitter)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -55,6 +56,20 @@ Replace
 
 ```html
 <div class='embed-wrapper'><div class='embed-container'><iframe  src='//framatube.org/videos/embed/$1' frameborder='0' allowfullscreen></iframe></div></div>
+```
+
+### MixCloud
+
+Watch
+
+```regex
+(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?mixcloud\\.com\\/([a-zA-Z0-9_-]{4,36})\\/([a-zA-Z0-9_-]{4,136})(?:.*?\\/a>)?
+```
+
+Replace
+
+```html
+<div class='embed-wrapper'><div class='embed-container'><iframe src='https://www.mixcloud.com/widget/iframe/?light=1&hide_artwork=1&feed=%2F$1%2F$2%2F' frameborder='0'></iframe></div></div>
 ```
 
 ### Twitter
