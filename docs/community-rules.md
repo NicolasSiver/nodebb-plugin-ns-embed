@@ -8,9 +8,24 @@ All rules are sorted alphabetically.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
  
 
+- [Blender Tube](#blender-tube)
 - [Twitter](#twitter)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+### Blender Tube
+
+Watch
+
+```regex
+(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?video\\.blender\\.org\\/videos\\/watch\\/([a-zA-Z0-9_-]{4,36})(?:.*?\\/a>)?
+```
+
+Replace
+
+```html
+<div class='embed-wrapper'><div class='embed-container'><iframe  src='//video.blender.org/videos/embed/$1' frameborder='0' allowfullscreen></iframe></div></div>
+```
 
 ### Twitter
 
