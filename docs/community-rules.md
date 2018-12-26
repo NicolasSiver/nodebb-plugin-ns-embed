@@ -9,6 +9,7 @@ All rules are sorted alphabetically.
  
 
 - [Blender Tube](#blender-tube)
+- [Dailymotion](#dailymotion)
 - [Twitter](#twitter)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -25,6 +26,20 @@ Replace
 
 ```html
 <div class='embed-wrapper'><div class='embed-container'><iframe  src='//video.blender.org/videos/embed/$1' frameborder='0' allowfullscreen></iframe></div></div>
+```
+
+### Dailymotion
+
+Watch
+
+```regex
+(?:<a.*?)?(?:https?:\\/\\/)?(?:www\\.)?dailymotion\\.com\\/video\\/([a-zA-Z0-9_-]{4,11})(?:.*?\\/a>)?
+```
+
+Replace
+
+```html
+<div class='embed-wrapper'><div class='embed-container'><iframe  src='//www.dailymotion.com/embed/video/$1' frameborder='0' allowfullscreen></iframe></div></div>
 ```
 
 ### Twitter
