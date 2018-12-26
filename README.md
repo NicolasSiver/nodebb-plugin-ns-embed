@@ -4,7 +4,6 @@ Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds ar
 
 ![Version](https://img.shields.io/npm/v/nodebb-plugin-ns-embed.svg)
 ![Dependencies](https://david-dm.org/NicolasSiver/nodebb-plugin-ns-embed.svg)
-![Code Climate](https://img.shields.io/codeclimate/github/NicolasSiver/nodebb-plugin-ns-embed.svg)
 ![Travis](https://travis-ci.org/NicolasSiver/nodebb-plugin-ns-embed.svg?branch=master)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -27,6 +26,8 @@ Most embeds are responsive with a limited width to `640px`
 - Vimeo
 - Vine
 - Youtube (short and normal URL)
+
+If you would like to have more embeddable services, please refer to the [Community Embed Rules](docs/community-rules.md).
 
 ## Screenshots
 
