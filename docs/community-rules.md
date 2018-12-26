@@ -16,7 +16,7 @@ All rules are sorted alphabetically.
 
 Watch
 
-```
+```regex
 (?:<a.*?)?(?:https?:\\/\\/)?(?:twitter\\.com)\\/([^\\/\"\\s]*)\\/statuse?s?\\/([^\\/\"\\s]*)(\\/photo\\/\\d|)\".*?>.+?<\\/a>
 ```
 
