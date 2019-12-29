@@ -1,7 +1,7 @@
 {
   "id": "nodebb-plugin-ns-embed",
   "name": "NodeBB Embed",
-  "description": "Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds are based on the rules. You are encouraged to build your own rules to embed everything what is embeddable.",
+  "description": "Embed media and rich content in posts: Youtube, Vimeo, Twitch etc. All embeds are based on the rules. You are encouraged to build your own rules to embed everything what is embeddable.",
   "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-embed",
   "library": "./plugin/index.js",
   "hooks": [
@@ -21,6 +21,10 @@
       "hook": "filter:parse.post",
       "method": "hooks.filters.parsePost",
       "priority": 8
+    },
+    {
+      "hook": "filter:parse.raw",
+      "method": "hooks.filters.parseRaw"
     }
   ],
   "less": [

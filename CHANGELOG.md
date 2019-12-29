@@ -1,40 +1,51 @@
 # Changelog
 
-## v3.0.1 - 12/26/2018
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [4.0.0] - 2019-12-29
+
+- Added support for post preview of the embedded content
+- Changed dependencies to comply with the most security updates
+- Changed compatibility with NodeBB v1.13.x
+
+## [3.0.1] - 2018-12-26
 
 - Added community embed rules
 - Removed Code Climate integration
 
-## v3.0.0 - 11/29/2018
+## [3.0.0] - 2018-11-29
 
 - Changed compatibility for NodeBB v1.11.0
 - Removed Emitter NodeBB dependency
 
-## v2.1.1 - 02/26/2017
+## [2.1.1] - 2017-02-26
 
-- Ignore Youtube Channels for the Youtube default rule
+- Changed Youtube default rule to ignore Youtube channels
 
-## v2.1.0 - 01/11/2017
+## [2.1.0] - 2017-01-11
 
-- Add Twitch Default rule for Live content
-- Add Twitch Default rule for VoD
+- Added Twitch Default rule for Live content
+- Added Twitch Default rule for VoD
 
-## v2.0.1 - 05/02/2016
+## [2.0.1] - 2016-05-02
 
-- Ignore Youtube Profile for the Youtube default rule
+- Changed Youtube default rule to ignore Youtube profiles
 
-## v2.0.0 - 03/22/2016
+## [2.0.0] - 2016-03-22
 
-- Important: compatibility with Markdown plugin
-- Compatibility with content plugins
-- Best practice for ACP scripts
-- Update all dependencies
+- Added compatibility with Markdown plugin
+- Added compatibility with content plugins
+- Changed ACP scripts to follow best practice
+- Changed all dependencies
 
-## v1.1.0 - 12/16/2015
+## [1.1.0] - 2015-12-16
 
-- skip invalid regular expressions
-- updated default youtube rule
+- Added ability to skip invalid regular expressions
+- Changed default Youtube rule
 
-## v1.0.0 - 11/29/2015
+## [1.0.0] - 2015-11-29
 
-- initial release with predefined set of embeds
+- Initial release with predefined set of embeds

@@ -1,18 +1,15 @@
-/**
- * Created by Nicolas on 10/21/15.
- */
+const async = require('async');
+
+const database = require('./database'),
+      logger   = require('./logger'),
+      rules    = require('./rules'),
+      Utils    = require('./utils');
+
 (function (Controller) {
-    'use strict';
-
-    var async    = require('async'),
-
-        database = require('./database'),
-        logger   = require('./logger'),
-        rules    = require('./rules');
 
     Controller.createRule = function (payload, done) {
         async.series([
-            async.apply(database.createRule, payloadToRule(payload)),
+            async.apply(database.createRule, Utils.payloadToRule(payload)),
             async.apply(rules.invalidate)
         ], done);
     };
@@ -35,17 +32,18 @@
     };
 
     Controller.installDefaultRules = function (done) {
-        var data = require('../data/default-rules');
-        var installed = [];
+        let data = require('../data/default-rules');
+        let installed = [];
 
         async.waterfall([
             async.apply(database.getRules),
             function (rules, callback) {
-                var toInstall = [], i = 0, len = data.rules.length, defaultRule;
+                let toInstall = [], i = 0, len = data.rules.length, defaultRule;
 
                 for (i; i < len; ++i) {
                     defaultRule = data.rules[i];
-                    if (isInList('name', defaultRule.name, rules)) {
+
+                    if (Utils.isInList('name', defaultRule.name, rules)) {
                         logger.log('verbose', 'Rule "%s" is skipped. Reason: already installed', defaultRule.displayName);
                     } else {
                         toInstall.push(defaultRule);
@@ -56,7 +54,7 @@
             },
             function (install, callback) {
                 async.eachSeries(install, function (defaultRule, next) {
-                    database.createRule(payloadToRule(defaultRule), function (error) {
+                    database.createRule(Utils.payloadToRule(defaultRule), function (error) {
                         if (error) {
                             return next(error);
                         }
@@ -83,63 +81,46 @@
         });
     };
 
+    Controller.parseContent = function (content, done) {
+        rules.parse(content, function (error, result) {
+            if (error == null) {
+                done(null, result);
+            } else {
+                done(error);
+            }
+        });
+    };
+
     /**
      * Main parsing method.
      * Performs replacements on content field.
      *
-     * @param payload {object} - includes full post entity Payload.postData.content
-     * @param done returns updated content
+     * @param {Object} payload {object} includes full post entity Payload.postData.content
+     * @param {Function} done returns updated content
      */
     Controller.parsePost = function (payload, done) {
-        rules.parse(payload.postData.content, function (error, content) {
-            if (error) {
-                return done(error);
+        Controller.parseContent(payload.postData.content, function (error, content) {
+            if (error == null) {
+                payload.postData.content = content;
+                done(null, payload);
+            } else {
+                done(error);
             }
-
-            payload.postData.content = content;
-            done(null, payload);
         });
     };
 
     Controller.saveRule = function (rule, done) {
         async.series({
-            save: async.apply(database.updateRule, rule.rid, payloadToRule(rule)),
+            save: async.apply(database.updateRule, rule.rid, Utils.payloadToRule(rule)),
             rule: async.apply(database.getRule, rule.rid),
             sync: async.apply(rules.invalidate)
         }, function (error, results) {
             if (error) {
                 return done(error);
             }
+
             done(null, results.rule)
         });
     };
-
-    function isInList(field, value, list) {
-        var i = 0, len = list.length, listItem;
-
-        for (i; i < len; ++i) {
-            listItem = list[i];
-
-            if (listItem[field] === value) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    function payloadToRule(payload) {
-        var rule = {};
-
-        // TODO Validation?
-
-        rule.name = payload.name;
-        rule.displayName = payload.displayName;
-        rule.regex = payload.regex;
-        rule.replacement = payload.replacement;
-        rule.icon = payload.icon || 'fa-cogs';
-
-        return rule;
-    }
 
 })(module.exports);
