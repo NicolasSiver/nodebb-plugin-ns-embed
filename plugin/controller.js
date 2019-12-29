@@ -1,14 +1,10 @@
-/**
- * Created by Nicolas on 10/21/15.
- */
+var async = require('async');
+
+var database = require('./database'),
+    logger   = require('./logger'),
+    rules    = require('./rules');
+
 (function (Controller) {
-    'use strict';
-
-    var async    = require('async'),
-
-        database = require('./database'),
-        logger   = require('./logger'),
-        rules    = require('./rules');
 
     Controller.createRule = function (payload, done) {
         async.series([
