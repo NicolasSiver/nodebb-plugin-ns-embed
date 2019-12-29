@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-embed#readme",
   "dependencies": {
-    "async": "^1.4.2",
+    "async": "^3.1.0",
     "object-assign": "^4.1.1",
     "winston": "^2.3.1"
   },
@@ -33,7 +33,7 @@
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@babel/register": "^7.7.7",
-    "browser-sync": "^2.18.8",
+    "browser-sync": "^2.26.7",
     "chai": "^4.2.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.1",
