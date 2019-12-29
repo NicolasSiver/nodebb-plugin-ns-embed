@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.0.0 - XX/XX/XXXX
+
+- Added support for post preview of the embedded content
+- Changed dependencies to comply with the most security updates
+- Changed compatibility with NodeBB v1.13.x
+
 ## v3.0.1 - 12/26/2018
 
 - Added community embed rules

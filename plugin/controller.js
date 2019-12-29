@@ -83,21 +83,31 @@
         });
     };
 
+    Controller.parseContent = function (content, done) {
+        rules.parse(content, function (error, result) {
+            if (error == null) {
+                done(null, result);
+            } else {
+                done(error);
+            }
+        });
+    };
+
     /**
      * Main parsing method.
      * Performs replacements on content field.
      *
-     * @param payload {object} - includes full post entity Payload.postData.content
-     * @param done returns updated content
+     * @param {Object} payload {object} includes full post entity Payload.postData.content
+     * @param {Function} done returns updated content
      */
     Controller.parsePost = function (payload, done) {
-        rules.parse(payload.postData.content, function (error, content) {
-            if (error) {
-                return done(error);
+        Controller.parseContent(payload.postData.content, function (error, content) {
+            if (error == null) {
+                payload.postData.content = content;
+                done(null, payload);
+            } else {
+                done(error);
             }
-
-            payload.postData.content = content;
-            done(null, payload);
         });
     };
 

@@ -21,4 +21,8 @@
         controller.parsePost(payload, callback);
     };
 
+    Filters.parseRaw = function (payload, callback) {
+        controller.parseContent(payload, callback);
+    }
+
 })(module.exports);
