@@ -4,6 +4,7 @@
   "description": "Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds are based on the rules. You are encouraged to build your own rules to embed everything what is embeddable.",
   "main": "./plugin/index.js",
   "scripts": {
+    "compile-acp-styles": "sass --no-source-map  ./style/main.scss ./public/css/acp.css",
     "test": "mocha --recursive"
   },
   "repository": {
@@ -31,7 +32,8 @@
   },
   "devDependencies": {
     "chai": "^4.3.4",
-    "mocha": "^8.4.0"
+    "mocha": "^8.4.0",
+    "sass": "^1.34.0"
   },
   "nbbpm": {
     "compatibility": "~1.17.x"

@@ -1,6 +1,8 @@
+@use "sass:math";
+
 $rhythm: 8px;
 
-$margin-xs: $rhythm / 2;
+$margin-xs: math.div($rhythm, 2);
 $margin-s: $rhythm;
 $margin: $rhythm * 2;
 $margin-l: $rhythm * 3;
