@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Changed project dependencies to rely on fewer libraries
 - Changed integration with NodeBB to preserve ability to enter Fullscreen (kudos to Revir Yang)  
+- Changed compatibility with NodeBB v1.17.x
 - Removed Babel for unit tests around the rules
 - Removed Gulp as orchestration tool for SASS styles
 
