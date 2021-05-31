@@ -1,7 +1,7 @@
 (function (Filters) {
     'use strict';
 
-    var controller = require('./controller');
+    let controller = require('./controller');
 
     Filters.adminHeaderBuild = function (header, callback) {
         header.plugins.push({
@@ -23,6 +23,15 @@
 
     Filters.parseRaw = function (payload, callback) {
         controller.parseContent(payload, callback);
-    }
+    };
+
+    // Full list of the attributes: https://github.com/NodeBB/NodeBB/blob/21c992242e1219c8d726ddc5b3b661adc9fd44c2/src/posts/parse.js#L21
+    Filters.sanitizeConfig = function (payload, callback) {
+        let iframeConfig = payload.allowedAttributes.iframe;
+
+        iframeConfig.push('allowfullscreen');
+        iframeConfig.push('frameborder');
+        callback(null, payload);
+    };
 
 })(module.exports);

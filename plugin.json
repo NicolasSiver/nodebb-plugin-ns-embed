@@ -25,6 +25,10 @@
     {
       "hook": "filter:parse.raw",
       "method": "hooks.filters.parseRaw"
+    },
+    {
+      "hook": "filter:sanitize.config",
+      "method": "hooks.filters.sanitizeConfig"
     }
   ],
   "less": [
