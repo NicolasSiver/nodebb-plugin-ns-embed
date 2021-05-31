@@ -4,7 +4,7 @@
   "description": "Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds are based on the rules. You are encouraged to build your own rules to embed everything what is embeddable.",
   "main": "./plugin/index.js",
   "scripts": {
-    "test": "mocha --require @babel/register --recursive"
+    "test": "mocha --recursive"
   },
   "repository": {
     "type": "git",
