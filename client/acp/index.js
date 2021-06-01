@@ -14,7 +14,8 @@ export const init = () => {
 
     ReactDom.render(
         <Provider>
-            <Admin/>
+            <Admin
+                installDefaultRules={() => socketService.installDefaultRules()}/>
         </Provider>,
         document.getElementById('acpEmbedContainer')
     );

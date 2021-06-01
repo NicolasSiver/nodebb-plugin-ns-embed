@@ -50,24 +50,23 @@ export class SocketService {
         );
     }
 
-    // installDefaultRules() {
-    //     if (process.env.NODE_ENV !== 'production') {
-    //         console.info('Installing Default Rules');
-    //     }
-    //     window.socket.emit(
-    //         SocketMethods.INSTALL_DEFAULT_RULES,
-    //         {},
-    //         (error, installedRules) => {
-    //             if (error) {
-    //                 return window.app.alertError(error.message);
-    //             }
-    //
-    //             window.app.alertSuccess('Installed rules: ' + installedRules.join(', '));
-    //             Actions.getAllRules();
-    //         }
-    //     );
-    // }
-    //
+    installDefaultRules() {
+        console.info('Installing Default rules...');
+
+        window.socket.emit(
+            SocketMethods.INSTALL_DEFAULT_RULES,
+            {},
+            (error, installedRules) => {
+                if (error) {
+                    return window.app.alertError(error.message);
+                }
+
+                window.app.alertSuccess('Installed rules: ' + installedRules.join(', '));
+                this.getAllRules();
+            }
+        );
+    }
+
     // saveRule(rule) {
     //     window.socket.emit(
     //         SocketMethods.SAVE_RULE,

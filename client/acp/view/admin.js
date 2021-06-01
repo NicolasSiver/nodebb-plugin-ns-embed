@@ -4,8 +4,9 @@ import * as Constants from '../model/constants';
 import {Rules} from './rules';
 import {getSelectedRule} from '../model/selectors';
 import {StoreContext} from '../model/store';
+import {Utils} from '../components/utils';
 
-export const Admin = () => {
+export const Admin = props => {
     let {store} = useContext(StoreContext);
 
     function renderExtendedView() {
@@ -29,12 +30,10 @@ export const Admin = () => {
         <div className="row">
             <div className="col-md-6">
                 <Rules/>
-
-                {/*<Utils/>*/}
-
+                <Utils {...props}/>
             </div>
             <div className="col-md-6">
-                {/*{renderExtendedView()}*/}
+                {renderExtendedView()}
             </div>
         </div>
     );

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, {useContext} from 'react';
 
+import {setSelectedRule} from '../controller/actions';
 import * as Constants from '../model/constants';
 import {getSelectedRule, getRules} from '../model/selectors';
 import {StoreContext} from '../model/store';
@@ -20,7 +21,7 @@ export const Rules = () => {
         return (
             <div
                 key={data.rid} className={item}
-                onClick={() => undefined}>
+                onClick={() => this.store.dispatch(setSelectedRule(data))}>
                 <i className={icon}/> {data.displayName}
             </div>
         );

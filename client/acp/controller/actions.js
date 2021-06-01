@@ -6,3 +6,10 @@ export function setRules(rules) {
         payload: rules
     };
 }
+
+export function setSelectedRule(rule) {
+    return {
+        type   : ActionTypes.SELECTED_RULE_DID_CHANGE,
+        payload: rule
+    };
+}

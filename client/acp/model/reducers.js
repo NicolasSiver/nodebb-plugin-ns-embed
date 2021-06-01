@@ -11,7 +11,7 @@ export function rules(state, action) {
 
 export function selectedRule(state, action) {
     switch (action.type) {
-        case 'SOME':
+        case ActionTypes.SELECTED_RULE_DID_CHANGE:
             return action.payload;
         default:
             return state;
