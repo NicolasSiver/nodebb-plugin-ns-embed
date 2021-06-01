@@ -18,6 +18,7 @@ export function createStoreProvider() {
             };
         }, createInitialState());
 
+        // A component calling useContext will always re-render when the context value changes.
         return <StoreContext.Provider value={{dispatch, state}}>{children}</StoreContext.Provider>;
     };
 }
