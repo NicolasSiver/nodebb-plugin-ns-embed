@@ -1,24 +1,46 @@
 import React, {createContext, useReducer} from 'react';
 
-export const StoreContext = createContext(createInitialState());
+import {rules, selectedRule} from './reducers';
 
-function createInitialState() {
+export const StoreContext = createContext(null);
+
+export function createInitialState() {
     return {
         rules       : [],
         selectedRule: null
     };
 }
 
-export function createStoreProvider() {
-    return ({children}) => {
-        let [state, dispatch] = useReducer((state, action) => {
+/**
+ * Experimental build to represent the possibility to have lightweight Store solution with centralized reducer like Redux
+ */
+export function createStore(initialState) {
+    let state, dispatch;
+
+    function invalidate() {
+        let [currentState, dispatchRef] = useReducer((state, action) => {
             return {
-                rules       : state.rules,
-                selectedRule: state.selectedRule
+                rules       : rules(state.rules, action),
+                selectedRule: selectedRule(state.selectedRule, action)
             };
-        }, createInitialState());
+        }, initialState);
+
+        state = currentState;
+        dispatch = dispatchRef;
+    }
+
+    return {
+        dispatch  : action => dispatch(action),
+        getState  : () => state,
+        invalidate: () => invalidate()
+    };
+}
+
+export function createStoreProvider(store) {
+    return ({children}) => {
+        store.invalidate();
 
         // A component calling useContext will always re-render when the context value changes.
-        return <StoreContext.Provider value={{dispatch, state}}>{children}</StoreContext.Provider>;
+        return <StoreContext.Provider value={{store}}>{children}</StoreContext.Provider>;
     };
 }

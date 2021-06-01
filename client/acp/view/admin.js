@@ -1,17 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import * as Constants from '../model/constants';
+import {Rules} from './rules';
 import {getSelectedRule} from '../model/selectors';
+import {StoreContext} from '../model/store';
 
 export const Admin = () => {
+    let {store} = useContext(StoreContext);
+
     function renderExtendedView() {
         let view = null;
-        let selectedRule = getSelectedRule(state);
+        let selectedRule = getSelectedRule(store.getState());
 
         if (selectedRule !== null) {
             if (selectedRule.name === Constants.DEFAULT_RULE_ACTION) {
+                view = 'Create...';
                 // view = <RuleCreate/>;
             } else {
+                view = 'Details...';
                 // view = <RuleDetails rule={this.props.selectedRule}/>;
             }
         }
@@ -22,19 +28,13 @@ export const Admin = () => {
     return (
         <div className="row">
             <div className="col-md-6">
-                {/*<RulesList*/}
-                {/*    rules={this.props.rules}*/}
-                {/*    selected={this.props.selectedRule}/>*/}
+                <Rules/>
 
-                <div className="row">
-                    <div className="col-md-12">
-                        {/*<Utils/>*/}
-                    </div>
-                </div>
+                {/*<Utils/>*/}
 
             </div>
             <div className="col-md-6">
-                {renderExtendedView()}
+                {/*{renderExtendedView()}*/}
             </div>
         </div>
     );

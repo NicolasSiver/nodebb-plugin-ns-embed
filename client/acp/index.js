@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 import {Admin} from './view/admin';
-import {createStoreProvider} from './model/store';
+import {SocketService} from './service/socket-service';
+import {createInitialState, createStore, createStoreProvider} from './model/store';
 
 export const init = () => {
     console.info('Initiate ACP: Embed');
 
-    let Provider = createStoreProvider();
+    let store = createStore(createInitialState());
+    let Provider = createStoreProvider(store);
+    let socketService = new SocketService(store);
 
     ReactDom.render(
         <Provider>
@@ -15,4 +18,6 @@ export const init = () => {
         </Provider>,
         document.getElementById('acpEmbedContainer')
     );
+
+    socketService.getAllRules();
 };
