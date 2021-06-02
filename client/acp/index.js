@@ -5,6 +5,7 @@ import {setNewRule} from './controller/actions';
 import {Admin} from './view/admin';
 import {changeNewRuleField} from './controller/change-new-rule-field';
 import {changeRuleField} from './controller/change-rule-field';
+import {getNewRule} from './model/selectors';
 import {SocketService} from './service/socket-service';
 import {createInitialState, createStore, createStoreProvider} from './model/store';
 
@@ -21,7 +22,7 @@ export const init = () => {
                 fieldWillChange={(rule, field, value) => changeRuleField(rule, field, value, store)}
                 installDefaultRules={() => socketService.installDefaultRules()}
                 newRuleFieldWillChange={(field, value) => changeNewRuleField(field, value, store)}
-                ruleWillCreate={() => undefined}
+                ruleWillCreate={() => socketService.createNewRule(getNewRule(store.getState()))}
                 ruleWillDelete={rule => socketService.deleteRule(rule)}
                 ruleWillReset={() => store.dispatch(setNewRule({}))}
                 ruleWillSave={rule => socketService.saveRule(rule)}/>

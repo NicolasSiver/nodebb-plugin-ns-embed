@@ -1,4 +1,4 @@
-import {setRules} from '../controller/actions';
+import {setNewRule, setRules} from '../controller/actions';
 import * as SocketMethods from '../model/socket-methods';
 
 export class SocketService {
@@ -6,20 +6,21 @@ export class SocketService {
         this.store = store;
     }
 
-    // createNewRule() {
-    //     window.socket.emit(
-    //         SocketMethods.CREATE_RULE,
-    //         CreateStore.getState(),
-    //         (error, rule) => {
-    //             if (error) {
-    //                 return window.app.alertError(error.message);
-    //             }
-    //
-    //             Actions.ruleDidCreate();
-    //             Actions.getAllRules();
-    //         }
-    //     );
-    // }
+    createNewRule(rule) {
+        window.socket.emit(
+            SocketMethods.CREATE_RULE,
+            rule,
+            (error, rule) => {
+                if (error) {
+                    return window.app.alertError(error.message);
+                }
+
+                window.app.alertSuccess('Rule "' + rule.displayName + '" has been created');
+                this.store.dispatch(setNewRule({}));
+                this.getAllRules();
+            }
+        );
+    }
 
     deleteRule(rule) {
         window.socket.emit(
