@@ -1,4 +1,4 @@
-import {setNewRule, setRules} from '../controller/actions';
+import {setNewRule, setRules, setSelectedRule} from '../controller/actions';
 import * as SocketMethods from '../model/socket-methods';
 
 export class SocketService {
@@ -32,6 +32,7 @@ export class SocketService {
                 }
 
                 window.app.alertSuccess('Rule "' + rule.displayName + '" is deleted');
+                this.store.dispatch(setSelectedRule(null));
                 this.getAllRules();
             }
         );
