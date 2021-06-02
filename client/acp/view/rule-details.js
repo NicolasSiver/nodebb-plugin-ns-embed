@@ -19,7 +19,7 @@ export const RuleDetails = props => {
                     dangerButtonClick={() => props.ruleWillDelete(props.rule)}
                     dangerValid={true}
                     okButton="Save"
-                    okButtonClick={() => props.ruleWillCreate(props.rule)}
+                    okButtonClick={() => props.ruleWillSave(props.rule)}
                     okValid={true}/>
             </div>
         </div>

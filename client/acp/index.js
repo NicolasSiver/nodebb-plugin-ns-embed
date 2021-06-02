@@ -17,8 +17,8 @@ export const init = () => {
             <Admin
                 fieldWillChange={(rule, field, value) => undefined}
                 installDefaultRules={() => socketService.installDefaultRules()}
-                ruleWillCreate={rule => undefined}
-                ruleWillDelete={rule => socketService.deleteRule(rule)}/>
+                ruleWillDelete={rule => socketService.deleteRule(rule)}
+                ruleWillSave={rule => socketService.saveRule(rule)}/>
         </Provider>,
         document.getElementById('acpEmbedContainer')
     );

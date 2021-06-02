@@ -67,19 +67,18 @@ export class SocketService {
         );
     }
 
-    // saveRule(rule) {
-    //     window.socket.emit(
-    //         SocketMethods.SAVE_RULE,
-    //         rule,
-    //         (error, rule) => {
-    //             if (error) {
-    //                 return window.app.alertError(error.message);
-    //             }
-    //
-    //             window.app.alertSuccess('Rule "' + rule.displayName + '" is updated');
-    //             Actions.ruleDidUpdate(rule);
-    //             Actions.getAllRules();
-    //         }
-    //     );
-    // }
+    saveRule(rule) {
+        window.socket.emit(
+            SocketMethods.SAVE_RULE,
+            rule,
+            (error, rule) => {
+                if (error) {
+                    return window.app.alertError(error.message);
+                }
+
+                window.app.alertSuccess('Rule "' + rule.displayName + '" is updated');
+                this.getAllRules();
+            }
+        );
+    }
 }
