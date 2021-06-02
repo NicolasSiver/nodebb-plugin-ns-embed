@@ -21,7 +21,7 @@ export const Rules = () => {
         return (
             <div
                 key={data.rid} className={item}
-                onClick={() => this.store.dispatch(setSelectedRule(data))}>
+                onClick={() => store.dispatch(setSelectedRule(data))}>
                 <i className={icon}/> {data.displayName}
             </div>
         );

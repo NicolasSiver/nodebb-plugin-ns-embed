@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.0.0] - 2021-XX-XX
 
+- Added new notifications in ACP for manipulations around rules
 - Changed project dependencies to rely on fewer libraries
 - Changed integration with NodeBB to preserve ability to enter Fullscreen (kudos to Revir Yang)  
 - Changed compatibility with NodeBB v1.17.x
+- Changed ACP UI to rely on latest library  
 - Removed Babel for unit tests around the rules
 - Removed Gulp as orchestration tool for SASS styles
 

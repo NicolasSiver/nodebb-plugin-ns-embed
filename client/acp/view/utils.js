@@ -13,7 +13,7 @@ export const Utils = props => {
 
                 <button
                     className="btn btn-default btn-block"
-                    onClick={props.installDefaultRules()}
+                    onClick={() => props.installDefaultRules()}
                     type="button">
                     Install Default Rules
                 </button>
