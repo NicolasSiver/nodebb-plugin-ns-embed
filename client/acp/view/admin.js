@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 
 import * as Constants from '../model/constants';
+import {RuleDetails} from './rule-details';
 import {Rules} from './rules';
 import {getSelectedRule} from '../model/selectors';
 import {StoreContext} from '../model/store';
@@ -18,8 +19,7 @@ export const Admin = props => {
                 view = 'Create...';
                 // view = <RuleCreate/>;
             } else {
-                view = 'Details...';
-                // view = <RuleDetails rule={this.props.selectedRule}/>;
+                view = <RuleDetails rule={selectedRule} {...props}/>;
             }
         }
 
