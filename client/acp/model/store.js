@@ -1,18 +1,19 @@
 import React, {createContext, useReducer} from 'react';
 
-import {rules, selectedRule} from './reducers';
+import {newRule, rules, selectedRule} from './reducers';
 
 export const StoreContext = createContext(null);
 
 export function createInitialState() {
     return {
+        newRule     : {},
         rules       : [],
         selectedRule: null
     };
 }
 
 /**
- * Experimental build to represent the possibility to have lightweight Store solution with centralized reducer like Redux
+ * Experimental Store Implementation to represent the possibility to have lightweight Store solution with centralized reducer like Redux
  */
 export function createStore(initialState) {
     let state, dispatch;
@@ -20,6 +21,7 @@ export function createStore(initialState) {
     function invalidate() {
         let [currentState, dispatchRef] = useReducer((state, action) => {
             return {
+                newRule     : newRule(state.newRule, action),
                 rules       : rules(state.rules, action),
                 selectedRule: selectedRule(state.selectedRule, action)
             };

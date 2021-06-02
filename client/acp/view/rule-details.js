@@ -11,8 +11,8 @@ export const RuleDetails = props => {
             <div className="panel-heading">{name}</div>
             <div className="panel-body">
                 <RuleForm
-                    {...props}
-                    propDidChange={(property, value) => props.fieldWillChange(props.rule, property, value)}/>
+                    propDidChange={(property, value) => props.fieldWillChange(props.rule, property, value)}
+                    {...props}/>
 
                 <FormActions
                     dangerButton="Delete"
