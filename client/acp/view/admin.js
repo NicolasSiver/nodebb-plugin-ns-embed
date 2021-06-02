@@ -5,7 +5,7 @@ import {RuleDetails} from './rule-details';
 import {Rules} from './rules';
 import {getSelectedRule} from '../model/selectors';
 import {StoreContext} from '../model/store';
-import {Utils} from '../components/utils';
+import {Utils} from './utils';
 
 export const Admin = props => {
     let {store} = useContext(StoreContext);
