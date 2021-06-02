@@ -21,20 +21,20 @@ export class SocketService {
     //     );
     // }
 
-    // deleteRule(rule) {
-    //     window.socket.emit(
-    //         SocketMethods.DELETE_RULE,
-    //         rule,
-    //         (error, rule) => {
-    //             if (error) {
-    //                 return window.app.alertError(error.message);
-    //             }
-    //
-    //             Actions.ruleDidDelete(rule);
-    //             Actions.getAllRules();
-    //         }
-    //     );
-    // }
+    deleteRule(rule) {
+        window.socket.emit(
+            SocketMethods.DELETE_RULE,
+            rule,
+            (error, rule) => {
+                if (error) {
+                    return window.app.alertError(error.message);
+                }
+
+                window.app.alertSuccess('Rule "' + rule.displayName + '" is deleted');
+                this.getAllRules();
+            }
+        );
+    }
 
     getAllRules() {
         window.socket.emit(

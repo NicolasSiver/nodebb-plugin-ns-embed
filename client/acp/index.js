@@ -15,7 +15,10 @@ export const init = () => {
     ReactDom.render(
         <Provider>
             <Admin
-                installDefaultRules={() => socketService.installDefaultRules()}/>
+                fieldWillChange={(rule, field, value) => undefined}
+                installDefaultRules={() => socketService.installDefaultRules()}
+                ruleWillCreate={rule => undefined}
+                ruleWillDelete={rule => socketService.deleteRule(rule)}/>
         </Provider>,
         document.getElementById('acpEmbedContainer')
     );
