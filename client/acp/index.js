@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
+import {setNewRule} from './controller/actions';
 import {Admin} from './view/admin';
 import {changeNewRuleField} from './controller/change-new-rule-field';
 import {changeRuleField} from './controller/change-rule-field';
@@ -22,7 +23,7 @@ export const init = () => {
                 newRuleFieldWillChange={(field, value) => changeNewRuleField(field, value, store)}
                 ruleWillCreate={() => undefined}
                 ruleWillDelete={rule => socketService.deleteRule(rule)}
-                ruleWillReset={() => undefined}
+                ruleWillReset={() => store.dispatch(setNewRule({}))}
                 ruleWillSave={rule => socketService.saveRule(rule)}/>
         </Provider>,
         document.getElementById('acpEmbedContainer')
