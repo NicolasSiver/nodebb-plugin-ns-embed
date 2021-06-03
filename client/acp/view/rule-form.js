@@ -12,7 +12,7 @@ export const RuleForm = props => {
                             type="text"
                             className="form-control field-lower"
                             onChange={event => props.propDidChange('name', event.target.value)}
-                            value={props.rule.name}
+                            value={props.rule.name || ''}
                             placeholder="name (Ex: youtube)"/>
                     </div>
                 </div>
@@ -24,7 +24,7 @@ export const RuleForm = props => {
                             type="text"
                             className="form-control"
                             onChange={event => props.propDidChange('displayName', event.target.value)}
-                            value={props.rule.displayName}
+                            value={props.rule.displayName || ''}
                             placeholder="Display Name (Ex: Youtube)"/>
                     </div>
                 </div>
@@ -39,7 +39,7 @@ export const RuleForm = props => {
                             type="text"
                             className="form-control"
                             onChange={event => props.propDidChange('regex', event.target.value)}
-                            value={props.rule.regex}
+                            value={props.rule.regex || ''}
                             placeholder="Regular expression"/>
                     </div>
                 </div>
@@ -54,7 +54,7 @@ export const RuleForm = props => {
                             className="form-control"
                             rows="4"
                             onChange={event => props.propDidChange('replacement', event.target.value)}
-                            value={props.rule.replacement}
+                            value={props.rule.replacement || ''}
                             placeholder="Replacement, you can use capturing groups via $1, $2, etc."/>
                     </div>
                 </div>
