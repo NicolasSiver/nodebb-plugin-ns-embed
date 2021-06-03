@@ -1,27 +1,23 @@
-/**
- * Created by Nicolas on 10/23/15.
- */
 (function (Database) {
     'use strict';
 
-    var async        = require('async'),
-        objectAssign = require('object-assign'),
+    const async = require('async');
 
-        nodebb       = require('./nodebb'),
-        constants    = require('./constants');
+    const nodebb    = require('./nodebb'),
+          constants = require('./constants');
 
-    var db = nodebb.db;
+    const db = nodebb.db;
 
     Database.createRule = function (data, done) {
         async.waterfall([
             async.apply(db.incrObjectField, 'global', constants.COUNTER),
             function (id, next) {
-                var createTime = Date.now();
-                var additionalData = {
+                let createTime = Date.now();
+                let additionalData = {
                     rid       : id,
                     createtime: createTime
                 };
-                var ruleData = objectAssign(data, additionalData);
+                let ruleData = Object.assign({}, data, additionalData);
 
                 async.parallel([
                     async.apply(db.sortedSetAdd, constants.NAMESPACE + ':rule', createTime, id),
