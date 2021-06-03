@@ -1,8 +1,10 @@
-import {expect} from 'chai';
-import Rules from '../data/default-rules.json';
+const chai = require('chai')
+
+const expect = chai.expect;
+const rulesJson = require('../data/default-rules.json');
 
 const findRule = (name) => {
-    for (let rule of Rules.rules) {
+    for (let rule of rulesJson.rules) {
         if (rule.name === name) {
             return rule;
         }

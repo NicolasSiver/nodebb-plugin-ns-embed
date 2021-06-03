@@ -1,12 +1,12 @@
 {
   "name": "embed-acp",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "ACP for Embed Plugin - control available embeds, edit rules, etc.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress -p",
+    "build": "webpack --env production",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --progress --colors --watch"
+    "watch": "webpack watch"
   },
   "keywords": [
     "acp",
@@ -16,16 +16,15 @@
   "author": "Nicolas Siver",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.7.2",
-    "babel-loader": "^6.2.4",
-    "webpack": "^1.12.14"
+    "@babel/core": "^7.14.3",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
   },
   "dependencies": {
-    "alt": "^0.18.2",
-    "alt-utils": "^1.0.0",
     "classnames": "^2.2.3",
-    "object-assign": "^4.0.1",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
