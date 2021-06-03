@@ -27,9 +27,10 @@ export const FormActions = props => {
         return (
             <button
                 className={style}
-                disabled={valid === true ? '' : 'disabled'}
+                disabled={!valid}
                 onClick={callback}
-                type="button">{text}
+                type="button">
+                {text}
             </button>
         );
     }
