@@ -5,7 +5,7 @@ import {isRuleValid} from '../util/is-rule-valid';
 import {RuleForm} from './rule-form';
 
 export const RuleCreate = props => {
-    let valid = isRuleValid(props.name, props.displayName, props.regex, props.replacement);
+    let valid = isRuleValid(props.rule.name, props.rule.displayName, props.rule.regex, props.rule.replacement);
 
     return (
         <div className="panel panel-default">
