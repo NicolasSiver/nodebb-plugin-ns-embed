@@ -15,7 +15,7 @@
         topics       : NodeBB.require('./src/topics'),
         user         : NodeBB.require('./src/user'),
 
-        utils  : NodeBB.require('./public/src/utils'),
+        utils  : NodeBB.require('./src/utils'),
         helpers: NodeBB.require('./src/controllers/helpers'),
 
         /**
