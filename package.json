@@ -35,6 +35,6 @@
     "sass": "^1.34.0"
   },
   "nbbpm": {
-    "compatibility": "~1.17.x"
+    "compatibility": "~2.2.x"
   }
 }
