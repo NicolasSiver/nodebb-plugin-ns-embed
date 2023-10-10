@@ -8,9 +8,9 @@ export const RuleCreate = props => {
     let valid = isRuleValid(props.rule.name, props.rule.displayName, props.rule.regex, props.rule.replacement);
 
     return (
-        <div className="panel panel-default">
-            <div className="panel-heading">Create Rule</div>
-            <div className="panel-body">
+        <div className="card">
+            <div className="card-header">Create Rule</div>
+            <div className="card-body">
                 <RuleForm
                     propDidChange={(property, value) => props.newRuleFieldWillChange(property, value)}
                     {...props}/>

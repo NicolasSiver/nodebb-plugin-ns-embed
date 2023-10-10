@@ -7,9 +7,9 @@ export const RuleDetails = props => {
     let name = 'Rule: ' + props.rule.displayName;
 
     return (
-        <div className="panel panel-default">
-            <div className="panel-heading">{name}</div>
-            <div className="panel-body">
+        <div className="card">
+            <div className="card-header">{name}</div>
+            <div className="card-body">
                 <RuleForm
                     propDidChange={(property, value) => props.fieldWillChange(props.rule, property, value)}
                     {...props}/>

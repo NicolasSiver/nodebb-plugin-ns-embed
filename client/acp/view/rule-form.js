@@ -5,8 +5,8 @@ export const RuleForm = props => {
         <div>
             <div className="row">
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="labelName">Name</label>
+                    <div className="mb-3">
+                        <label className="form-label" htmlFor="labelName">Name</label>
                         <input
                             id="labelName"
                             type="text"
@@ -17,8 +17,8 @@ export const RuleForm = props => {
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="labelDisplayName">Display Name</label>
+                    <div className="mb-3">
+                        <label className="form-label" htmlFor="labelDisplayName">Display Name</label>
                         <input
                             id="labelDisplayName"
                             type="text"
@@ -32,8 +32,8 @@ export const RuleForm = props => {
 
             <div className="row">
                 <div className="col-md-12">
-                    <div className="form-group">
-                        <label htmlFor="labelWatch">Watch</label>
+                    <div className="mb-3">
+                        <label className="form-label" htmlFor="labelWatch">Watch</label>
                         <input
                             id="labelWatch"
                             type="text"
@@ -47,8 +47,8 @@ export const RuleForm = props => {
 
             <div className="row">
                 <div className="col-md-12">
-                    <div className="form-group">
-                        <label htmlFor="labelReplace">Replace</label>
+                    <div className="mb-3">
+                        <label className="form-label" htmlFor="labelReplace">Replace</label>
                         <textarea
                             id="labelReplace"
                             className="form-control"

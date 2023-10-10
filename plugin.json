@@ -31,8 +31,8 @@
       "method": "hooks.filters.sanitizeConfig"
     }
   ],
-  "less": [
-    "style/forum.less"
+  "scss": [
+    "style/forum.scss"
   ],
   "modules": {
     "../admin/plugins/embed.js": "./public/js/acp.js"

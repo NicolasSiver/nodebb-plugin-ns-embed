@@ -40,9 +40,9 @@ export const Rules = () => {
     }
 
     return (
-        <div className="panel panel-default">
-            <div className="panel-heading">Installed Rules</div>
-            <div className="panel-body">
+        <div className="card">
+            <div className="card-header">Installed Rules</div>
+            <div className="card-body">
                 <div className="rules">
                     {renderRules(rules)}
                 </div>
