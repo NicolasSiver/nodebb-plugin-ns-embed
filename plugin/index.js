@@ -19,7 +19,9 @@
                     apiUri      = '/api' + pluginUri,
                     renderAdmin = function (req, res, next) {
                         res.render(
-                            'admin/plugins/embed', {}
+                            'admin/plugins/embed', {
+                                title:'Embed',
+                            }
                         );
                     };
 
