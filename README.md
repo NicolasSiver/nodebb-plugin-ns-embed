@@ -3,7 +3,7 @@
 Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds are based on the rules. You are encouraged to build your own rules to embed everything what is embeddable.
 
 ![Version](https://img.shields.io/npm/v/nodebb-plugin-ns-embed.svg)
-![Dependencies](https://david-dm.org/NicolasSiver/nodebb-plugin-ns-embed.svg)
+![Dependencies](https://img.shields.io/librariesio/github/NicolasSiver/nodebb-plugin-ns-embed)
 ![Travis](https://travis-ci.org/NicolasSiver/nodebb-plugin-ns-embed.svg?branch=master)
 
 ## Table of Contents
