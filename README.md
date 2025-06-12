@@ -4,7 +4,7 @@ Embed media and rich content in posts: youtube, vimeo, twitch etc. All embeds ar
 
 ![Version](https://img.shields.io/npm/v/nodebb-plugin-ns-embed.svg)
 ![Dependencies](https://img.shields.io/librariesio/github/NicolasSiver/nodebb-plugin-ns-embed)
-![Travis](https://travis-ci.org/NicolasSiver/nodebb-plugin-ns-embed.svg?branch=master)
+![GitHub Actions](https://github.com/NicolasSiver/nodebb-plugin-ns-embed/actions/workflows/nodejs.yml/badge.svg)
 
 ## Table of Contents
 
