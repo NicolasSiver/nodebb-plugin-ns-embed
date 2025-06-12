@@ -6,9 +6,9 @@ export const Utils = props => {
             <div className="card-header">Utils</div>
             <div className="card-body">
                 <p className="utils-info">
-                    Install rules that are shipped with plugin: Youtube, Vimeo, etc. Please,
-                    check plugin documentation for the full list. If rule with the same name is installed already,
-                    rule from default pack will be skipped.
+                    Install the rules shipped with the plugin, such as YouTube and Vimeo. 
+                    Please, check the plugin documentation for the full list. 
+                    If a rule with the same name is installed already, the rule from the default pack will be skipped.
                 </p>
 
                 <button
