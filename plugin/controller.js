@@ -11,7 +11,13 @@ const database = require('./database'),
         async.series([
             async.apply(database.createRule, Utils.payloadToRule(payload)),
             async.apply(rules.invalidate)
-        ], done);
+        ], function (error, results) {
+            if (error) {
+                return done(error);
+            }
+
+            done(null, results[0]);
+        });
     };
 
     Controller.deleteRule = function (rule, done) {
