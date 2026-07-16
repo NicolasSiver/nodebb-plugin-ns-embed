@@ -1,22 +1,22 @@
-(function (Module, NodeBB) {
+(function (Module) {
     'use strict';
 
     Module.exports = {
-        adminSockets : NodeBB.require('./src/socket.io/admin').plugins,
-        cache        : NodeBB.require('./src/posts/cache'),
-        db           : NodeBB.require('./src/database'),
-        groups       : NodeBB.require('./src/groups'),
-        meta         : NodeBB.require('./src/meta'),
-        pluginSockets: NodeBB.require('./src/socket.io/plugins'),
-        postTools    : NodeBB.require('./src/posts/tools'),
-        serverSockets: NodeBB.require('./src/socket.io').server.sockets,
-        settings     : NodeBB.require('./src/settings'),
-        socketIndex  : NodeBB.require('./src/socket.io/index'),
-        topics       : NodeBB.require('./src/topics'),
-        user         : NodeBB.require('./src/user'),
+        adminSockets : nodebb.require('./src/socket.io/admin').plugins,
+        cache        : nodebb.require('./src/posts/cache'),
+        db           : nodebb.require('./src/database'),
+        groups       : nodebb.require('./src/groups'),
+        meta         : nodebb.require('./src/meta'),
+        pluginSockets: nodebb.require('./src/socket.io/plugins'),
+        postTools    : nodebb.require('./src/posts/tools'),
+        serverSockets: nodebb.require('./src/socket.io').server.sockets,
+        settings     : nodebb.require('./src/settings'),
+        socketIndex  : nodebb.require('./src/socket.io/index'),
+        topics       : nodebb.require('./src/topics'),
+        user         : nodebb.require('./src/user'),
 
-        utils  : NodeBB.require('./src/utils'),
-        helpers: NodeBB.require('./src/controllers/helpers'),
+        utils  : nodebb.require('./src/utils'),
+        helpers: nodebb.require('./src/controllers/helpers'),
 
         /**
          * List is incomplete
@@ -36,8 +36,8 @@
          * theme_config: '/path/to/NodeBB/node_modules/nodebb-theme-lavender/theme.json',
          * NODE_ENV: 'development'
          */
-        nconf   : NodeBB.require('nconf'),
-        passport: NodeBB.require('passport'),
-        express : NodeBB.require('express')
+        nconf   : nodebb.require('nconf'),
+        passport: nodebb.require('passport'),
+        express : nodebb.require('express')
     };
-})(module, require.main);
+})(module);
